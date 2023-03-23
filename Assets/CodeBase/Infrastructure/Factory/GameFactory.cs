@@ -88,6 +88,16 @@ namespace CodeBase.Infrastructure.Factory
       return lootPiece;
     }
 
+    public async Task<GameObject> CreatePoolObjects(PoolObjectsTypeId poolObjectType, Transform parent)
+    {
+      PoolObjectStaticData poolObjectsData = _staticData.ForPoolObjects(poolObjectType);
+      
+      GameObject prefab = await _assets.Load<GameObject>(poolObjectsData.PrefabReference);
+      GameObject poolObject = Object.Instantiate(prefab, parent);
+
+      return poolObject;
+    }
+
     public async Task<GameObject> CreateMonster(MonsterTypeId typeId, Transform parent)
     {
       MonsterStaticData monsterData = _staticData.ForMonster(typeId);

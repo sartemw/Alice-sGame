@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections;
 using CodeBase.Logic;
+using CodeBase.Logic.PooledObjects;
 using UnityEngine;
 
 namespace CodeBase.Level
 {
     public class LevelPointer : MonoBehaviour
     {
-        public Poller Poller;
+        public Pooler pooler;
         public SpriteRenderer InsidePointer;
         public SpriteRenderer OutsidePointer;
         public bool IsShining;
@@ -54,7 +55,7 @@ namespace CodeBase.Level
 
         private GameObject CreateMask(Vector2 startPoint)
         {
-            GameObject mask = Poller.GetPooledObject();
+            GameObject mask = pooler.GetPooledObject();
             if (mask != null)
             {
                 mask.transform.position = startPoint;

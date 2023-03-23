@@ -16,6 +16,7 @@ namespace CodeBase.Infrastructure.Factory
     Task<GameObject> CreateHud();
     Task<GameObject> CreateMonster(MonsterTypeId typeId, Transform parent);
     Task<LootPiece> CreateLoot();
+    Task<GameObject> CreatePoolObjects(PoolObjectsTypeId poolObjectsType, Transform parent);
     Task CreateSpawner(string spawnerId, Vector3 at, MonsterTypeId monsterTypeId);
     void Cleanup();
     Task WarmUp();

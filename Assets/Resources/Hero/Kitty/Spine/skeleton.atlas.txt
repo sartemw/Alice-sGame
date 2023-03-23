@@ -1,0 +1,34 @@
+
+skeleton.png
+size: 307,234
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Pencil_cat/Cat_pencil
+  rotate: false
+  xy: 2, 2
+  size: 261, 230
+  orig: 278, 230
+  offset: 17, 0
+  index: -1
+Pencil_cat/Cat_pencil_eye_l
+  rotate: false
+  xy: 265, 148
+  size: 32, 36
+  orig: 278, 230
+  offset: 104, 124
+  index: -1
+Pencil_cat/Cat_pencil_eye_r
+  rotate: false
+  xy: 265, 186
+  size: 40, 46
+  orig: 278, 230
+  offset: 202, 107
+  index: -1
+Pencil_cat/Cat_pencil_mouth
+  rotate: true
+  xy: 265, 111
+  size: 35, 31
+  orig: 278, 230
+  offset: 143, 63
+  index: -1

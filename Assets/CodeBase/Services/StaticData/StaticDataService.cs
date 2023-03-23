@@ -12,11 +12,12 @@ namespace CodeBase.Services.StaticData
     private const string MonstersDataPath = "Static Data/Monsters";
     private const string LevelsDataPath = "Static Data/Levels";
     private const string StaticDataWindowPath = "Static Data/UI/WindowStaticData";
-
+    private const string PoolObjectsDataPath = "Static Data/PoolObjects";
+    
     private Dictionary<MonsterTypeId, MonsterStaticData> _monsters;
     private Dictionary<string, LevelStaticData> _levels;
     private Dictionary<WindowId, WindowConfig> _windowConfigs;
-
+    private Dictionary<PoolObjectsTypeId, PoolObjectStaticData> _poolObjects;
 
     public void Load()
     {
@@ -32,6 +33,10 @@ namespace CodeBase.Services.StaticData
         .Load<WindowStaticData>(StaticDataWindowPath)
         .Configs
         .ToDictionary(x => x.WindowId, x => x);
+      
+      _poolObjects = Resources
+        .LoadAll<PoolObjectStaticData>(PoolObjectsDataPath)
+        .ToDictionary(x => x.PoolObjectTypeId, x => x);
     }
 
     public MonsterStaticData ForMonster(MonsterTypeId typeId) =>
@@ -47,6 +52,11 @@ namespace CodeBase.Services.StaticData
     public WindowConfig ForWindow(WindowId windowId) =>
       _windowConfigs.TryGetValue(windowId, out WindowConfig windowConfig)
         ? windowConfig
+        : null;
+
+    public PoolObjectStaticData ForPoolObjects(PoolObjectsTypeId poolObjectType) =>
+      _poolObjects.TryGetValue(poolObjectType, out PoolObjectStaticData staticData)
+        ? staticData
         : null;
   }
 }

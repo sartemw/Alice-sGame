@@ -11,5 +11,6 @@ namespace CodeBase.Services.StaticData
     MonsterStaticData ForMonster(MonsterTypeId typeId);
     LevelStaticData ForLevel(string sceneKey);
     WindowConfig ForWindow(WindowId shop);
+    PoolObjectStaticData ForPoolObjects(PoolObjectsTypeId poolObjectType);
   }
 }
