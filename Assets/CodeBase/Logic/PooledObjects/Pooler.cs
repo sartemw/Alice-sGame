@@ -1,34 +1,38 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using CodeBase.Infrastructure.Factory;
+using CodeBase.Infrastructure;
 using CodeBase.StaticData;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.Logic.PooledObjects
 {
     public class Pooler : MonoBehaviour
     {
-        public PoolObjectsTypeId PooledObject;
+        public PoolObjectsTypeId PoolObject;
         public int AmountToPool;
-        public List<GameObject> _pooledObjects;
-        private IGameFactory _factory;
+        public List<GameObject> PoolObjectsList;
+        private IPoolFactory _factory;
 
-        public void Construct(IGameFactory gameFactory) => 
-            _factory = gameFactory;
-        
-        void Start() => 
-            InstantiateRequiredObjects();
+        [Inject]
+        public void Construct(IPoolFactory poolFactory)
+        {
+            _factory = poolFactory;
+        }
+
+        async Task Start() => 
+            await InstantiateRequiredObjects();
 
         public GameObject GetPooledObject()
         {
-            if (_pooledObjects.Count == 0)
+            if (PoolObjectsList.Count == 0)
                 return null;
             
             for(int i = 0; i < AmountToPool; i++)
             {
-                if(!_pooledObjects[i].activeInHierarchy)
+                if(!PoolObjectsList[i].activeInHierarchy)
                 {
-                    return _pooledObjects[i];
+                    return PoolObjectsList[i];
                 }
             }
             return null;
@@ -36,16 +40,16 @@ namespace CodeBase.Logic.PooledObjects
 
         private async Task InstantiateRequiredObjects()
         {
-            _pooledObjects = new List<GameObject>();
+            PoolObjectsList = new List<GameObject>();
             GameObject tmp;
             for (int i = 0; i < AmountToPool; i++)
             {
-                tmp = await _factory.CreatePoolObjects(PooledObject, transform);
+                tmp = await _factory.Create(PoolObject, transform);
                 if (tmp == null)
                     return;
                 
                 tmp.SetActive(false);
-                _pooledObjects.Add(tmp);
+                PoolObjectsList.Add(tmp);
             }
         }
     }

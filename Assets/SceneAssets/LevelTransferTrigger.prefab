@@ -85,5 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb89b53213a14dceacf12ac8bf20aaf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Collider: {fileID: 4504973857811724485}
-  ColorsGizmo: 2
+  BoxCollider: {fileID: 4504973857811724485}
+  CircleCollider: {fileID: 0}
+  Size: 0
+  ColorsGizmo: 3

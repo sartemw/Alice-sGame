@@ -19,13 +19,16 @@ namespace CodeBase.Infrastructure.States
     private readonly GameStateMachine _stateMachine;
     private readonly SceneLoader _sceneLoader;
     private readonly AllServices _services;
+    
+    private readonly IAssetProvider _assetProvider;
+    private readonly IStaticDataService _staticData;
 
     public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader, AllServices services)
     {
       _stateMachine = stateMachine;
       _sceneLoader = sceneLoader;
       _services = services;
-
+      
       RegisterServices();
     }
 
@@ -38,24 +41,25 @@ namespace CodeBase.Infrastructure.States
 
     private void RegisterServices()
     {
-      RegisterStaticDataService();
+      //RegisterStaticDataService();
       RegisterAdsService();
-
+      
       _services.RegisterSingle<IGameStateMachine>(_stateMachine);
-      RegisterAssetProvider();
-      _services.RegisterSingle<IInputService>(InputService());
+      //RegisterAssetProvider();
+      // _services.RegisterSingle<IInputService>(InputService());
       _services.RegisterSingle<IRandomService>(new RandomService());
       _services.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
-    
+
       _services.RegisterSingle<IUIFactory>(new UIFactory(
         _services.Single<IAssetProvider>(),
         _services.Single<IStaticDataService>(),
         _services.Single<IPersistentProgressService>(),
         _services.Single<IAdsService>()));
-      
+
       _services.RegisterSingle<IWindowService>(new WindowService(_services.Single<IUIFactory>()));
       
       _services.RegisterSingle<IGameFactory>(new GameFactory(
+        _services.Single<IInputService>(),
         _services.Single<IAssetProvider>(),
         _services.Single<IStaticDataService>(),
         _services.Single<IRandomService>(),
@@ -63,19 +67,12 @@ namespace CodeBase.Infrastructure.States
         _services.Single<IWindowService>(),
         _services.Single<IGameStateMachine>()
         ));
-      
+
       _services.RegisterSingle<ISaveLoadService>(new SaveLoadService(
         _services.Single<IPersistentProgressService>(),
         _services.Single<IGameFactory>()));
     }
-
-    private void RegisterAssetProvider()
-    {
-      AssetProvider assetProvider = new AssetProvider();
-      _services.RegisterSingle<IAssetProvider>(assetProvider);
-      assetProvider.Initialize();
-    }
-
+    
     private void RegisterAdsService()
     {
       IAdsService adsService = new AdsService();
@@ -83,19 +80,9 @@ namespace CodeBase.Infrastructure.States
       _services.RegisterSingle<IAdsService>(adsService);
     }
 
-    private void RegisterStaticDataService()
-    {
-      IStaticDataService staticData = new StaticDataService();
-      staticData.Load();
-      _services.RegisterSingle(staticData);
-    }
-
     private void EnterLoadLevel() =>
       _stateMachine.Enter<LoadProgressState>();
 
-    private static IInputService InputService() =>
-      Application.isEditor
-        ? (IInputService) new StandaloneInputService()
-        : new MobileInputService();
+    
   }
 }

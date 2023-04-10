@@ -51,8 +51,8 @@ MonoBehaviour:
   InsidePointer: {fileID: 5968056518066199845}
   OutsidePointer: {fileID: 5153492862252752963}
   IsShining: 1
-  _speed: 0.01
-  _interval: 0.7
+  _speed: 0.1
+  _interval: 1
 --- !u!114 &3687824751030023126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,9 +65,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37d6383578a8474cbf5cf61a629cc022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PooledObject: 1
-  AmountToPool: 10
-  _pooledObjects: []
+  PoolObject: 1
+  AmountToPool: 1
+  PoolObjectsList: []
 --- !u!1 &5917188627531307031
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,8 +138,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -2141194289
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: da1b7913c00c44348aca69b2c18509c1, type: 3}
   m_Color: {r: 0.21230716, g: 0.9254902, b: 0, a: 1}
@@ -150,7 +150,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!1 &6302235098829654263
 GameObject:
@@ -222,8 +222,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -2141194289
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: da1b7913c00c44348aca69b2c18509c1, type: 3}
   m_Color: {r: 0.9254902, g: 0, b: 0.7927191, a: 1}
@@ -234,5 +234,5 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
   m_SpriteSortPoint: 0

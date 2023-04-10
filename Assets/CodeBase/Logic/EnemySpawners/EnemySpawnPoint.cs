@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace CodeBase.Logic.EnemySpawners
 {
-  public class SpawnPoint : MonoBehaviour, ISavedProgress
+  public class EnemySpawnPoint : MonoBehaviour, ISavedProgress
   {
     public MonsterTypeId MonsterTypeId;
     

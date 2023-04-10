@@ -17,10 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: b282b39ab1867724d9f194792f2b41b2
   m_SerializeEntries:
-  - m_GUID: 5e5802878ea01e74bb78e12ba0632731
-    m_Address: SpawnPoint
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: f6395af14c6ae2d4ea00c7e97e633ad3
     m_Address: Hud
     m_ReadOnly: 0
@@ -35,18 +31,6 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 7780ced9430df7348b78be2caf10ed1f
     m_Address: LevelTransferTrigger
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 1db0f83f1e09b8b46b72c55e6092244e
-    m_Address: Hero
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: d5ec135781350b246ab1b1fbd14b4788
-    m_Address: Dog
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 0006666f10481ac41ac44257d798e24f
-    m_Address: Mouse
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

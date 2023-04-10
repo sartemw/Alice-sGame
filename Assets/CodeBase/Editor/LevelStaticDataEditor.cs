@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using CodeBase.Fish;
 using CodeBase.Logic;
 using CodeBase.Logic.EnemySpawners;
 using CodeBase.StaticData;
@@ -24,6 +25,10 @@ namespace CodeBase.Editor
       {
         levelData.EnemySpawners = FindObjectsOfType<SpawnMarker>()
           .Select(x => new EnemySpawnerStaticData(x.GetComponent<UniqueId>().Id, x.MonsterTypeId, x.transform.position))
+          .ToList();
+        
+        levelData.FishSpawners = FindObjectsOfType<FishSpawnMarker>()
+          .Select(x => new FishSpawnerStaticData(x.GetComponent<UniqueId>().Id, x.ColorType, x.FishBehaviour, x.transform.position))
           .ToList();
 
         levelData.LevelKey = SceneManager.GetActiveScene().name;

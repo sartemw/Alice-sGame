@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelKey: Park1
   EnemySpawners:
-  - Id: SpawnMarker_6134952b-7547-4ea7-9ec3-327d010bbcb2
+  - Id: SpawnMarker_243a972f-c078-48a1-b5c5-c12fdd84428d
     MonsterTypeId: 2
     Position: {x: -3.79, y: -0.36, z: 24.53}
-  InitialHeroPosition: {x: -9.13, y: 1.11, z: -18.6}
+  FishSpawners: []
+  InitialHeroPosition: {x: -9.13, y: 0.09, z: -18.6}
   LevelTransfer:
     TransferTo: Main
     Position: {x: 1.32, y: 0.09, z: 12.38}

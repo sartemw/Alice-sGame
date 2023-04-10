@@ -82,7 +82,10 @@ namespace CodeBase.Infrastructure.States
     private async Task InitSpawners(LevelStaticData levelStaticData)
     {
       foreach (EnemySpawnerStaticData spawnerData in levelStaticData.EnemySpawners)
-        await _gameFactory.CreateSpawner(spawnerData.Id, spawnerData.Position, spawnerData.MonsterTypeId);
+        await _gameFactory.CreateEnemySpawner(spawnerData.Id, spawnerData.Position, spawnerData.MonsterTypeId);
+      
+      foreach (FishSpawnerStaticData spawnerData in levelStaticData.FishSpawners)
+        await _gameFactory.CreateFishSpawner(spawnerData.Id, spawnerData.FishColor, spawnerData.FishBehaviour, spawnerData.Position);
     }
 
     private async Task InitLootPieces()

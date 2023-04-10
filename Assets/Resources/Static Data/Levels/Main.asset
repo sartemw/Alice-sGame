@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelKey: Main
   EnemySpawners: []
+  FishSpawners: []
   InitialHeroPosition: {x: -5, y: -2.27, z: 0}
   LevelTransfer:
     TransferTo: Park1
-    Position: {x: 1.76, y: -2.2, z: 0}
+    Position: {x: 5.61, y: -2.2, z: 0}

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CodeBase.Fish;
 using CodeBase.StaticData;
 using CodeBase.StaticData.Windows;
 using CodeBase.UI.Services.Windows;
@@ -13,8 +14,10 @@ namespace CodeBase.Services.StaticData
     private const string LevelsDataPath = "Static Data/Levels";
     private const string StaticDataWindowPath = "Static Data/UI/WindowStaticData";
     private const string PoolObjectsDataPath = "Static Data/PoolObjects";
+    private const string FishsDataPath = "Static Data/Fishs";
     
     private Dictionary<MonsterTypeId, MonsterStaticData> _monsters;
+    private Dictionary<FishBehaviourEnum, FishStaticData> _fishs;
     private Dictionary<string, LevelStaticData> _levels;
     private Dictionary<WindowId, WindowConfig> _windowConfigs;
     private Dictionary<PoolObjectsTypeId, PoolObjectStaticData> _poolObjects;
@@ -37,10 +40,19 @@ namespace CodeBase.Services.StaticData
       _poolObjects = Resources
         .LoadAll<PoolObjectStaticData>(PoolObjectsDataPath)
         .ToDictionary(x => x.PoolObjectTypeId, x => x);
+      
+      _fishs = Resources
+        .LoadAll<FishStaticData>(FishsDataPath)
+        .ToDictionary(x => x.FishBehaviour, x => x);
     }
 
     public MonsterStaticData ForMonster(MonsterTypeId typeId) =>
       _monsters.TryGetValue(typeId, out MonsterStaticData staticData)
+        ? staticData
+        : null;
+
+    public FishStaticData ForFish(ColorType color, FishBehaviourEnum behaviour) =>
+      _fishs.TryGetValue(behaviour, out FishStaticData staticData)
         ? staticData
         : null;
 

@@ -1,4 +1,3 @@
-using System;
 using CodeBase.Data;
 using CodeBase.Enemy;
 using CodeBase.Logic;
@@ -6,6 +5,7 @@ using CodeBase.Services;
 using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.Hero
 {
@@ -21,17 +21,21 @@ namespace CodeBase.Hero
     private static int _layerMask;
     private Collider2D[] _hits = new Collider2D[3];
     private Stats _stats;
-
-
-    private void Awake()
+    
+    [Inject]
+    public void Construct(IInputService inputService)
     {
-      _inputService = AllServices.Container.Single<IInputService>();
-
-      _layerMask = 1 << LayerMask.NameToLayer("Hittable");
+      _inputService = inputService;
     }
+
+    private void Start() => 
+      _layerMask = 1 << LayerMask.NameToLayer("Hittable");
 
     private void Update()
     {
+      if(_inputService == null)
+        return;
+      
       if(_inputService.IsAttackButtonUp() && !Animator.IsAttacking)
         Animator.PlayAttack();
     }
