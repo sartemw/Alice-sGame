@@ -21,14 +21,6 @@ namespace CodeBase.Infrastructure
         CreateGame();
     }
     
-    private void Awake()
-    {
-      if (_allServices == null)
-        return;
-
-      CreateGame();
-    }
-
     public void CreateGame()
     {
       _game = new Game(this, Instantiate(CurtainPrefab), _allServices);
