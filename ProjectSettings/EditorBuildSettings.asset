@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Park1.unity
     guid: 114d9f5ea8ed2eb48a0c7b4f6b7655a0
+  - enabled: 1
+    path: Assets/Scenes/GameEnd.unity
+    guid: 790fad6f4b116af4897de63a28aa8ab6
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: f20fad178be332a49bb01eb887347aa4,
       type: 2}

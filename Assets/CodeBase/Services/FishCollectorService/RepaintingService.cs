@@ -2,13 +2,17 @@
 using System.Linq;
 using CodeBase.Fish;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace CodeBase.Services.FishCollectorService
 {
     public class RepaintingService : IRepaintingService
     {
+        private const string Initial = "Initial";
+        private const string GameEnd = "GameEnd";
         public List<GameObject> ColorlessObjs { get; set; }
         public List<GameObject> ColorledObjs { get; set;}
+
 
         public void Init()
         {
@@ -16,7 +20,7 @@ namespace CodeBase.Services.FishCollectorService
             
             var repaintableObjs = GameObject.FindObjectsOfType<Repaintable>();
 
-            if (repaintableObjs.Length == 0) 
+            if (repaintableObjs.Length == 0 && IsInitialOrEndScene()) 
                 Debug.LogError($"RepaintableObjs counts = {repaintableObjs.Length}, add \"Repaintable\" Component");
 
             foreach (Repaintable repaintable in repaintableObjs)
@@ -26,6 +30,10 @@ namespace CodeBase.Services.FishCollectorService
                 ColorlessObjs.Add(obj);
             }
         }
+
+        private static bool IsInitialOrEndScene() => 
+            SceneManager.GetActiveScene().name == Initial 
+            || SceneManager.GetActiveScene().name == GameEnd;
 
         public void AddFish(ColoredFish fish)
         {

@@ -15,6 +15,7 @@ namespace CodeBase.Infrastructure
             ResolveFishCollectorService();
         }
 
+
         private void ResolveFishCollectorService()
         {
             IRepaintingService repaintingService = Container.Resolve<IRepaintingService>();
@@ -22,5 +23,6 @@ namespace CodeBase.Infrastructure
             ColorlessObjs = repaintingService.ColorlessObjs;
             ColorledObjs = repaintingService.ColorledObjs;
         }
+
     }
 }

@@ -1,26 +1,30 @@
-﻿using System.Collections.Generic;
-using CodeBase.Fish;
+﻿using CodeBase.Fish;
 using CodeBase.Infrastructure.AssetManagement;
+using CodeBase.Infrastructure.States;
+using CodeBase.Logic;
 using CodeBase.Services;
 using CodeBase.Services.FishCollectorService;
 using CodeBase.Services.Input;
 using CodeBase.Services.StaticData;
 using UnityEngine;
-using UnityEngine.U2D;
 using Zenject;
 
 namespace CodeBase.Infrastructure
 {
-    public class BootstrapInstaller : MonoInstaller
+    public class BootstrapInstaller : MonoInstaller, IInitializable, ICoroutineRunner
     {
+        public Game Game;
         public AllServices Services;
         public IAssetProvider AssetProvider;
         public IStaticDataService StaticData;
         public IInputService InputService;
 
         public GameObject FishPrefab;
+        public LoadingCurtain CurtainPrefab;
+
         public override void InstallBindings()
         {
+            BindBootstrapInstaller();
             BindAllServices();
 
             BindStaticDataService();
@@ -30,9 +34,16 @@ namespace CodeBase.Infrastructure
             
             BindFishFactory();
             BindPoolFactory();
-
         }
-        
+
+        private void BindBootstrapInstaller()
+        {
+            Container
+                .BindInterfacesTo<BootstrapInstaller>()
+                .FromInstance(this)
+                .AsSingle();
+        }
+
         private void BindAllServices()
         {
             Services = new AllServices();
@@ -109,5 +120,18 @@ namespace CodeBase.Infrastructure
             Application.isEditor
                 ? (IInputService) new StandaloneInputService()
                 : new MobileInputService();
+
+        public void Initialize()
+        {
+            CreateGame();
+        }
+        
+        public void CreateGame()
+        {
+            Game = new Game(this, Instantiate(CurtainPrefab), Services);
+            Game.StateMachine.Enter<BootstrapState>();
+            
+            Container.Bind<Game>().FromInstance(Game).AsSingle();
+        }
     }
 }
