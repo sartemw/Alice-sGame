@@ -42,7 +42,7 @@ namespace CodeBase.Infrastructure.States
     private void RegisterServices()
     {
       //RegisterStaticDataService();
-      RegisterAdsService();
+      //RegisterAdsService();
       
       _services.RegisterSingle<IGameStateMachine>(_stateMachine);
       //RegisterAssetProvider();
@@ -73,13 +73,6 @@ namespace CodeBase.Infrastructure.States
         _services.Single<IGameFactory>()));
     }
     
-    private void RegisterAdsService()
-    {
-      IAdsService adsService = new AdsService();
-      adsService.Initialize();
-      _services.RegisterSingle<IAdsService>(adsService);
-    }
-
     private void EnterLoadLevel() =>
       _stateMachine.Enter<LoadProgressState>();
 

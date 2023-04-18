@@ -3,6 +3,7 @@ using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.States;
 using CodeBase.Logic;
 using CodeBase.Services;
+using CodeBase.Services.Ads;
 using CodeBase.Services.FishCollectorService;
 using CodeBase.Services.Input;
 using CodeBase.Services.StaticData;
@@ -18,7 +19,7 @@ namespace CodeBase.Infrastructure
         private IAssetProvider _assetProvider;
         private IStaticDataService _staticData;
         private IInputService _inputService;
-
+        private IAdsService _adsService;
         public GameObject FishPrefab;
         public LoadingCurtain CurtainPrefab;
 
@@ -28,6 +29,7 @@ namespace CodeBase.Infrastructure
             BindAllServices();
 
             BindStaticDataService();
+            BindAdsService();
             BindAssetProvider();
             BindInputService();
             BindFishCollectorService();
@@ -35,7 +37,16 @@ namespace CodeBase.Infrastructure
             BindFishFactory();
             BindPoolFactory();
         }
-
+        private void BindAdsService()
+        {
+            _adsService = new AdsService();
+            _adsService.Initialize();
+            Container
+                .Bind<IAdsService>()
+                .FromInstance(_adsService)
+                .AsSingle();
+            _services.RegisterSingle<IAdsService>(_adsService);
+        }
         private void BindBootstrapInstaller()
         {
             Container

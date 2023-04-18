@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Fish;
 using UnityEngine;
@@ -12,7 +13,7 @@ namespace CodeBase.Services.FishCollectorService
         private const string GameEnd = "GameEnd";
         public List<GameObject> ColorlessObjs { get; set; }
         public List<GameObject> ColorledObjs { get; set;}
-
+        public event Action PickUpFish;
 
         public void Init()
         {
@@ -38,6 +39,7 @@ namespace CodeBase.Services.FishCollectorService
         public void AddFish(ColoredFish fish)
         {
             Painting(fish);
+            PickUpFish?.Invoke();
         }
 
         public bool IsAllFishCollected()
