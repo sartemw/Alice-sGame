@@ -1,15 +1,12 @@
 ﻿using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Services;
-using CodeBase.Services.Ads;
 using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Randomizer;
 using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
-using CodeBase.UI.Services.Factory;
 using CodeBase.UI.Services.Windows;
-using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -20,9 +17,6 @@ namespace CodeBase.Infrastructure.States
     private readonly SceneLoader _sceneLoader;
     private readonly AllServices _services;
     
-    private readonly IAssetProvider _assetProvider;
-    private readonly IStaticDataService _staticData;
-
     public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader, AllServices services)
     {
       _stateMachine = stateMachine;
@@ -41,22 +35,8 @@ namespace CodeBase.Infrastructure.States
 
     private void RegisterServices()
     {
-      //RegisterStaticDataService();
-      //RegisterAdsService();
-      
       _services.RegisterSingle<IGameStateMachine>(_stateMachine);
       //RegisterAssetProvider();
-      // _services.RegisterSingle<IInputService>(InputService());
-      _services.RegisterSingle<IRandomService>(new RandomService());
-      _services.RegisterSingle<IPersistentProgressService>(new PersistentProgressService());
-
-      _services.RegisterSingle<IUIFactory>(new UIFactory(
-        _services.Single<IAssetProvider>(),
-        _services.Single<IStaticDataService>(),
-        _services.Single<IPersistentProgressService>(),
-        _services.Single<IAdsService>()));
-
-      _services.RegisterSingle<IWindowService>(new WindowService(_services.Single<IUIFactory>()));
       
       _services.RegisterSingle<IGameFactory>(new GameFactory(
         _services.Single<IInputService>(),
