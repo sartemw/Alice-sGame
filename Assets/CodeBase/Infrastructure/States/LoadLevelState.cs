@@ -115,7 +115,10 @@ namespace CodeBase.Infrastructure.States
     private LevelStaticData LevelStaticData() => 
       _staticData.ForLevel(SceneManager.GetActiveScene().name);
 
-    private void CameraFollow(GameObject hero) =>
-      Camera.main.GetComponent<CameraFollow>().Follow(hero);
+    private void CameraFollow(GameObject hero)
+    {
+      if (Camera.main != null) 
+        Camera.main.GetComponent<CameraFollow>().Follow(hero);
+    }
   }
 }

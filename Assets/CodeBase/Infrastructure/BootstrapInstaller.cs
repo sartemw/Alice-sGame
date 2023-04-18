@@ -13,11 +13,11 @@ namespace CodeBase.Infrastructure
 {
     public class BootstrapInstaller : MonoInstaller, IInitializable, ICoroutineRunner
     {
-        public Game Game;
-        public AllServices Services;
-        public IAssetProvider AssetProvider;
-        public IStaticDataService StaticData;
-        public IInputService InputService;
+        private Game _game;
+        private AllServices _services;
+        private IAssetProvider _assetProvider;
+        private IStaticDataService _staticData;
+        private IInputService _inputService;
 
         public GameObject FishPrefab;
         public LoadingCurtain CurtainPrefab;
@@ -46,49 +46,49 @@ namespace CodeBase.Infrastructure
 
         private void BindAllServices()
         {
-            Services = new AllServices();
+            _services = new AllServices();
 
             Container
                 .Bind<AllServices>()
-                .FromInstance(Services)
+                .FromInstance(_services)
                 .AsSingle();
         }
 
         private void BindStaticDataService()
         {
-            StaticData = new StaticDataService();
+            _staticData = new StaticDataService();
             
             Container.Bind<IStaticDataService>()
-                .FromInstance(StaticData)
+                .FromInstance(_staticData)
                 .AsSingle();
             
-            Services.RegisterSingle<IStaticDataService>(StaticData);
+            _services.RegisterSingle<IStaticDataService>(_staticData);
 
-            StaticData.Load();
+            _staticData.Load();
         }
 
         private void BindAssetProvider()
         {
-            AssetProvider = new AssetProvider();
+            _assetProvider = new AssetProvider();
             
             Container.Bind<IAssetProvider>()
-                .FromInstance(AssetProvider)
+                .FromInstance(_assetProvider)
                 .AsSingle();
             
-            Services.RegisterSingle<IAssetProvider>(AssetProvider);
+            _services.RegisterSingle<IAssetProvider>(_assetProvider);
 
-            AssetProvider.Initialize();
+            _assetProvider.Initialize();
         }
 
         private void BindInputService()
         {
-            InputService = ChangeInputService();
+            _inputService = ChangeInputService();
             
             Container
                 .Bind<IInputService>()
-                .FromInstance(InputService)
+                .FromInstance(_inputService)
                 .AsSingle();
-            Services.RegisterSingle<IInputService>(InputService);
+            _services.RegisterSingle<IInputService>(_inputService);
         }
 
         private void BindFishCollectorService()
@@ -125,13 +125,13 @@ namespace CodeBase.Infrastructure
         {
             CreateGame();
         }
-        
-        public void CreateGame()
+
+        private void CreateGame()
         {
-            Game = new Game(this, Instantiate(CurtainPrefab), Services);
-            Game.StateMachine.Enter<BootstrapState>();
+            _game = new Game(this, Instantiate(CurtainPrefab), _services);
+            _game.StateMachine.Enter<BootstrapState>();
             
-            Container.Bind<Game>().FromInstance(Game).AsSingle();
+            Container.Bind<Game>().FromInstance(_game).AsSingle();
         }
     }
 }
