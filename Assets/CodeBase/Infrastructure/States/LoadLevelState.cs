@@ -76,6 +76,7 @@ namespace CodeBase.Infrastructure.States
       await InitLootPieces();
       await InitLevelTransfer(levelData);
       await InitHud(hero);
+      
       CameraFollow(hero);
     }
 

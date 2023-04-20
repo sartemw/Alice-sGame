@@ -12,8 +12,10 @@ namespace CodeBase.Logic
     private IGameStateMachine _stateMachine;
     private bool _triggered;
 
-    public void Construct(IGameStateMachine stateMachine) => 
+    public void Construct(IGameStateMachine stateMachine)
+    {
       _stateMachine = stateMachine;
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {

@@ -15,7 +15,7 @@ MonoBehaviour:
   LevelKey: GameEnd
   EnemySpawners: []
   FishSpawners: []
-  InitialHeroPosition: {x: 0, y: 0, z: 0}
+  InitialHeroPosition: {x: -5, y: -2.27, z: 0}
   LevelTransfer:
     TransferTo: Initial
-    Position: {x: 0, y: 0, z: 0}
+    Position: {x: 5.61, y: -2.2, z: 0}

@@ -7,6 +7,7 @@ using CodeBase.Services.Randomizer;
 using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
 using CodeBase.UI.Services.Windows;
+using Zenject;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -16,9 +17,12 @@ namespace CodeBase.Infrastructure.States
     private readonly GameStateMachine _stateMachine;
     private readonly SceneLoader _sceneLoader;
     private readonly AllServices _services;
-    
-    public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader, AllServices services)
+    private DiContainer _diContainer;
+
+    public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader, AllServices services,
+      DiContainer diContainer)
     {
+      _diContainer = diContainer;
       _stateMachine = stateMachine;
       _sceneLoader = sceneLoader;
       _services = services;
@@ -45,7 +49,8 @@ namespace CodeBase.Infrastructure.States
         _services.Single<IRandomService>(),
         _services.Single<IPersistentProgressService>(),
         _services.Single<IWindowService>(),
-        _services.Single<IGameStateMachine>()
+        _services.Single<IGameStateMachine>(),
+          _diContainer
         ));
 
       _services.RegisterSingle<ISaveLoadService>(new SaveLoadService(

@@ -2,6 +2,7 @@ using CodeBase.Infrastructure.States;
 using CodeBase.Logic;
 using CodeBase.Services;
 using CodeBase.Services.Input;
+using Zenject;
 
 namespace CodeBase.Infrastructure
 {
@@ -9,9 +10,9 @@ namespace CodeBase.Infrastructure
   {
     public GameStateMachine StateMachine;
 
-    public Game(ICoroutineRunner coroutineRunner, LoadingCurtain curtain, AllServices services)
+    public Game(ICoroutineRunner coroutineRunner, LoadingCurtain curtain, AllServices services, DiContainer diContainer)
     {
-      StateMachine = new GameStateMachine(new SceneLoader(coroutineRunner), curtain, services);
+      StateMachine = new GameStateMachine(new SceneLoader(coroutineRunner), curtain, services, diContainer);
     }
   }
 }

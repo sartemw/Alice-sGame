@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelKey: Main
   EnemySpawners: []
-  FishSpawners: []
+  FishSpawners:
+  - Id: Main_6ee45a56-2805-4482-847b-a666f77f7ddd
+    FishColor: 0
+    FishBehaviour: 0
+    Position: {x: 0.6479203, y: -2.148796}
   InitialHeroPosition: {x: -5, y: -2.27, z: 0}
   LevelTransfer:
     TransferTo: Park1

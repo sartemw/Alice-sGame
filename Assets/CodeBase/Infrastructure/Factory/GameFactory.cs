@@ -8,6 +8,7 @@ using CodeBase.Infrastructure.States;
 using CodeBase.Logic;
 using CodeBase.Logic.EnemySpawners;
 using CodeBase.Services;
+using CodeBase.Services.FishCollectorService;
 using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Randomizer;
@@ -17,6 +18,7 @@ using CodeBase.UI.Elements;
 using CodeBase.UI.Services.Windows;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 using Object = UnityEngine.Object;
 
 namespace CodeBase.Infrastructure.Factory
@@ -34,6 +36,7 @@ namespace CodeBase.Infrastructure.Factory
     private GameObject _heroGameObject;
     private readonly IWindowService _windowService;
     private readonly IGameStateMachine _stateMachine;
+    private readonly DiContainer _diContainer;
 
     public GameFactory(
       IInputService inputService,
@@ -42,8 +45,10 @@ namespace CodeBase.Infrastructure.Factory
       IRandomService randomService, 
       IPersistentProgressService persistentProgressService, 
       IWindowService windowService, 
-      IGameStateMachine stateMachine)
+      IGameStateMachine stateMachine,
+      DiContainer diContainer)
     {
+      _diContainer = diContainer;
       _inputService = inputService;
       _assets = assets;
       _staticData = staticData;
@@ -73,10 +78,14 @@ namespace CodeBase.Infrastructure.Factory
     {
       GameObject prefab = await InstantiateRegisteredAsync(AssetAddress.LevelTransferTrigger, at);
       LevelTransferTrigger levelTransfer = prefab.GetComponent<LevelTransferTrigger>();
+      CanOpenDoor canOpenDoor = prefab.GetComponent<CanOpenDoor>();
       LevelStaticData levelStaticData = _staticData.ForLevel(SceneManager.GetActiveScene().name);
 
       levelTransfer.TransferTo = levelStaticData.LevelTransfer.TransferTo;
       levelTransfer.Construct(_stateMachine);
+      levelTransfer.GetComponent<BoxCollider2D>().enabled = false;
+      
+      canOpenDoor.Construct(_diContainer.Resolve<IRepaintingService>());
     }
 
    public async Task<GameObject> CreateHud()
@@ -146,6 +155,7 @@ namespace CodeBase.Infrastructure.Factory
     {
       GameObject prefab = await _assets.Load<GameObject>(AssetAddress.FishSpawner);
       FishSpawnPoint spawner = InstantiateRegistered(prefab, at).GetComponent<FishSpawnPoint>();
+      
       spawner.ColorType = color;
       spawner.Id = spawnerId;
       spawner.FishBehaviour = behaviour;
@@ -169,7 +179,7 @@ namespace CodeBase.Infrastructure.Factory
     
     private GameObject InstantiateRegistered(GameObject prefab, Vector2 at)
     {
-      GameObject gameObject = Object.Instantiate(prefab, at, Quaternion.identity);
+      GameObject gameObject = _diContainer.InstantiatePrefab(prefab, at, Quaternion.identity, null);
       RegisterProgressWatchers(gameObject);
 
       return gameObject;
@@ -177,7 +187,7 @@ namespace CodeBase.Infrastructure.Factory
     
     private GameObject InstantiateRegistered(GameObject prefab)
     {
-      GameObject gameObject = Object.Instantiate(prefab);
+      GameObject gameObject = _diContainer.InstantiatePrefab(prefab);
       RegisterProgressWatchers(gameObject);
 
       return gameObject;

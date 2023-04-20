@@ -23,7 +23,6 @@ namespace CodeBase.Infrastructure
         public GameObject FishPrefab;
         public LoadingCurtain CurtainPrefab;
 
-        private Game _game;
         private AllServices _services;
         private IAssetProvider _assetProvider;
         private IStaticDataService _staticData;
@@ -33,15 +32,16 @@ namespace CodeBase.Infrastructure
         private IPersistentProgressService _persistentProgress;
         private IUIFactory _uiFactory;
         private IWindowService _windowService;
-        private IGameFactory _gameFactory;
         private IGameStateMachine _stateMachine;
         private ISaveLoadService _saveLoadService;
+        private IRepaintingService _repaintingService;
+        private Game _game;
 
         public override void InstallBindings()
         {
             BindBootstrapInstaller();
             BindAllServices();
-
+            
             BindStaticDataService();
             BindAdsService();
             BindAssetProvider();
@@ -51,11 +51,13 @@ namespace CodeBase.Infrastructure
             BindUIFactory();
             BindWindowService();
             
-            BindFishCollectorService();
+            BindRepaintingService();
             
             BindFishFactory();
             BindPoolFactory();
         }
+
+        #region Binding
 
         private void BindWindowService()
         {
@@ -66,7 +68,6 @@ namespace CodeBase.Infrastructure
                 .FromInstance(_windowService)
                 .AsSingle();
         }
-
         private void BindUIFactory()
         {
             _uiFactory = new UIFactory(_assetProvider, _staticData, _persistentProgress, _adsService);
@@ -76,7 +77,6 @@ namespace CodeBase.Infrastructure
                 .FromInstance(_uiFactory)
                 .AsSingle();
         }
-
         private void BindPersistentProgressService()
         {
             _persistentProgress = new PersistentProgressService();
@@ -86,7 +86,6 @@ namespace CodeBase.Infrastructure
                 .FromInstance(_persistentProgress)
                 .AsSingle();
         }
-
         private void BindRandomService()
         {
             _randomService = new RandomService();
@@ -96,7 +95,6 @@ namespace CodeBase.Infrastructure
                 .FromInstance(_randomService)
                 .AsSingle();
         }
-
         private void BindAdsService()
         {
             _adsService = new AdsService();
@@ -114,7 +112,6 @@ namespace CodeBase.Infrastructure
                 .FromInstance(this)
                 .AsSingle();
         }
-
         private void BindAllServices()
         {
             _services = new AllServices();
@@ -124,7 +121,6 @@ namespace CodeBase.Infrastructure
                 .FromInstance(_services)
                 .AsSingle();
         }
-
         private void BindStaticDataService()
         {
             _staticData = new StaticDataService();
@@ -137,7 +133,6 @@ namespace CodeBase.Infrastructure
 
             _staticData.Load();
         }
-
         private void BindAssetProvider()
         {
             _assetProvider = new AssetProvider();
@@ -150,7 +145,6 @@ namespace CodeBase.Infrastructure
 
             _assetProvider.Initialize();
         }
-
         private void BindInputService()
         {
             _inputService = ChangeInputService();
@@ -161,24 +155,21 @@ namespace CodeBase.Infrastructure
                 .AsSingle();
             _services.RegisterSingle<IInputService>(_inputService);
         }
-
-        private void BindFishCollectorService()
+        private void BindRepaintingService()
         {
+            _repaintingService = new RepaintingService();
+            _services.RegisterSingle<IRepaintingService>(_repaintingService);
             Container
                 .Bind<IRepaintingService>()
-                .To<RepaintingService>()
+                .FromInstance(_repaintingService)
                 .AsSingle();
         }
-
         private void BindFishFactory()
         {
-           // Container.BindInstance(FishPrefab).AsSingle();
-
             Container
                 .BindFactory<ColoredFish, ColoredFish.Factory>()
                 .FromComponentInNewPrefab(FishPrefab);
         }
-
         private void BindPoolFactory()
         {
             Container
@@ -186,63 +177,38 @@ namespace CodeBase.Infrastructure
                 .To<PoolFactory>()
                 .AsSingle();
         }
-
         private static IInputService ChangeInputService() =>
             Application.isEditor
                 ? (IInputService) new StandaloneInputService()
                 : new MobileInputService();
+        #endregion
 
+        
         public void Initialize()
         {
-            CreateGame();
+                CreateGame();
+            
             BindGameStateMachine();
-            //BindGameFactory();
-            //BindSaveLoadService();
         }
 
         private void BindGameStateMachine()
         {
             _stateMachine = _game.StateMachine;
+            
             Container
                 .Bind<IGameStateMachine>()
                 .FromInstance(_stateMachine)
                 .AsSingle();
         }
 
-        private void BindSaveLoadService()
-        {
-            _saveLoadService = new SaveLoadService(_persistentProgress, _gameFactory);
-            _services.RegisterSingle<ISaveLoadService>(_saveLoadService);
-            Container
-                .Bind<ISaveLoadService>()
-                .FromInstance(_saveLoadService)
-                .AsSingle();
-        }
-
-        private void BindGameFactory()
-        {
-            _gameFactory = new GameFactory(
-                _inputService,
-                _assetProvider,
-                _staticData,
-                _randomService,
-                _persistentProgress,
-                _windowService,
-                _stateMachine);
-            
-            _services.RegisterSingle<IGameFactory>(_gameFactory);
-
-            Container
-                .Bind<IGameFactory>()
-                .FromInstance(_gameFactory)
-                .AsSingle();
-        }
-
         private void CreateGame()
         {
-            _game = new Game(this, Instantiate(CurtainPrefab), _services);
+            _game = new Game(this
+                , Instantiate(CurtainPrefab)
+                , _services
+                , Container);
             _game.StateMachine.Enter<BootstrapState>();
-            
+
             Container.Bind<Game>().FromInstance(_game).AsSingle();
         }
     }

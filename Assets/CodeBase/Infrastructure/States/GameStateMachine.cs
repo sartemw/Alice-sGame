@@ -8,6 +8,7 @@ using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
 using CodeBase.UI.Services.Factory;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -16,11 +17,12 @@ namespace CodeBase.Infrastructure.States
     private Dictionary<Type, IExitableState> _states;
     private IExitableState _activeState;
 
-    public GameStateMachine(SceneLoader sceneLoader, LoadingCurtain loadingCurtain, AllServices services)
+    public GameStateMachine(SceneLoader sceneLoader, LoadingCurtain loadingCurtain, AllServices services,
+      DiContainer diContainer)
     {
       _states = new Dictionary<Type, IExitableState>
       {
-        [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, services),
+        [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, services, diContainer),
         [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadingCurtain, services.Single<IGameFactory>(),
           services.Single<IPersistentProgressService>(), services.Single<IStaticDataService>(), services.Single<IUIFactory>()),
         
