@@ -15,11 +15,19 @@ MonoBehaviour:
   LevelKey: Main
   EnemySpawners: []
   FishSpawners:
-  - Id: Main_6ee45a56-2805-4482-847b-a666f77f7ddd
-    FishColor: 0
+  - Id: Main_c06e0035-a968-488f-8a35-e555dcd98a3d
+    FishColor: 3
     FishBehaviour: 0
-    Position: {x: 0.6479203, y: -2.148796}
-  InitialHeroPosition: {x: -5, y: -2.27, z: 0}
+    Position: {x: 2.61, y: -2.97}
+  - Id: Main_6ee45a56-2805-4482-847b-a666f77f7ddd
+    FishColor: 1
+    FishBehaviour: 0
+    Position: {x: 0.6479203, y: -2.94}
+  - Id: Main_6a91ea1a-d17f-4a67-9214-366a91c36f77
+    FishColor: 2
+    FishBehaviour: 0
+    Position: {x: -1.44, y: -2.97}
+  InitialHeroPosition: {x: -7.41, y: -2.86, z: 0}
   LevelTransfer:
     TransferTo: Park1
-    Position: {x: 5.61, y: -2.2, z: 0}
+    Position: {x: 6.76, y: -3.92, z: 0}
