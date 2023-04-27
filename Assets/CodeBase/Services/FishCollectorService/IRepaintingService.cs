@@ -10,7 +10,10 @@ namespace CodeBase.Services.FishCollectorService
         event Action PickUpFish;
         public List<GameObject> ColorlessObjs { get; }
         public List<GameObject> ColorledObjs{ get; }
-        public void Init();
+        public Material Colorless{get;}
+        public  Material Colored {get;}
+        public void Init(Material colorless, Material colored);
+        public void Restart();
         
         public void AddFish(ColoredFish fish);
     }

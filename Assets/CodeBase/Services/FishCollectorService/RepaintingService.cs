@@ -11,14 +11,23 @@ namespace CodeBase.Services.FishCollectorService
     {
         private const string Initial = "Initial";
         private const string GameEnd = "GameEnd";
+        public Material Colorless { get; set; }
+        public Material Colored { get; set; }
+        
         public List<GameObject> ColorlessObjs { get; set; }
         public List<GameObject> ColorledObjs { get; set;}
         public event Action PickUpFish;
 
-        public void Init()
+        public void Init(Material colorless, Material colored)
+        {
+            Colored = colored;
+            Colorless = colorless;
+        }
+
+        public void Restart()
         {
             CleanUp();
-            
+
             var repaintableObjs = GameObject.FindObjectsOfType<Repaintable>();
 
             if (repaintableObjs.Length == 0 && IsInitialOrEndScene()) 
@@ -27,7 +36,7 @@ namespace CodeBase.Services.FishCollectorService
             foreach (Repaintable repaintable in repaintableObjs)
             {
                 GameObject obj = repaintable.gameObject;
-                repaintable.PaintingColorless();
+                repaintable.Painting(Colorless);
                 ColorlessObjs.Add(obj);
             }
         }
@@ -57,7 +66,7 @@ namespace CodeBase.Services.FishCollectorService
                 if (fish.FishColorType == colorlessObj.GetComponent<Repaintable>().ColorType
                     || fish.FishColorType == ColorType.Rainbow)
                 {
-                    colorlessObj.GetComponent<Repaintable>().PaintingColored();
+                    colorlessObj.GetComponent<Repaintable>().Painting(Colored);
                     ColorledObjs.Add(colorlessObj);
                     ColorlessObjs.Remove(colorlessObj);
                 }

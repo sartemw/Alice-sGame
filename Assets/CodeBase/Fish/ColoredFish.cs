@@ -14,11 +14,14 @@ namespace CodeBase.Fish
 
         private int _i;
         private IRepaintingService _repainting;
+        private ScalerPaintingMask.Factory _maskFactory;
+        private bool _flag = true;
 
         [Inject]
-        public void Construct(IRepaintingService repainting)
+        public void Construct(IRepaintingService repainting, ScalerPaintingMask.Factory maskFactory)
         {
             _repainting = repainting;
+            _maskFactory = maskFactory;
             //FishAtlas = fishsAtlas;
         }
 
@@ -32,7 +35,14 @@ namespace CodeBase.Fish
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            _repainting.AddFish(this);
+            if (_flag)
+            {
+                ScalerPaintingMask mask = _maskFactory.Create();
+                mask.transform.position = transform.position;
+                _repainting.AddFish(this);
+                
+                _flag = false;
+            }
         }
 
         #region RainbowColor

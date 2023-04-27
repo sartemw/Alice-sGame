@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4860380906264532896}
   - component: {fileID: 5166941688174204272}
   - component: {fileID: 7357397494240883859}
+  - component: {fileID: -1881682463267713411}
   m_Layer: 0
   m_Name: ProjectContext
   m_TagString: Untagged
@@ -48,6 +49,7 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 7357397494240883859}
+  - {fileID: -1881682463267713411}
   _installerPrefabs: []
   _parentNewObjectsUnderContext: 0
   _editorReflectionBakingCoverageMode: 0
@@ -76,5 +78,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurtainPrefab: {fileID: 8713324141352661597, guid: 9999f750a9cb62f4e95f2b25c7f6aec2,
     type: 3}
+  Colored: {fileID: 2100000, guid: c1aa63952f024ae43b31c82d96e9b016, type: 2}
+  Colorless: {fileID: 2100000, guid: 4df6df599b01d3d41acb81b57d994775, type: 2}
+--- !u!114 &-1881682463267713411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693567594774917417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a21ac1417d9b4baa9d66af3579d41a4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   FishPrefab: {fileID: 5335279556109962963, guid: 0cd688d7bdabec843b1535ff336fdd42,
+    type: 3}
+  PaintingMask: {fileID: 1236291355039565093, guid: 6134072d5f20fc34baae76f290eda3c8,
     type: 3}

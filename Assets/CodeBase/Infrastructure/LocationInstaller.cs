@@ -21,7 +21,7 @@ namespace CodeBase.Infrastructure
         private void ResolveFishCollectorService()
         {
             IRepaintingService repaintingService = Container.Resolve<IRepaintingService>();
-            repaintingService.Init();
+            repaintingService.Restart();
         }
 
         public void Initialize()

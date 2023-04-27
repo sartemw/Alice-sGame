@@ -20,9 +20,11 @@ namespace CodeBase.Infrastructure
 {
     public class BootstrapInstaller : MonoInstaller, IInitializable, ICoroutineRunner
     {
-        public GameObject FishPrefab;
         public LoadingCurtain CurtainPrefab;
-
+        
+        public Material Colored;
+        public Material Colorless;
+        
         private AllServices _services;
         private IAssetProvider _assetProvider;
         private IStaticDataService _staticData;
@@ -52,9 +54,6 @@ namespace CodeBase.Infrastructure
             BindWindowService();
             
             BindRepaintingService();
-            
-            BindFishFactory();
-            BindPoolFactory();
         }
 
         #region Binding
@@ -158,25 +157,14 @@ namespace CodeBase.Infrastructure
         private void BindRepaintingService()
         {
             _repaintingService = new RepaintingService();
+            _repaintingService.Init(Colorless, Colored);
             _services.RegisterSingle<IRepaintingService>(_repaintingService);
             Container
                 .Bind<IRepaintingService>()
                 .FromInstance(_repaintingService)
                 .AsSingle();
         }
-        private void BindFishFactory()
-        {
-            Container
-                .BindFactory<ColoredFish, ColoredFish.Factory>()
-                .FromComponentInNewPrefab(FishPrefab);
-        }
-        private void BindPoolFactory()
-        {
-            Container
-                .Bind<IPoolFactory>()
-                .To<PoolFactory>()
-                .AsSingle();
-        }
+       
         private static IInputService ChangeInputService() =>
             Application.isEditor
                 ? (IInputService) new StandaloneInputService()

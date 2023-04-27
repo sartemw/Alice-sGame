@@ -1,22 +1,19 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace CodeBase.Fish
 {
     public class Repaintable: MonoBehaviour
     {
-        public Sprite Colored;
-        public Sprite Colorless;
         public ColorType ColorType;
 
-        public void PaintingColorless()
+        public void Painting(Material material)
         {
-            gameObject.GetComponent<SpriteRenderer>().sprite = Colorless;
-        }
-
-        public void PaintingColored()
-        {
-            gameObject.GetComponent<SpriteRenderer>().sprite = Colored;
+            if (gameObject.GetComponent<SpriteRenderer>())
+                gameObject.GetComponent<SpriteRenderer>().material = material;
+            if (gameObject.GetComponent<TilemapRenderer>())
+                gameObject.GetComponent<TilemapRenderer>().material = material;
         }        
     }
 }
