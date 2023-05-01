@@ -6,12 +6,13 @@ using CodeBase.Hero;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.States;
 using CodeBase.Logic;
+using CodeBase.Logic.Door;
 using CodeBase.Logic.EnemySpawners;
 using CodeBase.Services;
-using CodeBase.Services.FishCollectorService;
 using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Randomizer;
+using CodeBase.Services.Repainting;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData;
 using CodeBase.UI.Elements;
@@ -78,14 +79,14 @@ namespace CodeBase.Infrastructure.Factory
     {
       GameObject prefab = await InstantiateRegisteredAsync(AssetAddress.LevelTransferTrigger, at);
       LevelTransferTrigger levelTransfer = prefab.GetComponent<LevelTransferTrigger>();
-      CanOpenDoor canOpenDoor = prefab.GetComponent<CanOpenDoor>();
+      DoorOpener doorOpener = prefab.GetComponent<DoorOpener>();
       LevelStaticData levelStaticData = _staticData.ForLevel(SceneManager.GetActiveScene().name);
 
       levelTransfer.TransferTo = levelStaticData.LevelTransfer.TransferTo;
       levelTransfer.Construct(_stateMachine);
       levelTransfer.GetComponent<BoxCollider2D>().enabled = false;
       
-      canOpenDoor.Construct(_diContainer.Resolve<IRepaintingService>());
+      doorOpener.Construct(_diContainer.Resolve<IRepaintingService>());
     }
 
    public async Task<GameObject> CreateHud()

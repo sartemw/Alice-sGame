@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using CodeBase.Fish;
 using UnityEngine;
 
-namespace CodeBase.Services.FishCollectorService
+namespace CodeBase.Services.Repainting
 {
     public interface IRepaintingService: IService
     {
         event Action PickUpFish;
-        public List<GameObject> ColorlessObjs { get; }
-        public List<GameObject> ColorledObjs{ get; }
+        public List<RepaintingData> RepaintingDatas { get;}
+        public List<Repaintable> ColorlessObjs { get; }
+        public List<Repaintable> ColoredObjs{ get; }
         public Material Colorless{get;}
         public  Material Colored {get;}
-        public void Init(Material colorless, Material colored);
+        public void Init(Material colorless, Material colored, ScalerPaintingMask.Factory maskFactory);
         public void Restart();
         
         public void AddFish(ColoredFish fish);

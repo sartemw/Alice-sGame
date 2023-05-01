@@ -1,7 +1,7 @@
 ﻿using CodeBase.Infrastructure.States;
 using CodeBase.Logic;
 using CodeBase.Services;
-using CodeBase.Services.FishCollectorService;
+using CodeBase.Services.Repainting;
 using UnityEngine;
 using Zenject;
 

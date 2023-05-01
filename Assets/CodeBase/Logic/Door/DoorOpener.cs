@@ -1,12 +1,11 @@
-﻿using System;
-using CodeBase.Services.FishCollectorService;
+﻿using CodeBase.Services.Repainting;
 using UnityEngine;
-using Zenject;
 
-namespace CodeBase.Logic
+namespace CodeBase.Logic.Door
 {
-    public class CanOpenDoor : MonoBehaviour
+    public class DoorOpener : MonoBehaviour
     {
+        private GameObject _door;
         private IRepaintingService _repaintingService;
         public void Construct(IRepaintingService repaintingService)
         {
@@ -23,7 +22,10 @@ namespace CodeBase.Logic
         private void OpenDoor()
         {
             if (_repaintingService.ColorlessObjs.Count == 0)
+            {
                 gameObject.GetComponent<BoxCollider2D>().enabled = true;
+                
+            }
         }
     }
 }

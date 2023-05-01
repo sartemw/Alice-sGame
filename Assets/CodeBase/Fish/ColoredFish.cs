@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using CodeBase.Data;
-using CodeBase.Services.FishCollectorService;
+using CodeBase.Services.Repainting;
 using UnityEngine;
 using Zenject;
 
@@ -10,19 +10,15 @@ namespace CodeBase.Fish
     {
         public ColorType FishColorType;
         public Color FishColor;
-        //public Sprite[] FishAtlas;
 
         private int _i;
         private IRepaintingService _repainting;
-        private ScalerPaintingMask.Factory _maskFactory;
         private bool _flag = true;
 
         [Inject]
-        public void Construct(IRepaintingService repainting, ScalerPaintingMask.Factory maskFactory)
+        public void Construct(IRepaintingService repainting)
         {
             _repainting = repainting;
-            _maskFactory = maskFactory;
-            //FishAtlas = fishsAtlas;
         }
 
         private void Start()
@@ -37,8 +33,6 @@ namespace CodeBase.Fish
         {
             if (_flag)
             {
-                ScalerPaintingMask mask = _maskFactory.Create();
-                mask.transform.position = transform.position;
                 _repainting.AddFish(this);
                 
                 _flag = false;

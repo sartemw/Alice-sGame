@@ -22,4 +22,4 @@ MonoBehaviour:
   InitialHeroPosition: {x: -5.36, y: -1.83, z: 0}
   LevelTransfer:
     TransferTo: Park1
-    Position: {x: 6.76, y: -3.16, z: 0}
+    Position: {x: 6.28, y: -2.16, z: 0}

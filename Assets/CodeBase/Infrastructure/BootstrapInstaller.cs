@@ -5,10 +5,10 @@ using CodeBase.Infrastructure.States;
 using CodeBase.Logic;
 using CodeBase.Services;
 using CodeBase.Services.Ads;
-using CodeBase.Services.FishCollectorService;
 using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Randomizer;
+using CodeBase.Services.Repainting;
 using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
 using CodeBase.UI.Services.Factory;
@@ -157,7 +157,7 @@ namespace CodeBase.Infrastructure
         private void BindRepaintingService()
         {
             _repaintingService = new RepaintingService();
-            _repaintingService.Init(Colorless, Colored);
+            _repaintingService.Init(Colorless, Colored, Container.Resolve<ScalerPaintingMask.Factory>());
             _services.RegisterSingle<IRepaintingService>(_repaintingService);
             Container
                 .Bind<IRepaintingService>()
@@ -174,7 +174,7 @@ namespace CodeBase.Infrastructure
         
         public void Initialize()
         {
-                CreateGame();
+            CreateGame();
             
             BindGameStateMachine();
         }
