@@ -1,16 +1,40 @@
 ﻿using CodeBase.Fish;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.Services.Repainting
 {
     [RequireComponent(typeof(SpriteRenderer))]
     public class SpriteRepaintable: Repaintable
     {
-        public void Painting(Material material)
+        private IRepaintingService _repaintingService;
+        [Inject]
+        public void Construct(IRepaintingService repaintingService)
         {
-            SpriteRenderer renderer = gameObject.GetComponent<SpriteRenderer>();
-        
-            renderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+            _repaintingService = repaintingService;
+            ColoredSetup();
+            ColorlessSetup();
+        }
+
+        private void ColorlessSetup()
+        {
+            GameObject colorless = Instantiate(gameObject, transform.position, transform.rotation, transform);
+            SpriteRenderer colorlessRenderer = colorless.GetComponent<SpriteRenderer>();
+            colorlessRenderer.material = _repaintingService.Colorless;
+            colorlessRenderer.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
+        }
+
+        private void ColoredSetup()
+        {
+            SpriteRenderer coloredRenderer = GetComponent<SpriteRenderer>();
+            if (!coloredRenderer) return;
+            coloredRenderer.material = _repaintingService.Colored;
+            coloredRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+        }
+
+        public new void Painting(Material material)
+        {
+            base.Painting(material);
         }
     }
 }

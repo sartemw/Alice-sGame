@@ -48,7 +48,7 @@ namespace CodeBase.Services.Repainting
             {
                 FillingRepaintingData(repaintable);
 
-                repaintable.Painting(Colorless);
+                //repaintable.Painting(Colorless);
                 ColorlessObjs.Add(repaintable);
             }
         }
@@ -92,7 +92,7 @@ namespace CodeBase.Services.Repainting
                 if (fish.FishColorType == colorlessObj.ColorType
                     || fish.FishColorType == ColorType.Rainbow)
                 {
-                    colorlessObj.Painting(Colored);
+                   // colorlessObj.Painting(Colored);
                     foreach (RepaintingData data in RepaintingDatas.ToList())
                     {
                         if (data.RepaintableObjects == colorlessObj)

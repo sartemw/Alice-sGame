@@ -104,6 +104,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fbac843a4f041fb8093c47b1364b1d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Door: {fileID: 5510535254799155602}
+  DoorFrame: {fileID: 6795785076683875892}
 --- !u!1001 &1042766245379245537
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -166,6 +168,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4686776457221564068, guid: 1f87cd6eb1d2976498bc5c392d40a630,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4df6df599b01d3d41acb81b57d994775, type: 2}
     - target: {fileID: 5780331525513782229, guid: 1f87cd6eb1d2976498bc5c392d40a630,
         type: 3}
       propertyPath: m_Name
@@ -209,7 +216,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: c1aa63952f024ae43b31c82d96e9b016, type: 2}
+      objectReference: {fileID: 2100000, guid: 4df6df599b01d3d41acb81b57d994775, type: 2}
     - target: {fileID: 4974218059532674881, guid: c435efb91cb424749ba22591bc4a2ad1,
         type: 3}
       propertyPath: m_RootOrder

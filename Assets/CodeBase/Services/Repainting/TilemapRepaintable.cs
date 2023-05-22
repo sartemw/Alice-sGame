@@ -1,17 +1,41 @@
-﻿using CodeBase.Fish;
+﻿using System;
+using CodeBase.Fish;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Zenject;
 
 namespace CodeBase.Services.Repainting
 {
     [RequireComponent(typeof(TilemapRenderer))]
     public class TilemapRepaintable: Repaintable
     {
-        public void Painting(Material material)
+        private IRepaintingService _repaintingService;
+        [Inject]
+        public void Construct(IRepaintingService repaintingService)
         {
-            TilemapRenderer renderer = gameObject.GetComponent<TilemapRenderer>();
-            
-            renderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+            _repaintingService = repaintingService;
+            ColoredSetup();
+            ColorlessSetup();
+        }
+       
+        private void ColorlessSetup()
+        {
+            GameObject colorless = Instantiate(gameObject, transform.position, transform.rotation, transform);
+            TilemapRenderer colorlessRenderer = colorless.GetComponent<TilemapRenderer>();
+            colorlessRenderer.material = _repaintingService.Colorless;
+            colorlessRenderer.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
+        }
+
+        private void ColoredSetup()
+        {
+            TilemapRenderer coloredRenderer = GetComponent<TilemapRenderer>();
+            coloredRenderer.material = _repaintingService.Colored;
+            coloredRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+        }
+
+        public new void Painting(Material material)
+        {
+            base.Painting(material);
         }
     }
 }

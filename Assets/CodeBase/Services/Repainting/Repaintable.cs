@@ -1,5 +1,7 @@
-﻿using CodeBase.Fish;
+﻿using System;
+using CodeBase.Fish;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.Services.Repainting
 {
@@ -9,7 +11,8 @@ namespace CodeBase.Services.Repainting
 
         public void Painting(Material material)
         {
-            gameObject.GetComponent<Renderer>().material = material;
+            Debug.Log("repaint");
+            //gameObject.GetComponent<Renderer>().material = material;
         }
     }
 }
