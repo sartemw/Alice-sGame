@@ -26,6 +26,7 @@ namespace CodeBase.Services.Repainting
         private IRepaintingService _repaintingServiceImplementation;
         private IRepaintingService _repaintingServiceImplementation1;
         private IRepaintingService _repaintingServiceImplementation2;
+        private GameObject _hero;
 
 
         public void Init(Material colorless, Material colored, ScalerPaintingMask.Factory maskFactory)
@@ -83,23 +84,87 @@ namespace CodeBase.Services.Repainting
 
         private void Painting(ColoredFish fish)
         {
+            ScalerPaintingMask mask = CreateMask(fish);
+
+            PaintOtherColors(fish, mask);
+            mask.StartScaling();
+            fish.gameObject.SetActive(false);
+            
+            PaintRainbowColor(fish);
+        }
+
+        private ScalerPaintingMask CreateMask(ColoredFish fish)
+        {
             ScalerPaintingMask mask = _maskFactory.Create();
             mask.transform.position = fish.transform.position;
+            mask.GetComponent<SpriteMask>().frontSortingOrder = -1 - (int) fish.FishColorType;
+            mask.GetComponent<SpriteMask>().backSortingOrder = -2 - (int) fish.FishColorType;
+            return mask;
+        }
+        private ScalerPaintingMask CreateMask()
+        {
+            ScalerPaintingMask mask = _maskFactory.Create();
+            mask.transform.position = Vector2.zero;
+            mask.GetComponent<SpriteMask>().isCustomRangeActive = false;
+            return mask;
+        }
+
+        private void PaintRainbowColor(ColoredFish fish)
+        {
             float maxDistancePainting = 0;
+            bool isOnlyRainbowColor = true;
             
+            foreach (Repaintable colorlessObj in ColorlessObjs)
+            {
+                if (colorlessObj.ColorType != ColorType.Rainbow)
+                {
+                    isOnlyRainbowColor = false;
+                    break;
+                }
+            }
+
+            if (fish.FishColorType == ColorType.Rainbow)
+                isOnlyRainbowColor = true;
+
+            if (isOnlyRainbowColor)
+            {
+                var mask = CreateMask();
+                
+                foreach (RepaintingData data in RepaintingDatas.ToList())
+                {
+                    for (int i = 1; i < 5; i++)
+                        {
+                            float distance = Vector2.Distance(
+                                Vector2.zero,
+                                 data.AnglesCoordinates[i]);
+                            if (maxDistancePainting < distance)
+                            {
+                                maxDistancePainting = distance;
+                                mask.IncreaseScale = maxDistancePainting * ScaleMultiple;
+                            }
+                        }
+                    RepaintingDatas.Remove(data);
+                    
+                }
+                mask.StartScaling();
+            }
+        }
+
+        private void PaintOtherColors(ColoredFish fish,  ScalerPaintingMask mask)
+        {
+            float maxDistancePainting = 0;
             foreach (Repaintable colorlessObj in ColorlessObjs.ToList())
             {
                 if (fish.FishColorType == colorlessObj.ColorType
                     || fish.FishColorType == ColorType.Rainbow)
                 {
-                   // colorlessObj.Painting(Colored);
+                    // colorlessObj.Painting(Colored);
                     foreach (RepaintingData data in RepaintingDatas.ToList())
                     {
                         if (data.RepaintableObjects == colorlessObj)
                         {
                             for (int i = 1; i < 5; i++)
                             {
-                               
                                 float distance = Vector2.Distance(
                                     fish.transform.position
                                     , data.AnglesCoordinates[i]);
@@ -113,13 +178,11 @@ namespace CodeBase.Services.Repainting
                             RepaintingDatas.Remove(data);
                         }
                     }
-                
+
                     ColoredObjs.Add(colorlessObj);
                     ColorlessObjs.Remove(colorlessObj);
                 }
             }
-            mask.StartScaling();
-            fish.gameObject.SetActive(false);
         }
 
         private void CleanUp()

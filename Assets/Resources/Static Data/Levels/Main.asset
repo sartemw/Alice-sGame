@@ -15,8 +15,16 @@ MonoBehaviour:
   LevelKey: Main
   EnemySpawners: []
   FishSpawners:
+  - Id: Main_9197e9ca-e993-403f-91a7-658d2f42f495
+    FishColor: 3
+    FishBehaviour: 0
+    Position: {x: 3.21, y: -2.21}
+  - Id: Main_69280e08-b28f-46a0-afe2-3e4b1027b0fa
+    FishColor: 2
+    FishBehaviour: 0
+    Position: {x: 1.09, y: -2.21}
   - Id: Main_6a91ea1a-d17f-4a67-9214-366a91c36f77
-    FishColor: 0
+    FishColor: 1
     FishBehaviour: 0
     Position: {x: -1.44, y: -2.21}
   InitialHeroPosition: {x: -5.36, y: -1.83, z: 0}

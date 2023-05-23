@@ -14,6 +14,8 @@ namespace CodeBase.Logic.Door
         {
             _repaintingService = repaintingService;
             _repaintingService.PickUpFish += OpenDoor;
+            Door.GetComponent<SpriteRepaintable>().Construct(repaintingService);
+            DoorFrame.GetComponent<SpriteRepaintable>().Construct(repaintingService);
             OpenDoor();
         }
 
@@ -27,12 +29,10 @@ namespace CodeBase.Logic.Door
             if (_repaintingService.ColorlessObjs.Count == 0)
             {
                 gameObject.GetComponent<BoxCollider2D>().enabled = true;
+         
                 
-                
-                Door.GetComponent<SpriteRenderer>().material = _repaintingService.Colored;
                 StartCoroutine(RotateY());
                 
-                DoorFrame.GetComponent<SpriteRenderer>().material = _repaintingService.Colored;
             }
         }
 
