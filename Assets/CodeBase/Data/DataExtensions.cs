@@ -60,9 +60,9 @@ namespace CodeBase.Data
                 case ColorType.Purple:
                     return Color.magenta;
                 case ColorType.Rainbow:
-                    return Color.magenta;
+                    return Color.white;
                 default:
-                    return Color.red;
+                    return Color.black;
             }
         }
         public static Color SwitchColor(this ColorType colorType, int i)
@@ -82,7 +82,7 @@ namespace CodeBase.Data
                 case 6:
                     return Color.magenta;
                 default:
-                    return Color.red;
+                    return Color.white;
             }
         }
     }

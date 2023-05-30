@@ -13,7 +13,7 @@ namespace CodeBase.Logic.Door
         public void Construct(IRepaintingService repaintingService)
         {
             _repaintingService = repaintingService;
-            _repaintingService.PickUpFish += OpenDoor;
+            _repaintingService.FishPickedUp += OpenDoor;
             Door.GetComponent<SpriteRepaintable>().Construct(repaintingService);
             DoorFrame.GetComponent<SpriteRepaintable>().Construct(repaintingService);
             OpenDoor();
@@ -21,7 +21,7 @@ namespace CodeBase.Logic.Door
 
         private void OnDisable()
         {
-            _repaintingService.PickUpFish -= OpenDoor;
+            _repaintingService.FishPickedUp -= OpenDoor;
         }
 
         private void OpenDoor()

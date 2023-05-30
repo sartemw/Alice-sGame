@@ -27,9 +27,9 @@ namespace CodeBase.Fish
         {
             ColoredFish fish = _fishFactory.Create();
             fish.transform.position = transform.position;
-            fish.FishColorType = ColorType;
-            fish.FishColor = fish.FishColorType.SwitchColor();
-            fish.GetComponent<SpriteRenderer>().color = fish.FishColor;
+            fish.ColorType = ColorType;
+            fish.Color = fish.ColorType.SwitchColor();
+            fish.GetComponent<SpriteRenderer>().color = fish.Color;
         }
     }
 }
