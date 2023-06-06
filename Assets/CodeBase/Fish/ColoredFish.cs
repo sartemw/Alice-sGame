@@ -6,13 +6,14 @@ namespace CodeBase.Fish
 {
     public class ColoredFish : Colored
     {
-        private IRepaintingService _repainting;
+        
+        private IFishDataService _fishData;
         private bool _flag = true;
 
         [Inject]
-        public void Construct(IRepaintingService repainting)
+        public void Construct(IFishDataService fishData)
         {
-            _repainting = repainting;
+            _fishData = fishData;
         }
 
         private void Start()
@@ -27,7 +28,8 @@ namespace CodeBase.Fish
         {
             if (_flag)
             {
-                _repainting.FishPickUp(this);
+
+                _fishData.FishPickUp(this);
                 
                 _flag = false;
             }
@@ -36,6 +38,7 @@ namespace CodeBase.Fish
        
         public class Factory : PlaceholderFactory<ColoredFish>
         {
+            
         }
     }
 }

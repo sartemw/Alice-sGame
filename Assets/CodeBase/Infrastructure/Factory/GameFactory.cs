@@ -85,7 +85,7 @@ namespace CodeBase.Infrastructure.Factory
       levelTransfer.TransferTo = levelStaticData.LevelTransfer.TransferTo;
       levelTransfer.Construct(_stateMachine);
       levelTransfer.GetComponent<BoxCollider2D>().enabled = false;
-      
+
       doorOpener.Construct(_diContainer.Resolve<IRepaintingService>());
     }
 

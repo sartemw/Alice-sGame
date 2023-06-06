@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4974218059532674881}
   - component: {fileID: 644855063599338002}
+  - component: {fileID: -7252209565623497822}
   m_Layer: 0
   m_Name: Door_01
   m_TagString: Untagged
@@ -84,3 +85,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-7252209565623497822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9169822153000076268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fbac843a4f041fb8093c47b1364b1d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Door: {fileID: 9169822153000076268}
+  DoorFrame: {fileID: 5780331525513782229, guid: 1f87cd6eb1d2976498bc5c392d40a630,
+    type: 3}

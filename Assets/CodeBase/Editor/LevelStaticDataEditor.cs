@@ -2,6 +2,7 @@
 using CodeBase.Fish;
 using CodeBase.Logic;
 using CodeBase.Logic.EnemySpawners;
+using CodeBase.Services.Repainting;
 using CodeBase.StaticData;
 using UnityEditor;
 using UnityEngine;
@@ -30,7 +31,7 @@ namespace CodeBase.Editor
         levelData.FishSpawners = FindObjectsOfType<FishSpawnMarker>()
           .Select(x => new FishSpawnerStaticData(x.GetComponent<UniqueId>().Id, x.ColorType, x.FishBehaviour, x.transform.position))
           .ToList();
-
+        
         levelData.LevelKey = SceneManager.GetActiveScene().name;
         
         levelData.InitialHeroPosition =  GameObject.FindWithTag(InitialPointTag).transform.position;

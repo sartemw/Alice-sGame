@@ -12,28 +12,25 @@ namespace CodeBase.Logic.Door
         private IRepaintingService _repaintingService;
         public void Construct(IRepaintingService repaintingService)
         {
-            _repaintingService = repaintingService;
-            _repaintingService.FishPickedUp += OpenDoor;
-            Door.GetComponent<SpriteRepaintable>().Construct(repaintingService);
-            DoorFrame.GetComponent<SpriteRepaintable>().Construct(repaintingService);
-            OpenDoor();
+                if (repaintingService != null)
+                {
+                    _repaintingService = repaintingService;
+                    _repaintingService.LevelOver += OpenDoor;
+                    Door.GetComponent<SpriteRepaintable>().Construct(repaintingService);
+                    DoorFrame.GetComponent<SpriteRepaintable>().Construct(repaintingService);
+                }
         }
 
         private void OnDisable()
         {
-            _repaintingService.FishPickedUp -= OpenDoor;
+            if (_repaintingService != null)
+                _repaintingService.LevelOver -= OpenDoor;
         }
 
         private void OpenDoor()
         {
-            if (_repaintingService.ColorlessObjs.Count == 0)
-            {
-                gameObject.GetComponent<BoxCollider2D>().enabled = true;
-         
-                
-                StartCoroutine(RotateY());
-                
-            }
+            gameObject.GetComponent<BoxCollider2D>().enabled = true;
+            StartCoroutine(RotateY());
         }
 
         private IEnumerator RotateY()

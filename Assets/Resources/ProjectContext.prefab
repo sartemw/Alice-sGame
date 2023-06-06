@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ddae8da179c4cd9b4932209fa833a0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurtainPrefab: {fileID: 8713324141352661597, guid: 9999f750a9cb62f4e95f2b25c7f6aec2,
+  CurtainPrefab: {fileID: 8713324141352661597, guid: 728b0bd26ebd176449ee3ef70eae246e,
     type: 3}
   Colored: {fileID: 2100000, guid: c1aa63952f024ae43b31c82d96e9b016, type: 2}
   Colorless: {fileID: 2100000, guid: 4df6df599b01d3d41acb81b57d994775, type: 2}

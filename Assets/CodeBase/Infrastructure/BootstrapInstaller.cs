@@ -25,7 +25,8 @@ namespace CodeBase.Infrastructure
         
         public Material Colored;
         public Material Colorless;
-        
+
+        private Game _game;
         private AllServices _services;
         private IAssetProvider _assetProvider;
         private IStaticDataService _staticData;
@@ -38,7 +39,7 @@ namespace CodeBase.Infrastructure
         private IGameStateMachine _stateMachine;
         private ISaveLoadService _saveLoadService;
         private IRepaintingService _repaintingService;
-        private Game _game;
+        private IFishDataService _fishData;
 
         public override void InstallBindings()
         {
@@ -53,8 +54,16 @@ namespace CodeBase.Infrastructure
             BindPersistentProgressService();
             BindUIFactory();
             BindWindowService();
-            
+
+            BindFishDataService();
             BindRepaintingService();
+        }
+
+        private void BindFishDataService()
+        {
+            _fishData = new FishDataService(_staticData);
+            _services.RegisterSingle<IFishDataService>(_fishData);
+            Container.Bind<IFishDataService>().FromInstance(_fishData).AsSingle();
         }
 
         #region Binding
@@ -157,8 +166,7 @@ namespace CodeBase.Infrastructure
         }
         private void BindRepaintingService()
         {
-            _repaintingService = new RepaintingService();
-            _repaintingService.Init(Colorless, Colored, Container.Resolve<ScalerPaintingMask.Factory>());
+            _repaintingService = new RepaintingService(Colorless, Colored, Container.Resolve<ScalerPaintingMask.Factory>(), _fishData);
             _services.RegisterSingle<IRepaintingService>(_repaintingService);
             Container
                 .Bind<IRepaintingService>()

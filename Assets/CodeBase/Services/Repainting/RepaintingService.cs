@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Fish;
 using CodeBase.Mask;
+using CodeBase.Services.StaticData;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -14,39 +15,38 @@ namespace CodeBase.Services.Repainting
         private const string Initial = "Initial";
         private const string GameEnd = "GameEnd";
         private const float ScaleMultiple = 2.1f;
+        private readonly IFishDataService _fishDataService;
 
         public Material Colorless { get; set; }
         public Material Colored { get; set; }
-        
+
         public List<Repaintable> ColorlessObjs { get; set; }
         public List<Repaintable> ColoredObjs { get; set;}
         public List<RepaintingData> RepaintingDatas { get; set; }
-        public event Action FishPickedUp;
-        
+
+        public event Action LevelOver;
+
         private ScalerPaintingMask.Factory _maskFactory;
         private GameObject _hero;
         private ScalerPaintingMask _finishedMask;
 
-
-        public void Init(Material colorless, Material colored, ScalerPaintingMask.Factory maskFactory)
+        public RepaintingService(Material colorless, Material colored, 
+            ScalerPaintingMask.Factory maskFactory, 
+            IFishDataService fishDataService)
         {
             Colored = colored;
             Colorless = colorless;
             _maskFactory = maskFactory;
-        }
-
-        public void FishPickUp(ColoredFish fish)
-        {
-            Painting(fish);
-            FishPickedUp?.Invoke();
+            _fishDataService = fishDataService;
+            _fishDataService.FishPickedUp += Painting;
         }
 
         public void Restart()
         {
             CleanUp();
 
-            var repaintables = GameObject.FindObjectsOfType<Repaintable>();
-
+            Repaintable[] repaintables = GameObject.FindObjectsOfType<Repaintable>();
+            
             if (repaintables.Length == 0 && IsInitialOrEndScene()) 
                 Debug.LogError($"RepaintableObjs counts = {repaintables.Length}, add \"Repaintable\" Component");
 
@@ -54,11 +54,13 @@ namespace CodeBase.Services.Repainting
             {
                 FillingRepaintingData(repaintable);
 
-                //repaintable.Painting(Colorless);
                 ColorlessObjs.Add(repaintable);
             }
-        }
 
+            if (_fishDataService.FishOnLevel == 0)
+                PaintingOverLevel();
+        }
+        
         private void FillingRepaintingData(Repaintable repaintable)
         {
             Vector2 posC = repaintable.GetComponent<Renderer>().bounds.center;
@@ -81,7 +83,7 @@ namespace CodeBase.Services.Repainting
             SceneManager.GetActiveScene().name == Initial 
             || SceneManager.GetActiveScene().name == GameEnd;
 
-        private void Painting(ColoredFish fish)
+        public void Painting(ColoredFish fish)
         {
             PaintingPickedUpFish(fish);
             
@@ -116,7 +118,8 @@ namespace CodeBase.Services.Repainting
 
         private void PaintingOverLevel()
         {
-            _finishedMask.OnScalingComplete -= PaintingOverLevel;
+            if (_finishedMask)
+                _finishedMask.OnScalingComplete -= PaintingOverLevel;
 
             float maxDistancePainting = 0;
 
@@ -139,6 +142,7 @@ namespace CodeBase.Services.Repainting
             }
             var mask = CreateMask();
             mask.StartScaling(increaseScale);
+            LevelOver?.Invoke();
         }
 
         private void PaintingPickedUpFish(ColoredFish fish)
@@ -175,7 +179,7 @@ namespace CodeBase.Services.Repainting
             ScalerPaintingMask mask = CreateMask(fish);
             mask.StartScaling(increaseScale);
 
-            //добавить счетчик рыб
+            if(_fishDataService.FishOnLevel == 0)
             {
                 _finishedMask = mask;
                 _finishedMask.OnScalingComplete += PaintingOverLevel;
