@@ -47,7 +47,7 @@ namespace CodeBase.Services.Repainting
 
             Repaintable[] repaintables = GameObject.FindObjectsOfType<Repaintable>();
             
-            if (repaintables.Length == 0 && IsInitialOrEndScene()) 
+            if (repaintables.Length == 0 && !IsInitialOrEndScene()) 
                 Debug.LogError($"RepaintableObjs counts = {repaintables.Length}, add \"Repaintable\" Component");
 
             foreach (Repaintable repaintable in repaintables)
@@ -102,8 +102,8 @@ namespace CodeBase.Services.Repainting
             else
             {
                 mask.GetComponent<SpriteRenderer>().color = fish.Color;
-                mask.GetComponent<SpriteMask>().frontSortingOrder = -1 - (int) fish.ColorType;
-                mask.GetComponent<SpriteMask>().backSortingOrder = -2 - (int) fish.ColorType;
+                mask.GetComponent<SpriteMask>().frontSortingOrder = +5- (int) fish.ColorType*10;
+                mask.GetComponent<SpriteMask>().backSortingOrder = -5 - (int) fish.ColorType*10;
             }
             
             return mask;

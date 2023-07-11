@@ -16,15 +16,12 @@ namespace CodeBase.Hero
     public Vector2 MovementVector => _movementVector;
     [SerializeField] public Rigidbody2D Rigidbody2D;
     [SerializeField] private BoxCollider2D _collider;
-    [SerializeField] private float _movementSpeed;
+    public float _movementSpeed;
 
 
     private Vector2 _movementVector;
     private IInputService _inputService;
     private Camera _camera;
-    
-    public HeroMove(){}
-    
     
     public void Construct(IInputService inputService)
     {

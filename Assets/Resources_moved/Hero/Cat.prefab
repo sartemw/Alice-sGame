@@ -443,7 +443,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &3762790688317854323
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -460,7 +460,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!61 &3237393237816138057
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -502,7 +503,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 20
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -523,7 +524,7 @@ MonoBehaviour:
   IsPlatformer: 1
   Rigidbody2D: {fileID: 5889685349972569635}
   _collider: {fileID: 3237393237816138057}
-  _movementSpeed: 10
+  _movementSpeed: 100
 --- !u!114 &6775401994129868975
 MonoBehaviour:
   m_ObjectHideFlags: 0

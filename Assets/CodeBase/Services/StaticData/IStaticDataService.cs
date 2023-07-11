@@ -9,6 +9,7 @@ namespace CodeBase.Services.StaticData
   public interface IStaticDataService : IService
   {
     void Load();
+    HeroStaticData ForHero(HeroTypeId typeId);
     MonsterStaticData ForMonster(MonsterTypeId typeId);
     FishStaticData ForFish(ColorType color, FishBehaviourEnum behaviour);
     LevelStaticData ForLevel(string sceneKey);

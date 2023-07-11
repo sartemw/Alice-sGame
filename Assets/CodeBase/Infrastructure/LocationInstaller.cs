@@ -7,16 +7,23 @@ using Zenject;
 
 namespace CodeBase.Infrastructure
 {
-    public class LocationInstaller: MonoInstaller
+    public class LocationInstaller: MonoInstaller, IInitializable
     {
         private Game _game;
 
         public override void InstallBindings()
         {
-            ResolveFishDataService();
-            ResolveFishRepaintableService();
+            BindInstaller();
         }
 
+
+        private void BindInstaller()
+        {
+            Container
+                .BindInterfacesTo<LocationInstaller>()
+                .FromInstance(this)
+                .AsSingle();
+        }
         private void ResolveFishDataService()
         {
             IFishDataService fishDataService = Container.Resolve<IFishDataService>();
@@ -29,5 +36,10 @@ namespace CodeBase.Infrastructure
             repaintingService.Restart();
         }
 
+        public void Initialize()
+        {
+            ResolveFishDataService();
+            ResolveFishRepaintableService();
+        }
     }
 }

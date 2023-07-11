@@ -69,8 +69,15 @@ namespace CodeBase.Infrastructure.Factory
     public async Task<GameObject> CreateHero(Vector3 at)
     {
       _heroGameObject = await InstantiateRegisteredAsync(AssetAddress.HeroPath, at);
-      _heroGameObject.GetComponent<HeroMove>().Construct(_inputService);
-      _heroGameObject.GetComponent<HeroAttack>().Construct(_inputService);
+      HeroStaticData heroStaticData = _staticData.ForHero(HeroTypeId.Cat);
+
+      HeroMove heroMove = _heroGameObject.GetComponent<HeroMove>();
+      heroMove.Construct(_inputService);
+      heroMove._movementSpeed = heroStaticData.MoveSpeed;
+
+      HeroAttack heroAttack = _heroGameObject.GetComponent<HeroAttack>();
+      heroAttack.Construct(_inputService);
+      heroAttack.AttackDistance = heroStaticData.EffectiveDistance;
       
       return _heroGameObject;
     }

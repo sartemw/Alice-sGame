@@ -2,12 +2,14 @@
 using CodeBase.Fish;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace CodeBase.Services.Repainting
 {
     public class FishDataService : IFishDataService
     {
+        private const string InitialScene = "Initial";
         private readonly IStaticDataService _staticDataService;
         public event Action<ColoredFish> FishPickedUp;
         public int FishOnLevel { get; set; }
@@ -18,12 +20,18 @@ namespace CodeBase.Services.Repainting
         }
         public void FishPickUp(ColoredFish fish)
         {
-            FishOnLevel--;
+            if (FishOnLevel > 0)
+                FishOnLevel--;
             FishPickedUp?.Invoke(fish);
         }
 
-        public void Restart() => 
-            FishOnLevel = LevelStaticData().FishSpawners.Count;
+        public void Restart()
+        {
+            if (SceneManager.GetActiveScene().name == InitialScene)
+                FishOnLevel = 0;
+            else
+                FishOnLevel =  LevelStaticData().FishSpawners.Count;
+        }
 
         private LevelStaticData LevelStaticData() => 
             _staticDataService.ForLevel(SceneManager.GetActiveScene().name);

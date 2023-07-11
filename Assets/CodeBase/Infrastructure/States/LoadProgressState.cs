@@ -2,6 +2,8 @@ using System;
 using CodeBase.Data;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
+using CodeBase.Services.StaticData;
+using CodeBase.StaticData;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -10,12 +12,14 @@ namespace CodeBase.Infrastructure.States
     private readonly GameStateMachine _gameStateMachine;
     private readonly IPersistentProgressService _progressService;
     private readonly ISaveLoadService _saveLoadProgress;
+    private readonly IStaticDataService _staticDataService;
 
-    public LoadProgressState(GameStateMachine gameStateMachine, IPersistentProgressService progressService, ISaveLoadService saveLoadProgress)
+    public LoadProgressState(GameStateMachine gameStateMachine, IPersistentProgressService progressService, ISaveLoadService saveLoadProgress, IStaticDataService staticDataService)
     {
       _gameStateMachine = gameStateMachine;
       _progressService = progressService;
       _saveLoadProgress = saveLoadProgress;
+      _staticDataService = staticDataService;
     }
 
     public void Enter()
@@ -39,10 +43,13 @@ namespace CodeBase.Infrastructure.States
     private PlayerProgress NewProgress()
     {
       var progress =  new PlayerProgress(initialLevel: "Main");
-
-      progress.HeroState.MaxHP = 50;
-      progress.HeroStats.Damage = 1;
-      progress.HeroStats.DamageRadius = 0.5f;
+      
+      HeroStaticData heroData = _staticDataService.ForHero(HeroTypeId.Cat);
+      
+      progress.HeroState.MaxHP = heroData.Hp;
+      progress.HeroStats.Damage = heroData.Damage;
+      progress.HeroStats.DamageRadius = heroData.Cleavage;
+      
       progress.HeroState.ResetHP();
 
       return progress;

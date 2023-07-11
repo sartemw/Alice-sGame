@@ -15,15 +15,22 @@ namespace CodeBase.Services.StaticData
     private const string StaticDataWindowPath = "Static Data/UI/WindowStaticData";
     private const string PoolObjectsDataPath = "Static Data/PoolObjects";
     private const string FishsDataPath = "Static Data/Fishs";
-    
+    private const string HeroDataPath = "Static Data/Heroes";
+
     private Dictionary<MonsterTypeId, MonsterStaticData> _monsters;
     private Dictionary<FishBehaviourEnum, FishStaticData> _fishs;
     private Dictionary<string, LevelStaticData> _levels;
     private Dictionary<WindowId, WindowConfig> _windowConfigs;
     private Dictionary<PoolObjectsTypeId, PoolObjectStaticData> _poolObjects;
+    private Dictionary<HeroTypeId, HeroStaticData> _hero;
+
 
     public void Load()
     {
+      _hero = Resources
+        .LoadAll<HeroStaticData>(HeroDataPath)
+        .ToDictionary(x => x.HeroTypeId, x => x);
+      
       _monsters = Resources
         .LoadAll<MonsterStaticData>(MonstersDataPath)
         .ToDictionary(x => x.MonsterTypeId, x => x);
@@ -46,6 +53,11 @@ namespace CodeBase.Services.StaticData
         .ToDictionary(x => x.FishBehaviour, x => x);
     }
 
+    public HeroStaticData ForHero(HeroTypeId typeId) =>
+      _hero.TryGetValue(typeId, out HeroStaticData staticData)
+        ? staticData
+        : null;
+    
     public MonsterStaticData ForMonster(MonsterTypeId typeId) =>
       _monsters.TryGetValue(typeId, out MonsterStaticData staticData)
         ? staticData
