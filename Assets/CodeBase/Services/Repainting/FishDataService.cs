@@ -9,7 +9,6 @@ namespace CodeBase.Services.Repainting
 {
     public class FishDataService : IFishDataService
     {
-        private const string InitialScene = "Initial";
         private readonly IStaticDataService _staticDataService;
         public event Action<ColoredFish> FishPickedUp;
         public int FishOnLevel { get; set; }
@@ -27,7 +26,9 @@ namespace CodeBase.Services.Repainting
 
         public void Restart()
         {
-            if (SceneManager.GetActiveScene().name == InitialScene)
+            if (!LevelStaticData()) return;
+            
+            if (LevelStaticData().FishSpawners.Count == 0)
                 FishOnLevel = 0;
             else
                 FishOnLevel =  LevelStaticData().FishSpawners.Count;

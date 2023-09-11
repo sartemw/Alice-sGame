@@ -9,7 +9,6 @@ using CodeBase.Logic;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData;
-using CodeBase.UI;
 using CodeBase.UI.Elements;
 using CodeBase.UI.Services.Factory;
 using UnityEngine;
@@ -70,7 +69,8 @@ namespace CodeBase.Infrastructure.States
     private async Task InitGameWorld()
     {
       LevelStaticData levelData = LevelStaticData();
-
+      if (!levelData) return;
+      
       GameObject hero = await InitHero(levelData);
       await InitSpawners(levelData);
       await InitLootPieces();

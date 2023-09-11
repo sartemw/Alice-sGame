@@ -83,5 +83,8 @@ namespace CodeBase.Hero
 
     private void FlipHero() => 
       transform.right = _movementVector;
+    
+    public void FlipHero(Vector2 direction) => 
+      transform.right = direction;
   }
 }

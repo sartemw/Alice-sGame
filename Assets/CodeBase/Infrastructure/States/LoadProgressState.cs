@@ -1,4 +1,3 @@
-using System;
 using CodeBase.Data;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
@@ -9,6 +8,7 @@ namespace CodeBase.Infrastructure.States
 {
   public class LoadProgressState : IState
   {
+    public string InitialLevel;
     private readonly GameStateMachine _gameStateMachine;
     private readonly IPersistentProgressService _progressService;
     private readonly ISaveLoadService _saveLoadProgress;
@@ -26,7 +26,8 @@ namespace CodeBase.Infrastructure.States
     {
       LoadProgressOrInitNew();
       
-      _gameStateMachine.Enter<LoadLevelState, string>(_progressService.Progress.WorldData.PositionOnLevel.Level);
+      //_gameStateMachine.Enter<LoadLevelState, string>(_progressService.Progress.WorldData.PositionOnLevel.Level);
+      _gameStateMachine.Enter<LoadMainMenuState>();
     }
 
     public void Exit()
@@ -42,7 +43,7 @@ namespace CodeBase.Infrastructure.States
 
     private PlayerProgress NewProgress()
     {
-      var progress =  new PlayerProgress(initialLevel: "Main");
+      var progress =  new PlayerProgress(initialLevel: InitialLevel);
       
       HeroStaticData heroData = _staticDataService.ForHero(HeroTypeId.Cat);
       

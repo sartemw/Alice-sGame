@@ -1,6 +1,4 @@
-﻿using CodeBase.Fish;
-using CodeBase.Infrastructure.AssetManagement;
-using CodeBase.Infrastructure.Factory;
+﻿using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.States;
 using CodeBase.Logic;
 using CodeBase.Mask;
@@ -59,14 +57,14 @@ namespace CodeBase.Infrastructure
             BindRepaintingService();
         }
 
+        #region Binding
+
         private void BindFishDataService()
         {
             _fishData = new FishDataService(_staticData);
             _services.RegisterSingle<IFishDataService>(_fishData);
             Container.Bind<IFishDataService>().FromInstance(_fishData).AsSingle();
         }
-
-        #region Binding
 
         private void BindWindowService()
         {
@@ -79,7 +77,7 @@ namespace CodeBase.Infrastructure
         }
         private void BindUIFactory()
         {
-            _uiFactory = new UIFactory(_assetProvider, _staticData, _persistentProgress, _adsService);
+            _uiFactory = new UIFactory(_assetProvider, _staticData, _persistentProgress, _adsService, Container);
             _services.RegisterSingle<IUIFactory>(_uiFactory);
             Container
                 .Bind<IUIFactory>()

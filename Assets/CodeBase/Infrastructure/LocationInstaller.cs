@@ -17,6 +17,12 @@ namespace CodeBase.Infrastructure
         }
 
 
+        public void Initialize()
+        {
+            ResolveFishDataService();
+            ResolveFishRepaintableService();
+        }
+
         private void BindInstaller()
         {
             Container
@@ -24,6 +30,7 @@ namespace CodeBase.Infrastructure
                 .FromInstance(this)
                 .AsSingle();
         }
+
         private void ResolveFishDataService()
         {
             IFishDataService fishDataService = Container.Resolve<IFishDataService>();
@@ -34,12 +41,6 @@ namespace CodeBase.Infrastructure
         {
             IRepaintingService repaintingService = Container.Resolve<IRepaintingService>();
             repaintingService.Restart();
-        }
-
-        public void Initialize()
-        {
-            ResolveFishDataService();
-            ResolveFishRepaintableService();
         }
     }
 }

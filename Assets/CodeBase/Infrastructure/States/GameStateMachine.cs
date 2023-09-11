@@ -7,7 +7,6 @@ using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
 using CodeBase.UI.Services.Factory;
-using UnityEngine;
 using Zenject;
 
 namespace CodeBase.Infrastructure.States
@@ -34,6 +33,11 @@ namespace CodeBase.Infrastructure.States
           ,services.Single<IPersistentProgressService>()
           ,services.Single<ISaveLoadService>()
           ,services.Single<IStaticDataService>()),
+        
+        [typeof(LoadMainMenuState)] = new LoadMainMenuState(this
+          ,services.Single<IUIFactory>()
+          , sceneLoader
+          , loadingCurtain),
         
         [typeof(GameLoopState)] = new GameLoopState(this),
       };

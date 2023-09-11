@@ -1,4 +1,6 @@
-﻿using CodeBase.UI.Services.Factory;
+﻿using System;
+using CodeBase.UI.Services.Factory;
+using UnityEngine;
 
 namespace CodeBase.UI.Services.Windows
 {
@@ -20,6 +22,14 @@ namespace CodeBase.UI.Services.Windows
         case WindowId.Shop:
           _uiFactory.CreateShop();
           break;
+        case WindowId.SelectLevels:
+          _uiFactory.CreateLevelsProgress();
+          break;
+        case WindowId.MainMenu:
+          _uiFactory.CreateMainMenu();
+          break;
+        default:
+          throw new ArgumentOutOfRangeException(nameof(windowId), windowId, null);
       }
     }
   }

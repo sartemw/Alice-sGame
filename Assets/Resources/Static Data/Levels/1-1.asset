@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26a28a6feec1484aa1c04daa3a58b39d, type: 3}
-  m_Name: Main
+  m_Name: 1-1
   m_EditorClassIdentifier: 
-  LevelKey: Main
+  LevelKey: 1-1
   EnemySpawners: []
   FishSpawners:
   - Id: Main_a3e58d77-8276-4735-93e4-42e0c0b2d22a

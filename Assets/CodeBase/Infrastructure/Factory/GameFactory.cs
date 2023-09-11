@@ -70,7 +70,7 @@ namespace CodeBase.Infrastructure.Factory
     {
       _heroGameObject = await InstantiateRegisteredAsync(AssetAddress.HeroPath, at);
       HeroStaticData heroStaticData = _staticData.ForHero(HeroTypeId.Cat);
-
+      
       HeroMove heroMove = _heroGameObject.GetComponent<HeroMove>();
       heroMove.Construct(_inputService);
       heroMove._movementSpeed = heroStaticData.MoveSpeed;
@@ -163,7 +163,8 @@ namespace CodeBase.Infrastructure.Factory
     {
       GameObject prefab = await _assets.Load<GameObject>(AssetAddress.FishSpawner);
       FishSpawnPoint spawner = InstantiateRegistered(prefab, at).GetComponent<FishSpawnPoint>();
-      
+
+      spawner.transform.parent = Camera.main.transform;
       spawner.ColorType = color;
       spawner.Id = spawnerId;
       spawner.FishBehaviour = behaviour;

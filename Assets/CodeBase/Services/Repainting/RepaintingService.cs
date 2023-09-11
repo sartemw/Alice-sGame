@@ -46,10 +46,7 @@ namespace CodeBase.Services.Repainting
             CleanUp();
 
             Repaintable[] repaintables = GameObject.FindObjectsOfType<Repaintable>();
-            
-            if (repaintables.Length == 0 && !IsInitialOrEndScene()) 
-                Debug.LogError($"RepaintableObjs counts = {repaintables.Length}, add \"Repaintable\" Component");
-
+        
             foreach (Repaintable repaintable in repaintables)
             {
                 FillingRepaintingData(repaintable);
@@ -94,6 +91,9 @@ namespace CodeBase.Services.Repainting
         {
             ScalerPaintingMask mask = _maskFactory.Create();
             mask.transform.position = fish.transform.position;
+            
+            mask.transform.parent = Camera.main.transform;
+            
             if (fish.ColorType == ColorType.Rainbow)
             {
                 mask.GetComponent<RainbowMaskColor>().StartRainbowColor();
@@ -111,6 +111,7 @@ namespace CodeBase.Services.Repainting
         private ScalerPaintingMask CreateMask()
         {
             ScalerPaintingMask mask = _maskFactory.Create();
+            mask.transform.parent = Camera.main.transform;
             mask.transform.position = Vector2.zero;
             mask.GetComponent<SpriteMask>().isCustomRangeActive = false;
             return mask;
@@ -118,6 +119,9 @@ namespace CodeBase.Services.Repainting
 
         private void PaintingOverLevel()
         {
+            if (IsInitialOrEndScene())
+                return;
+            
             if (_finishedMask)
                 _finishedMask.OnScalingComplete -= PaintingOverLevel;
 

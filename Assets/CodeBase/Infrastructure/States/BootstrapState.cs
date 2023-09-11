@@ -7,13 +7,14 @@ using CodeBase.Services.Randomizer;
 using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
 using CodeBase.UI.Services.Windows;
+using UnityEngine;
 using Zenject;
 
 namespace CodeBase.Infrastructure.States
 {
   public class BootstrapState : IState
   {
-    private const string Initial = "Initial";
+    private const string Initial = "MainMenu";
     private readonly GameStateMachine _stateMachine;
     private readonly SceneLoader _sceneLoader;
     private readonly AllServices _services;
@@ -40,7 +41,6 @@ namespace CodeBase.Infrastructure.States
     private void RegisterServices()
     {
       _services.RegisterSingle<IGameStateMachine>(_stateMachine);
-      //RegisterAssetProvider();
       
       _services.RegisterSingle<IGameFactory>(new GameFactory(
         _services.Single<IInputService>(),
@@ -60,6 +60,7 @@ namespace CodeBase.Infrastructure.States
     
     private void EnterLoadLevel() =>
       _stateMachine.Enter<LoadProgressState>();
+   
 
     
   }

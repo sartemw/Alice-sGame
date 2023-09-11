@@ -1,4 +1,6 @@
-﻿namespace CodeBase.Infrastructure.States
+﻿using System.Threading.Tasks;
+
+namespace CodeBase.Infrastructure.States
 {
   public interface IState: IExitableState
   {

@@ -1,5 +1,6 @@
 ﻿using System;
 using CodeBase.Enemy;
+using CodeBase.Hero;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,11 +15,12 @@ namespace CodeBase.Logic.Jumper
         public Button ButtonA;
         public Button ButtonB;
 
-        public GameObject[] Borders;
-        
         public float JumpForce;
         
         private Collider2D _jumpObject;
+        private float _gravityScale;
+        private HeroMove _heroMove;
+        private Rigidbody2D _rigidbody2D;
 
         private void Start()
         {
@@ -31,11 +33,18 @@ namespace CodeBase.Logic.Jumper
 
         private void Jump(Vector2 end)
         {
-            ActiveBorders();
-            _jumpObject.GetComponent<Rigidbody2D>()
+            _heroMove = _jumpObject.GetComponent<HeroMove>();
+            _rigidbody2D = _jumpObject.GetComponent<Rigidbody2D>();
+            _gravityScale = _rigidbody2D.gravityScale;
+
+            _heroMove.FlipHero(new Vector2(end.x - _jumpObject.transform.position.x  , 0).normalized);
+            _heroMove.enabled = false;
+            _rigidbody2D.gravityScale = 0;
+            
+            _rigidbody2D
                 .DOJump(end, JumpForce, 1, 2)
                 .SetEase(Ease.OutQuart)
-                .OnComplete(ActiveBorders);
+                .OnComplete(ActiveHero);
         }
 
         public void JumpA()
@@ -52,14 +61,13 @@ namespace CodeBase.Logic.Jumper
             Jump(end);
         }
 
-        private void ActiveBorders()
+        private void ActiveHero()
         {
-            foreach (GameObject border in Borders)
-            {
-                border.SetActive(!border.activeSelf);
-            }
+            _heroMove.enabled = true;
+            _rigidbody2D.gravityScale = _gravityScale;
+
         }
-        
+
         private void PrepareJumpA(Collider2D obj)
         {
             _jumpObject = obj;

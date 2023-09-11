@@ -21,5 +21,5 @@ MonoBehaviour:
     Position: {x: 0.55, y: 0.4}
   InitialHeroPosition: {x: -4.96, y: -1.85, z: -18.6}
   LevelTransfer:
-    TransferTo: Main
-    Position: {x: 7.62, y: -2.12, z: 12.38}
+    TransferTo: 1-1
+    Position: {x: 6.29, y: -2.12, z: 12.38}
