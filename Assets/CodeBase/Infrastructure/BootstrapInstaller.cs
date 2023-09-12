@@ -203,9 +203,10 @@ namespace CodeBase.Infrastructure
                 , Instantiate(CurtainPrefab)
                 , _services
                 , Container);
+            Container.Bind<Game>().FromInstance(_game).AsSingle();
+
             _game.StateMachine.Enter<BootstrapState>();
 
-            Container.Bind<Game>().FromInstance(_game).AsSingle();
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System.Threading.Tasks;
+using CodeBase.Infrastructure;
 using CodeBase.Infrastructure.AssetManagement;
+using CodeBase.Infrastructure.States;
 using CodeBase.Services.Ads;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
@@ -38,7 +40,7 @@ namespace CodeBase.UI.Services.Factory
     {
       WindowConfig config = _staticData.ForWindow(WindowId.SelectLevels);
       SelectLevelsWindow window = Object.Instantiate(config.Template, _uiRoot) as SelectLevelsWindow;
-      window.Construct(_progressService);
+      window.Construct(_progressService, _container.Resolve<Game>().StateMachine);
     }
 
     public void CreateMainMenu()
