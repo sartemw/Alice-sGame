@@ -1,33 +1,30 @@
+using System;
 using CodeBase.Data;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
-using CodeBase.Services.StaticData;
-using CodeBase.StaticData;
 
 namespace CodeBase.Infrastructure.States
 {
   public class LoadProgressState : IState
   {
-    public string InitialLevel;
+    public string InitialLevel = "1-1";
+    
     private readonly GameStateMachine _gameStateMachine;
     private readonly IPersistentProgressService _progressService;
     private readonly ISaveLoadService _saveLoadProgress;
-    private readonly IStaticDataService _staticDataService;
 
-    public LoadProgressState(GameStateMachine gameStateMachine, IPersistentProgressService progressService, ISaveLoadService saveLoadProgress, IStaticDataService staticDataService)
+    public LoadProgressState(GameStateMachine gameStateMachine, IPersistentProgressService progressService, ISaveLoadService saveLoadProgress)
     {
       _gameStateMachine = gameStateMachine;
       _progressService = progressService;
       _saveLoadProgress = saveLoadProgress;
-      _staticDataService = staticDataService;
     }
 
     public void Enter()
     {
       LoadProgressOrInitNew();
       
-      //_gameStateMachine.Enter<LoadLevelState, string>(_progressService.Progress.WorldData.PositionOnLevel.Level);
-      _gameStateMachine.Enter<LoadMainMenuState>();
+      _gameStateMachine.Enter<LoadLevelState, string>(_progressService.Progress.WorldData.PositionOnLevel.Level);
     }
 
     public void Exit()
@@ -39,20 +36,22 @@ namespace CodeBase.Infrastructure.States
       _progressService.Progress = 
         _saveLoadProgress.LoadProgress() 
         ?? NewProgress();
+      
+      _progressService.Progress.GameProgressData.LevelsCompleted = _saveLoadProgress.LoadLevelCompleted();
+      if (_progressService.Progress.GameProgressData.LevelsCompleted == 0)
+        _progressService.Progress.GameProgressData.LevelsCompleted = 1;
     }
 
     private PlayerProgress NewProgress()
     {
       var progress =  new PlayerProgress(initialLevel: InitialLevel);
-      
-      HeroStaticData heroData = _staticDataService.ForHero(HeroTypeId.Cat);
-      
-      progress.HeroState.MaxHP = heroData.Hp;
-      progress.HeroStats.Damage = heroData.Damage;
-      progress.HeroStats.DamageRadius = heroData.Cleavage;
-      
-      progress.HeroState.ResetHP();
 
+      progress.HeroState.MaxHP = 50;
+      progress.HeroStats.Damage = 1;
+      progress.HeroStats.DamageRadius = 0.5f;
+      progress.HeroState.ResetHP();
+      progress.GameProgressData.LevelsCompleted = 1;
+      
       return progress;
     }
   }

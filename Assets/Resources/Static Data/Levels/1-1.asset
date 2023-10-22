@@ -13,21 +13,14 @@ MonoBehaviour:
   m_Name: 1-1
   m_EditorClassIdentifier: 
   LevelKey: 1-1
-  EnemySpawners: []
-  FishSpawners:
-  - Id: Main_a3e58d77-8276-4735-93e4-42e0c0b2d22a
-    FishColor: 1
-    FishBehaviour: 0
-    Position: {x: 0.22, y: -1.85}
-  - Id: Main_9197e9ca-e993-403f-91a7-658d2f42f495
-    FishColor: 2
-    FishBehaviour: 0
-    Position: {x: 2.06, y: -1.96}
-  - Id: Main_f04d9ab8-44d0-47f3-98b4-82b8c8bf2204
-    FishColor: 5
-    FishBehaviour: 0
-    Position: {x: -2.49, y: -1.82}
-  InitialHeroPosition: {x: -5.36, y: -1.57, z: 0}
+  EnemySpawners:
+  - Id: Main_0c3d001a-18cd-43d5-8a07-4c4b7c12f771
+    MonsterTypeId: 1
+    Position: {x: 1.02, y: -1.99, z: 0}
+  - Id: Main_63b26722-cc31-4968-9146-b9a9e96088ef
+    MonsterTypeId: 1
+    Position: {x: 6.43, y: -1.9, z: 0}
+  InitialHeroPosition: {x: -8.09, y: -0.95, z: 0}
   LevelTransfer:
     TransferTo: 1-2
-    Position: {x: 6.28, y: -2.16, z: 0}
+    Position: {x: 8.99, y: -2.2, z: 0}

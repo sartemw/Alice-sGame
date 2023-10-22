@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using CodeBase.Services.Repainting;
 using UnityEngine;
 
 namespace CodeBase.StaticData
@@ -9,7 +8,6 @@ namespace CodeBase.StaticData
   {
     public string LevelKey;
     public List<EnemySpawnerStaticData> EnemySpawners;
-    public List<FishSpawnerStaticData> FishSpawners;
     public Vector3 InitialHeroPosition;
     public LevelTransferStaticData LevelTransfer;
   }

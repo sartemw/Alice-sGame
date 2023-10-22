@@ -1,60 +1,47 @@
 ﻿using CodeBase.Data;
+using CodeBase.Infrastructure;
 using CodeBase.Services;
 using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
-using CodeBase.Services.StaticData;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Zenject;
 
 namespace CodeBase.Hero
 {
-  [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
   public class HeroMove : MonoBehaviour, ISavedProgress
   {
-    public bool IsPlatformer;
-    public Vector2 MovementVector => _movementVector;
-    [SerializeField] public Rigidbody2D Rigidbody2D;
-    [SerializeField] private BoxCollider2D _collider;
-    public float _movementSpeed;
+    [SerializeField] private CharacterController _characterController;
+    [SerializeField] private float _movementSpeed;
 
-
-    private Vector2 _movementVector;
     private IInputService _inputService;
     private Camera _camera;
-    
-    public void Construct(IInputService inputService)
+
+    private void Awake()
     {
-      _inputService = inputService;
+      _inputService = AllServices.Container.Single<IInputService>();
     }
 
-    private void Start()
-    {
+    private void Start() =>
       _camera = Camera.main;
-      Rigidbody2D = GetComponent<Rigidbody2D>();
-      _collider = GetComponent<BoxCollider2D>();
-    }
 
     private void Update()
     {
-      if(_inputService == null)
-        return;
-      
-     _movementVector = Vector2.zero;
+      Vector3 movementVector = Vector3.zero;
+
       if (_inputService.Axis.sqrMagnitude > Constants.Epsilon)
       {
-        _movementVector = _camera.transform.TransformDirection(_inputService.Axis);
-        _movementVector.Normalize();
-        
-        if (IsPlatformer)
-          _movementVector = _movementVector.BlockYAxis();
+        movementVector = _camera.transform.TransformDirection(_inputService.Axis);
+        movementVector.y = 0;
+        movementVector.Normalize();
 
-        FlipHero();
+        transform.forward = movementVector;
       }
-      Rigidbody2D.MovePosition(_movementSpeed * _movementVector * Time.deltaTime  + Rigidbody2D.position);
 
+      movementVector += Physics.gravity;
+
+      _characterController.Move(_movementSpeed * movementVector * Time.deltaTime);
     }
-  
+
     public void UpdateProgress(PlayerProgress progress)
     {
       progress.WorldData.PositionOnLevel = new PositionOnLevel(CurrentLevel(), transform.position.AsVectorData());
@@ -74,17 +61,12 @@ namespace CodeBase.Hero
 
     private void Warp(Vector3Data to)
     {
-      gameObject.SetActive(false);
-      transform.position = to.AsUnityVector().AddY(_collider.size.y);
-      gameObject.SetActive(true);
+      _characterController.enabled = false;
+      transform.position = to.AsUnityVector().AddY(_characterController.height);
+      _characterController.enabled = true;
     }
-
-    
-
-    private void FlipHero() => 
-      transform.right = _movementVector;
-    
-    public void FlipHero(Vector2 direction) => 
-      transform.right = direction;
   }
+}
+namespace CodeBase.Hero
+{
 }

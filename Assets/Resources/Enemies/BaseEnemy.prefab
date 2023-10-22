@@ -560,7 +560,7 @@ MonoBehaviour:
   m_AutoRebind: 0
 --- !u!95 &8118587707763566182
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -577,7 +577,8 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &3638315278055699575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -635,7 +636,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TriggerObserver: {fileID: 4068725543372479614}
   Follow: {fileID: 2973914893900439054}
-  BackToStartPosition: {fileID: 0}
+  BackToStartPosition: {fileID: 3613647780951755611}
   Cooldown: 3
 --- !u!114 &7276849402054575814
 MonoBehaviour:
@@ -696,7 +697,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: {fileID: 5465337230174823626}
   Animator: {fileID: 3638315278055699575}
-  DeathFx: {fileID: 100004, guid: 7867af58a6ec48846ae807eb4022fbaa, type: 3}
+  DeathFx: {fileID: 8503041843594389418, guid: 6c8aa2c7812c8c84b867ee5149e647c2, type: 3}
 --- !u!114 &5814337457046694964
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -46,10 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb89b53213a14dceacf12ac8bf20aaf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BoxCollider: {fileID: 4199137766401340676}
-  CircleCollider: {fileID: 0}
-  Size: 0
-  ColorsGizmo: 2
+  Collider: {fileID: 4199137766401340676}
+  ColorsGizmo: 1
 --- !u!114 &4498794575532147361
 MonoBehaviour:
   m_ObjectHideFlags: 0

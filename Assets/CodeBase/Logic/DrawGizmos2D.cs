@@ -1,46 +1,51 @@
 ﻿using System;
-using CodeBase.Data;
-using CodeBase.Fish;
 using UnityEngine;
 
 namespace CodeBase.Logic
 {
   public class DrawGizmos2D : MonoBehaviour
   {
-    public BoxCollider2D BoxCollider;
-    public CircleCollider2D CircleCollider;
-    public float Size;
+    public BoxCollider2D Collider;
 
-    public ColorType ColorsGizmo;
-
+    public ColorsGizmo ColorsGizmo;
+    
     private void OnDrawGizmos()
     {
-      Gizmos.color = ColorsGizmo.SwitchColor();
+      if(!Collider) return;
 
-      if (CircleCollider)
-        Gizmos
-          .DrawSphere
-            (GetCenter(CircleCollider.transform, CircleCollider)
-              ,CircleCollider.radius);
-
-      if (BoxCollider)
-        Gizmos
-          .DrawCube
-          (GetCenter(BoxCollider.transform, BoxCollider)
-            ,BoxCollider.size);
+      SwitchColor();
       
-      if (!CircleCollider & !BoxCollider)
-        Gizmos
-          .DrawSphere
-          (transform.position, Size);
-
+      Gizmos.DrawCube(
+        GetCenter(Collider.transform),
+        Collider.size);
     }
 
-    private Vector2 GetCenter(Transform colliderObject, Collider2D collider2D)
+    private void SwitchColor()
+    {
+      switch (ColorsGizmo)
+      {
+        case ColorsGizmo.red:
+          Gizmos.color = Color.red;
+          break;
+        case ColorsGizmo.green:
+          Gizmos.color = Color.green;
+          break;
+        case ColorsGizmo.blue:
+          Gizmos.color = Color.blue;
+          break;
+        case ColorsGizmo.yelow:
+          Gizmos.color = Color.yellow;
+          break;
+        default:
+          throw new ArgumentOutOfRangeException();
+      }
+    }
+
+    private Vector2 GetCenter(Transform colliderObject)
     {
       return new Vector2(
-        colliderObject.position.x + collider2D.offset.x,
-        colliderObject.position.y + collider2D.offset.y);
+        colliderObject.position.x + Collider.offset.x,
+        colliderObject.position.y + Collider.offset.y);
     }
   }
 }

@@ -16,9 +16,3 @@ MonoBehaviour:
   - WindowId: 1
     Template: {fileID: 2389331943394320673, guid: 597046ab573634f56b2c7840b8ece0ce,
       type: 3}
-  - WindowId: 2
-    Template: {fileID: -4722400450348404802, guid: 312eb95f48cbaf446aa389b318ebbc7b,
-      type: 3}
-  - WindowId: 3
-    Template: {fileID: 3774198752647779091, guid: 006dc00583e3f3b409561acd72ddfae4,
-      type: 3}

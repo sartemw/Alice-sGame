@@ -11,8 +11,6 @@ TagManager:
   - InitialPoint
   - LoadingCurtain
   - LevelTransferInitialPoint
-  - asteroid
-  - ship
   layers:
   - Default
   - TransparentFX
@@ -33,7 +31,7 @@ TagManager:
   - Pickup
   - Enemy
   - Ground
-  - JumpTrigger
+  - 
   - 
   - 
   - 
@@ -49,7 +47,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Pointer
-    uniqueID: 2153773007
     locked: 0

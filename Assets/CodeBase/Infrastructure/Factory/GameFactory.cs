@@ -1,24 +1,20 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CodeBase.Enemy;
-using CodeBase.Fish;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.States;
 using CodeBase.Logic;
-using CodeBase.Logic.Door;
 using CodeBase.Logic.EnemySpawners;
-using CodeBase.Services;
 using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Randomizer;
-using CodeBase.Services.Repainting;
+using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData;
 using CodeBase.UI.Elements;
 using CodeBase.UI.Services.Windows;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Zenject;
 using Object = UnityEngine.Object;
 
@@ -26,59 +22,47 @@ namespace CodeBase.Infrastructure.Factory
 {
   public class GameFactory : IGameFactory
   {
+    public IGameStateMachine StateMachine { get; set; }
     public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
     public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
-
-    private readonly IInputService _inputService;
+    
+    private readonly DiContainer _diContainer;
     private readonly IAssetProvider _assets;
     private readonly IStaticDataService _staticData;
     private readonly IRandomService _randomService;
     private readonly IPersistentProgressService _persistentProgressService;
-    private GameObject _heroGameObject;
     private readonly IWindowService _windowService;
-    private readonly IGameStateMachine _stateMachine;
-    private readonly DiContainer _diContainer;
+    private readonly IInputService _inputService;
+    private ISaveLoadService _saveLoadService;
 
-    public GameFactory(
-      IInputService inputService,
-      IAssetProvider assets, 
-      IStaticDataService staticData, 
-      IRandomService randomService, 
-      IPersistentProgressService persistentProgressService, 
-      IWindowService windowService, 
-      IGameStateMachine stateMachine,
-      DiContainer diContainer)
+    private GameObject _heroGameObject;
+
+    public GameFactory(DiContainer diContainer, IWindowService windowService
+      , IInputService inputService, IStaticDataService staticData, IAssetProvider assetProvider
+      ,IRandomService randomService, IPersistentProgressService progressService)
     {
       _diContainer = diContainer;
-      _inputService = inputService;
-      _assets = assets;
-      _staticData = staticData;
-      _randomService = randomService;
-      _persistentProgressService = persistentProgressService;
       _windowService = windowService;
-      _stateMachine = stateMachine;
+      _inputService = inputService;
+      _staticData = staticData;
+      _assets = assetProvider;
+      _randomService = randomService;
+      _persistentProgressService = progressService;
     }
-    
+
     public async Task WarmUp()
     {
       await _assets.Load<GameObject>(AssetAddress.Loot);
-      await _assets.Load<GameObject>(AssetAddress.EnemySpawner);
-      await _assets.Load<GameObject>(AssetAddress.FishSpawner);
+      await _assets.Load<GameObject>(AssetAddress.Spawner);
     }
 
     public async Task<GameObject> CreateHero(Vector3 at)
     {
       _heroGameObject = await InstantiateRegisteredAsync(AssetAddress.HeroPath, at);
-      HeroStaticData heroStaticData = _staticData.ForHero(HeroTypeId.Cat);
       
-      HeroMove heroMove = _heroGameObject.GetComponent<HeroMove>();
-      heroMove.Construct(_inputService);
-      heroMove._movementSpeed = heroStaticData.MoveSpeed;
+      _heroGameObject.GetComponent<HeroAttack>().InputService = _inputService;
+      _heroGameObject.GetComponent<HeroMove2D>().InputService = _inputService;
 
-      HeroAttack heroAttack = _heroGameObject.GetComponent<HeroAttack>();
-      heroAttack.Construct(_inputService);
-      heroAttack.AttackDistance = heroStaticData.EffectiveDistance;
-      
       return _heroGameObject;
     }
 
@@ -86,17 +70,11 @@ namespace CodeBase.Infrastructure.Factory
     {
       GameObject prefab = await InstantiateRegisteredAsync(AssetAddress.LevelTransferTrigger, at);
       LevelTransferTrigger levelTransfer = prefab.GetComponent<LevelTransferTrigger>();
-      DoorOpener doorOpener = prefab.GetComponent<DoorOpener>();
-      LevelStaticData levelStaticData = _staticData.ForLevel(SceneManager.GetActiveScene().name);
-
-      levelTransfer.TransferTo = levelStaticData.LevelTransfer.TransferTo;
-      levelTransfer.Construct(_stateMachine);
-      levelTransfer.GetComponent<BoxCollider2D>().enabled = false;
-
-      doorOpener.Construct(_diContainer.Resolve<IRepaintingService>());
+      _saveLoadService = _diContainer.Resolve<ISaveLoadService>();
+      levelTransfer.Construct(StateMachine, _persistentProgressService, _saveLoadService);
     }
 
-   public async Task<GameObject> CreateHud()
+    public async Task<GameObject> CreateHud()
     {
       GameObject hud = await InstantiateRegisteredAsync(AssetAddress.HudPath);
       
@@ -112,6 +90,7 @@ namespace CodeBase.Infrastructure.Factory
     public async Task<LootPiece> CreateLoot()
     {
       GameObject prefab = await _assets.Load<GameObject>(AssetAddress.Loot);
+      
       LootPiece lootPiece = InstantiateRegistered(prefab)
         .GetComponent<LootPiece>();
       
@@ -148,26 +127,15 @@ namespace CodeBase.Infrastructure.Factory
       return monster;
     }
 
-    public async Task CreateEnemySpawner(string spawnerId, Vector3 at, MonsterTypeId monsterTypeId)
+    public async Task CreateSpawner(string spawnerId, Vector3 at, MonsterTypeId monsterTypeId)
     {
-      GameObject prefab = await _assets.Load<GameObject>(AssetAddress.EnemySpawner);
+      GameObject prefab = await _assets.Load<GameObject>(AssetAddress.Spawner);
       
-      EnemySpawnPoint spawner = InstantiateRegistered(prefab, at).GetComponent<EnemySpawnPoint>();
+      SpawnPoint spawner = InstantiateRegistered(prefab, at).GetComponent<SpawnPoint>();
       
       spawner.Construct(this);
       spawner.MonsterTypeId = monsterTypeId;
       spawner.Id = spawnerId;
-    }
-    
-    public async Task CreateFishSpawner(string spawnerId, ColorType color, FishBehaviourEnum behaviour, Vector2 at)
-    {
-      GameObject prefab = await _assets.Load<GameObject>(AssetAddress.FishSpawner);
-      FishSpawnPoint spawner = InstantiateRegistered(prefab, at).GetComponent<FishSpawnPoint>();
-
-      spawner.transform.parent = Camera.main.transform;
-      spawner.ColorType = color;
-      spawner.Id = spawnerId;
-      spawner.FishBehaviour = behaviour;
     }
 
     private void Register(ISavedProgressReader progressReader)
@@ -188,7 +156,7 @@ namespace CodeBase.Infrastructure.Factory
     
     private GameObject InstantiateRegistered(GameObject prefab, Vector2 at)
     {
-      GameObject gameObject = _diContainer.InstantiatePrefab(prefab, at, Quaternion.identity, null);
+      GameObject gameObject = Object.Instantiate(prefab, at, Quaternion.identity);
       RegisterProgressWatchers(gameObject);
 
       return gameObject;
@@ -196,7 +164,7 @@ namespace CodeBase.Infrastructure.Factory
     
     private GameObject InstantiateRegistered(GameObject prefab)
     {
-      GameObject gameObject = _diContainer.InstantiatePrefab(prefab);
+      GameObject gameObject = Object.Instantiate(prefab);
       RegisterProgressWatchers(gameObject);
 
       return gameObject;

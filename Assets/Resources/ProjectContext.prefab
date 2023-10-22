@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &693567594774917417
+--- !u!1 &2628018123055571666
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,10 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4860380906264532896}
-  - component: {fileID: 5166941688174204272}
-  - component: {fileID: 7357397494240883859}
-  - component: {fileID: -3788853701374370125}
+  - component: {fileID: 2415876674072956320}
+  - component: {fileID: 7176786891802066356}
+  - component: {fileID: -3056788704479822888}
   m_Layer: 0
   m_Name: ProjectContext
   m_TagString: Untagged
@@ -19,13 +18,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4860380906264532896
+--- !u!4 &2415876674072956320
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 693567594774917417}
+  m_GameObject: {fileID: 2628018123055571666}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,13 +33,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5166941688174204272
+--- !u!114 &7176786891802066356
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 693567594774917417}
+  m_GameObject: {fileID: 2628018123055571666}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4e6589720da476459dc6dd71624b071, type: 3}
@@ -48,10 +47,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
-  - {fileID: -3788853701374370125}
-  - {fileID: 7357397494240883859}
+  - {fileID: -3056788704479822888}
   _installerPrefabs: []
-  _parentNewObjectsUnderContext: 0
+  _parentNewObjectsUnderContext: 1
   _editorReflectionBakingCoverageMode: 0
   _buildsReflectionBakingCoverageMode: 0
   _settings:
@@ -64,35 +62,19 @@ MonoBehaviour:
       _missingHandlerDefaultResponse: 2
       _requireStrictUnsubscribe: 0
       _defaultAsyncTickPriority: 1
---- !u!114 &7357397494240883859
+--- !u!114 &-3056788704479822888
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 693567594774917417}
+  m_GameObject: {fileID: 2628018123055571666}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ddae8da179c4cd9b4932209fa833a0b, type: 3}
+  m_Script: {fileID: 11500000, guid: 20009ac47afdf9a458c138c43a574889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurtainPrefab: {fileID: 8713324141352661597, guid: 728b0bd26ebd176449ee3ef70eae246e,
+  CurtainPrefab: {fileID: 8713324141352661597, guid: 9999f750a9cb62f4e95f2b25c7f6aec2,
     type: 3}
-  Colored: {fileID: 2100000, guid: c1aa63952f024ae43b31c82d96e9b016, type: 2}
-  Colorless: {fileID: 2100000, guid: 4df6df599b01d3d41acb81b57d994775, type: 2}
---- !u!114 &-3788853701374370125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 693567594774917417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a21ac1417d9b4baa9d66af3579d41a4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FishPrefab: {fileID: 5335279556109962963, guid: 0cd688d7bdabec843b1535ff336fdd42,
-    type: 3}
-  PaintingMask: {fileID: 1236291355039565093, guid: 6134072d5f20fc34baae76f290eda3c8,
+  Bootsprapper: {fileID: 2797032679983567816, guid: 1796456e341f028459142a37ba4161cf,
     type: 3}
