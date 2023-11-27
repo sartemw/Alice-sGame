@@ -10,6 +10,7 @@ namespace CodeBase.Infrastructure.States
     public class LoadProgressState : IState
     {
         private const string InitialLevel = "0-1";
+        
         private readonly GameStateMachine _gameStateMachine;
         private readonly IPersistentProgressService _progressService;
         private readonly ISaveLoadService _saveLoadProgress;
