@@ -31,13 +31,13 @@ namespace CodeBase.Infrastructure.States
         
         [typeof(LoadProgressState)] = new LoadProgressState(this
           ,services.Single<IPersistentProgressService>()
-          ,services.Single<ISaveLoadService>()
-          ,services.Single<IStaticDataService>()),
+          ,services.Single<ISaveLoadService>()),
         
         [typeof(LoadMainMenuState)] = new LoadMainMenuState(this
           ,services.Single<IUIFactory>()
           , sceneLoader
-          , loadingCurtain),
+          , loadingCurtain
+          ,services.Single<ISaveLoadService>()),
         
         [typeof(GameLoopState)] = new GameLoopState(this),
       };

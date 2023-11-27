@@ -35,7 +35,6 @@ namespace CodeBase.Infrastructure
         private IUIFactory _uiFactory;
         private IWindowService _windowService;
         private IGameStateMachine _stateMachine;
-        private ISaveLoadService _saveLoadService;
         private IRepaintingService _repaintingService;
         private IFishDataService _fishData;
 

@@ -8,7 +8,8 @@ namespace CodeBase.Services.SaveLoad
   public class SaveLoadService : ISaveLoadService
   {
     private const string ProgressKey = "Progress";
-    
+    private const string LevelCompleted = "LevelCompleted";
+
     private readonly IPersistentProgressService _progressService;
     private readonly IGameFactory _gameFactory;
 
@@ -26,10 +27,25 @@ namespace CodeBase.Services.SaveLoad
       PlayerPrefs.SetString(ProgressKey, _progressService.Progress.ToJson());
     }
 
+    public void SaveLevelCompleted()
+    {
+      int temp = _progressService.Progress.GameProgressData.LevelsCompleted;
+      PlayerPrefs.SetInt(LevelCompleted, temp);
+    }
+
+    public int LoadLevelCompleted()
+    {
+      int value = PlayerPrefs.GetInt(LevelCompleted);
+      
+      return value;
+    }
+
     public PlayerProgress LoadProgress()
     {
-      return PlayerPrefs.GetString(ProgressKey)?
+      PlayerProgress progress = PlayerPrefs.GetString(ProgressKey)?
         .ToDeserialized<PlayerProgress>();
+   
+      return progress;
     }
   }
 }

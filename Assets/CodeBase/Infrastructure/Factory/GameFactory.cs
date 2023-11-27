@@ -13,6 +13,7 @@ using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Randomizer;
 using CodeBase.Services.Repainting;
+using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData;
 using CodeBase.UI.Elements;
@@ -38,6 +39,7 @@ namespace CodeBase.Infrastructure.Factory
     private readonly IWindowService _windowService;
     private readonly IGameStateMachine _stateMachine;
     private readonly DiContainer _diContainer;
+    private AllServices _services;
 
     public GameFactory(
       IInputService inputService,
@@ -47,8 +49,10 @@ namespace CodeBase.Infrastructure.Factory
       IPersistentProgressService persistentProgressService, 
       IWindowService windowService, 
       IGameStateMachine stateMachine,
-      DiContainer diContainer)
+      DiContainer diContainer,
+      AllServices services)
     {
+      _services = services;
       _diContainer = diContainer;
       _inputService = inputService;
       _assets = assets;
@@ -90,7 +94,7 @@ namespace CodeBase.Infrastructure.Factory
       LevelStaticData levelStaticData = _staticData.ForLevel(SceneManager.GetActiveScene().name);
 
       levelTransfer.TransferTo = levelStaticData.LevelTransfer.TransferTo;
-      levelTransfer.Construct(_stateMachine);
+      levelTransfer.Construct(_stateMachine, _services);
       levelTransfer.GetComponent<BoxCollider2D>().enabled = false;
 
       doorOpener.Construct(_diContainer.Resolve<IRepaintingService>());

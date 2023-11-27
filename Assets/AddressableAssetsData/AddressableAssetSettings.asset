@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: AddressableAssetSettings
   m_EditorClassIdentifier: 
   m_DefaultGroup: b282b39ab1867724d9f194792f2b41b2
-  m_CachedHash:
+  m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: b5f9b452629309ce31d3131f867cfd12
   m_OptimizeCatalogSize: 0
-  m_BuildRemoteCatalog: 0
+  m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
   m_CatalogRequestsTimeout: 0
   m_DisableCatalogUpdateOnStart: 0
@@ -32,22 +32,22 @@ MonoBehaviour:
   m_ShaderBundleNaming: 0
   m_ShaderBundleCustomNaming: 
   m_MonoScriptBundleNaming: 0
+  m_CheckForContentUpdateRestrictionsOption: 0
   m_MonoScriptBundleCustomNaming: 
   m_RemoteCatalogBuildPath:
-    m_Id: 
+    m_Id: e130f868927ad614aabca548f0070dbc
   m_RemoteCatalogLoadPath:
-    m_Id: 
+    m_Id: 5c78b6d2f97b9e6478a29e73f7c7c876
+  m_ContentStateBuildPathProfileVariableName: <default settings path>
+  m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 0
   m_overridePlayerVersion: 
   m_GroupAssets:
   - {fileID: 11400000, guid: daf3420a049f0c641b7b73e45599c7cd, type: 2}
   - {fileID: 11400000, guid: 816a7140124d45449a0f0ee10c0a2b2c, type: 2}
-  - {fileID: 11400000, guid: 0bd2a1c71208e934cb1c1fc9793a6edc, type: 2}
-  - {fileID: 11400000, guid: 581f374a476e40040809483c83c6accd, type: 2}
   - {fileID: 11400000, guid: cad2a29d75a44a0428b7f756986e2d4d, type: 2}
   - {fileID: 11400000, guid: fb6890b2f3a23d14b8c58555d261d1a1, type: 2}
-  - {fileID: 11400000, guid: 91cc2a7781c966947b3e30ff58f18277, type: 2}
   - {fileID: 11400000, guid: 37f450012c2063a44a70b0e8fd327be9, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
@@ -93,6 +93,8 @@ MonoBehaviour:
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: e99a0a57fe22c3d4db63cb9a6f1459bd, type: 2}
+  - {fileID: 11400000, guid: 5a5e728d2ae3ebf4f9c834fbf086e9ca, type: 2}
+  - {fileID: 11400000, guid: 9d9abdc451edaa64dacebabd04af44fa, type: 2}
   m_InitializationObjects: []
   m_CertificateHandlerType:
     m_AssemblyName: 
@@ -109,3 +111,4 @@ MonoBehaviour:
     m_Settings: {fileID: 11400000}
     m_NextInstanceId: 0
     m_RegisteredServiceTypeRefs: []
+    m_PingTimeoutInMilliseconds: 5000

@@ -21,14 +21,17 @@ MonoBehaviour:
     m_Address: Shaders
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0b70d00b79a048419f15b95c29f49553
     m_Address: Assets/CodeBase/Outline.shader
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e0e3f42e36aa4bf5b25a5dfe583d1304
     m_Address: Assets/CodeBase/Grayscale.shader
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d78b6c7a5abc2784c90e7f6881d27a04, type: 2}
   m_SchemaSet:

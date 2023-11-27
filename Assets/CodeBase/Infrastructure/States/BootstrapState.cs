@@ -14,7 +14,7 @@ namespace CodeBase.Infrastructure.States
 {
   public class BootstrapState : IState
   {
-    private const string Initial = "MainMenu";
+    private const string Initial = "Initial";
     private readonly GameStateMachine _stateMachine;
     private readonly SceneLoader _sceneLoader;
     private readonly AllServices _services;
@@ -50,7 +50,8 @@ namespace CodeBase.Infrastructure.States
         _services.Single<IPersistentProgressService>(),
         _services.Single<IWindowService>(),
         _services.Single<IGameStateMachine>(),
-          _diContainer
+          _diContainer,
+          _services
         ));
 
       _services.RegisterSingle<ISaveLoadService>(new SaveLoadService(

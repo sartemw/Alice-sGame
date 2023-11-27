@@ -1,59 +1,69 @@
+using System;
 using CodeBase.Data;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
-using CodeBase.Services.StaticData;
-using CodeBase.StaticData;
+using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
 {
-  public class LoadProgressState : IState
-  {
-    public string InitialLevel;
-    private readonly GameStateMachine _gameStateMachine;
-    private readonly IPersistentProgressService _progressService;
-    private readonly ISaveLoadService _saveLoadProgress;
-    private readonly IStaticDataService _staticDataService;
-
-    public LoadProgressState(GameStateMachine gameStateMachine, IPersistentProgressService progressService, ISaveLoadService saveLoadProgress, IStaticDataService staticDataService)
+    public class LoadProgressState : IState
     {
-      _gameStateMachine = gameStateMachine;
-      _progressService = progressService;
-      _saveLoadProgress = saveLoadProgress;
-      _staticDataService = staticDataService;
-    }
+        private const string InitialLevel = "0-1";
+        private readonly GameStateMachine _gameStateMachine;
+        private readonly IPersistentProgressService _progressService;
+        private readonly ISaveLoadService _saveLoadProgress;
 
-    public void Enter()
-    {
-      LoadProgressOrInitNew();
+
+        public LoadProgressState(GameStateMachine gameStateMachine, IPersistentProgressService progressService, ISaveLoadService saveLoadProgress)
+        {
+            _gameStateMachine = gameStateMachine;
+            _progressService = progressService;
+            _saveLoadProgress = saveLoadProgress;
+        }
+
+        public void Enter()
+        {
+            LoadProgressOrInitNew();
       
-      //_gameStateMachine.Enter<LoadLevelState, string>(_progressService.Progress.WorldData.PositionOnLevel.Level);
-      _gameStateMachine.Enter<LoadMainMenuState>();
-    }
+            _gameStateMachine.Enter<LoadLevelState, string>(LoadLevel(CurrentLevelProgress()));
+        }
 
-    public void Exit()
-    {
-    }
+        public void Exit()
+        {
+        }
 
-    private void LoadProgressOrInitNew()
-    {
-      _progressService.Progress = 
-        _saveLoadProgress.LoadProgress() 
-        ?? NewProgress();
-    }
+        private void LoadProgressOrInitNew()
+        {
+            _progressService.Progress = 
+                _saveLoadProgress.LoadProgress() 
+                ?? NewProgress();
+            
+            CurrentLevelProgress();
+        }
 
-    private PlayerProgress NewProgress()
-    {
-      var progress =  new PlayerProgress(initialLevel: InitialLevel);
+        private PlayerProgress NewProgress()
+        {
+
+            var progress =  new PlayerProgress(initialLevel: InitialLevel);
+
+            progress.HeroState.MaxHP = 50;
+            progress.HeroStats.Damage = 1;
+            progress.HeroStats.DamageRadius = 0.5f;
+            progress.HeroState.ResetHP();
+            progress.GameProgressData.LevelsCompleted = 1;
       
-      HeroStaticData heroData = _staticDataService.ForHero(HeroTypeId.Cat);
-      
-      progress.HeroState.MaxHP = heroData.Hp;
-      progress.HeroStats.Damage = heroData.Damage;
-      progress.HeroStats.DamageRadius = heroData.Cleavage;
-      
-      progress.HeroState.ResetHP();
+            return progress;
+        }
 
-      return progress;
+        private int CurrentLevelProgress()
+        {
+            int level = _progressService.Progress.GameProgressData.LevelsCompleted = _saveLoadProgress.LoadLevelCompleted();
+            if (level == 0)
+                level = 1;
+            return level;
+        }
+
+        private string LoadLevel(int levelsCompleted) => 
+            String.Format("{0}-{1}", levelsCompleted / 10, levelsCompleted % 10);
     }
-  }
 }

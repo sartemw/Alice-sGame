@@ -1,8 +1,4 @@
-﻿using CodeBase.Infrastructure.States;
-using CodeBase.Logic;
-using CodeBase.Services;
-using CodeBase.Services.Repainting;
-using UnityEngine;
+﻿using CodeBase.Services.Repainting;
 using Zenject;
 
 namespace CodeBase.Infrastructure

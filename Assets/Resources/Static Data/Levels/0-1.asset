@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26a28a6feec1484aa1c04daa3a58b39d, type: 3}
+  m_Name: 0-1
+  m_EditorClassIdentifier: 
+  LevelKey: 0-1
+  EnemySpawners: []
+  FishSpawners:
+  - Id: Main_a3e58d77-8276-4735-93e4-42e0c0b2d22a
+    FishColor: 1
+    FishBehaviour: 0
+    Position: {x: 0.22, y: -1.85}
+  - Id: Main_9197e9ca-e993-403f-91a7-658d2f42f495
+    FishColor: 2
+    FishBehaviour: 0
+    Position: {x: 2.06, y: -1.96}
+  - Id: Main_f04d9ab8-44d0-47f3-98b4-82b8c8bf2204
+    FishColor: 5
+    FishBehaviour: 0
+    Position: {x: -2.49, y: -1.82}
+  InitialHeroPosition: {x: -5.36, y: -1.57, z: 0}
+  LevelTransfer:
+    TransferTo: 0-2
+    Position: {x: 6.28, y: -2.16, z: 0}
