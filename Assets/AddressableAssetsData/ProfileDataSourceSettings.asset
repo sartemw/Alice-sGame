@@ -25,3 +25,13 @@ MonoBehaviour:
       m_Value: ServerData/[BuildTarget]
     - m_Suffix: LoadPath
       m_Value: http://[PrivateIpAddress]:[HostingServicePort]
+<<<<<<< HEAD
+=======
+  environments: []
+  currentEnvironment:
+    id: 
+    projectId: 
+    projectGenesisId: 
+    name: 
+    isDefault: 0
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9

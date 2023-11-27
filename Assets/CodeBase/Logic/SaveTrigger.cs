@@ -8,17 +8,11 @@ namespace CodeBase.Logic
   public class SaveTrigger : MonoBehaviour
   {
     private ISaveLoadService _saveLoadService;
-    private AllServices _services;
-    
+
     [Inject]
-    public void Construct(AllServices services)
+    public void Construct(ISaveLoadService saveLoadService)
     {
-      _services = services;
-    }
-    
-    private void Awake()
-    {
-      _saveLoadService = _services.Single<ISaveLoadService>();
+      _saveLoadService = saveLoadService;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

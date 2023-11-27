@@ -14,6 +14,10 @@ namespace CodeBase.Infrastructure
 
     public void Load(string name, Action onLoaded = null)
     {
+<<<<<<< HEAD
+=======
+      Debug.Log(name);
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
       _coroutineRunner.StartCoroutine(LoadScene(name, onLoaded));
     }
 

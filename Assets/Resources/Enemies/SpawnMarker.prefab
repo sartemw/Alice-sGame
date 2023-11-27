@@ -11,11 +11,10 @@ GameObject:
   - component: {fileID: 7470894167778697352}
   - component: {fileID: 4915538969508207733}
   - component: {fileID: 2706905004472391448}
-  - component: {fileID: 2523697639562143076}
   m_Layer: 0
   m_Name: SpawnMarker
   m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -29,7 +28,6 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -46,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f98e498cee5400f9ba8c6a15d5458c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MonsterTypeId: 1
+  MonsterTypeId: 0
 --- !u!114 &2706905004472391448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,20 +57,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28f7b18dc0164cb0a405d9b5ceb7b68d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: SpawnMarker_243a972f-c078-48a1-b5c5-c12fdd84428d
---- !u!114 &2523697639562143076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3347660264595608319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb89b53213a14dceacf12ac8bf20aaf5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BoxCollider: {fileID: 0}
-  CircleCollider: {fileID: 0}
-  Size: 0.5
-  ColorsGizmo: 1
+  Id: SpawnMarker_6134952b-7547-4ea7-9ec3-327d010bbcb2

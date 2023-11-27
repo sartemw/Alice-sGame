@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26a28a6feec1484aa1c04daa3a58b39d, type: 3}
   m_Name: 0-1
   m_EditorClassIdentifier: 
+<<<<<<< HEAD:Assets/Resources/Static Data/Levels/0-1.asset
   LevelKey: 0-1
   EnemySpawners: []
   FishSpawners:
@@ -31,3 +32,17 @@ MonoBehaviour:
   LevelTransfer:
     TransferTo: 0-2
     Position: {x: 6.28, y: -2.16, z: 0}
+=======
+  LevelKey: 1-1
+  EnemySpawners:
+  - Id: Main_0c3d001a-18cd-43d5-8a07-4c4b7c12f771
+    MonsterTypeId: 1
+    Position: {x: 1.02, y: -1.99, z: 0}
+  - Id: Main_63b26722-cc31-4968-9146-b9a9e96088ef
+    MonsterTypeId: 1
+    Position: {x: 6.43, y: -1.9, z: 0}
+  InitialHeroPosition: {x: -8.09, y: -0.95, z: 0}
+  LevelTransfer:
+    TransferTo: 1-2
+    Position: {x: 8.99, y: -2.2, z: 0}
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:Assets/Resources/Static Data/Levels/1-1.asset

@@ -9,6 +9,7 @@ using CodeBase.Logic;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData;
+using CodeBase.UI;
 using CodeBase.UI.Elements;
 using CodeBase.UI.Services.Factory;
 using UnityEngine;
@@ -71,24 +72,19 @@ namespace CodeBase.Infrastructure.States
     private async Task InitGameWorld()
     {
       LevelStaticData levelData = LevelStaticData();
-      if (!levelData) return;
-      
+
       GameObject hero = await InitHero(levelData);
       await InitSpawners(levelData);
       await InitLootPieces();
       await InitLevelTransfer(levelData);
       await InitHud(hero);
-      
       CameraFollow(hero);
     }
 
     private async Task InitSpawners(LevelStaticData levelStaticData)
     {
       foreach (EnemySpawnerStaticData spawnerData in levelStaticData.EnemySpawners)
-        await _gameFactory.CreateEnemySpawner(spawnerData.Id, spawnerData.Position, spawnerData.MonsterTypeId);
-      
-      foreach (FishSpawnerStaticData spawnerData in levelStaticData.FishSpawners)
-        await _gameFactory.CreateFishSpawner(spawnerData.Id, spawnerData.FishColor, spawnerData.FishBehaviour, spawnerData.Position);
+        await _gameFactory.CreateSpawner(spawnerData.Id, spawnerData.Position, spawnerData.MonsterTypeId);
     }
 
     private async Task InitLootPieces()
@@ -118,10 +114,7 @@ namespace CodeBase.Infrastructure.States
     private LevelStaticData LevelStaticData() => 
       _staticData.ForLevel(SceneManager.GetActiveScene().name);
 
-    private void CameraFollow(GameObject hero)
-    {
-      if (Camera.main != null) 
-        Camera.main.GetComponent<CameraFollow>().Follow(hero);
-    }
+    private void CameraFollow(GameObject hero) =>
+      Camera.main.GetComponent<CameraFollow>().Follow(hero);
   }
 }

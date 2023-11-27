@@ -1,5 +1,17 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+<<<<<<<< HEAD:Assets/AddressableAssetsData/ProfileDataSourceSettings.asset.meta
 guid: 0f4cae444822cc9458aab252783bea38
+========
+guid: 497df316b3dbd8c46b56add2ec7fc7ba
+>>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:Assets/Resources/Levels/Garden/platforms_garden_1.asset.meta
+=======
+<<<<<<<< HEAD:Assets/AddressableAssetsData/AssetGroupTemplates/Local Packed Assets.asset.meta
+guid: 5a5e728d2ae3ebf4f9c834fbf086e9ca
+========
+guid: b83de04381f6ae6489d60482d9ef0c64
+>>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:Assets/AddressableAssetsData/ProfileDataSourceSettings.asset.meta
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

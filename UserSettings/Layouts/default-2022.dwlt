@@ -119,7 +119,15 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 150}
   m_MaxSize: {x: 32384, y: 24288}
   vertical: 0
+<<<<<<< HEAD
   controlID: 147
+=======
+<<<<<<<< HEAD:UserSettings/Layouts/default-2021.dwlt
+  controlID: 22
+========
+  controlID: 153
+>>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:UserSettings/Layouts/default-2022.dwlt
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -144,7 +152,15 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 150}
   m_MaxSize: {x: 24288, y: 24288}
   vertical: 1
+<<<<<<< HEAD
   controlID: 51
+=======
+<<<<<<<< HEAD:UserSettings/Layouts/default-2021.dwlt
+  controlID: 23
+========
+  controlID: 51
+>>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:UserSettings/Layouts/default-2022.dwlt
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -167,10 +183,23 @@ MonoBehaviour:
     y: 0
     width: 1533
     height: 620
+<<<<<<< HEAD
+=======
+<<<<<<<< HEAD:UserSettings/Layouts/default-2021.dwlt
+  m_MinSize: {x: 300, y: 200}
+  m_MaxSize: {x: 24288, y: 16192}
+  vertical: 0
+  controlID: 24
+========
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
   controlID: 52
+<<<<<<< HEAD
+=======
+>>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:UserSettings/Layouts/default-2022.dwlt
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -192,9 +221,15 @@ MonoBehaviour:
     height: 620
   m_MinSize: {x: 201, y: 221}
   m_MaxSize: {x: 4001, y: 4021}
+<<<<<<< HEAD
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
+=======
+  m_ActualView: {fileID: 15}
+  m_Panes:
+  - {fileID: 15}
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
   m_Selected: 0
   m_LastSelected: 0
 --- !u!114 &9
@@ -207,7 +242,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
+<<<<<<< HEAD
   m_Name: AddressableAssetsWindow
+=======
+  m_Name: SceneView
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -216,6 +255,7 @@ MonoBehaviour:
     y: 0
     width: 712
     height: 620
+<<<<<<< HEAD
   m_MinSize: {x: 430, y: 250}
   m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 15}
@@ -226,6 +266,22 @@ MonoBehaviour:
   - {fileID: 15}
   m_Selected: 3
   m_LastSelected: 0
+=======
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
+  m_ActualView: {fileID: 16}
+  m_Panes:
+  - {fileID: 16}
+  - {fileID: 17}
+  - {fileID: 18}
+  - {fileID: 19}
+<<<<<<<< HEAD:UserSettings/Layouts/default-2021.dwlt
+========
+  - {fileID: 15}
+>>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:UserSettings/Layouts/default-2022.dwlt
+  m_Selected: 0
+  m_LastSelected: 3
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -247,10 +303,23 @@ MonoBehaviour:
     y: 0
     width: 567
     height: 620
+<<<<<<< HEAD
+=======
+<<<<<<<< HEAD:UserSettings/Layouts/default-2021.dwlt
+  m_MinSize: {x: 100, y: 200}
+  m_MaxSize: {x: 8096, y: 16192}
+  vertical: 1
+  controlID: 56
+========
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
   controlID: 53
+<<<<<<< HEAD
+=======
+>>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:UserSettings/Layouts/default-2022.dwlt
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -272,9 +341,21 @@ MonoBehaviour:
     height: 278
   m_MinSize: {x: 202, y: 221}
   m_MaxSize: {x: 4002, y: 4021}
+<<<<<<< HEAD
   m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 20}
+=======
+<<<<<<<< HEAD:UserSettings/Layouts/default-2021.dwlt
+  m_ActualView: {fileID: 27}
+  m_Panes:
+  - {fileID: 27}
+========
+  m_ActualView: {fileID: 20}
+  m_Panes:
+  - {fileID: 20}
+>>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:UserSettings/Layouts/default-2022.dwlt
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
   m_Selected: 0
   m_LastSelected: 0
 --- !u!114 &12
@@ -298,9 +379,15 @@ MonoBehaviour:
     height: 342
   m_MinSize: {x: 232, y: 271}
   m_MaxSize: {x: 10002, y: 10021}
+<<<<<<< HEAD
   m_ActualView: {fileID: 21}
   m_Panes:
   - {fileID: 21}
+=======
+  m_ActualView: {fileID: 20}
+  m_Panes:
+  - {fileID: 20}
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
   m_Selected: 0
   m_LastSelected: 0
 --- !u!114 &13
@@ -324,10 +411,17 @@ MonoBehaviour:
     height: 319
   m_MinSize: {x: 101, y: 121}
   m_MaxSize: {x: 4001, y: 4021}
+<<<<<<< HEAD
   m_ActualView: {fileID: 22}
   m_Panes:
   - {fileID: 22}
   - {fileID: 23}
+=======
+  m_ActualView: {fileID: 21}
+  m_Panes:
+  - {fileID: 21}
+  - {fileID: 22}
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
   m_Selected: 0
   m_LastSelected: 1
 --- !u!114 &14
@@ -351,8 +445,14 @@ MonoBehaviour:
     height: 939
   m_MinSize: {x: 276, y: 71}
   m_MaxSize: {x: 4001, y: 4021}
+<<<<<<< HEAD
   m_ActualView: {fileID: 24}
   m_Panes:
+=======
+  m_ActualView: {fileID: 23}
+  m_Panes:
+  - {fileID: 23}
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
   - {fileID: 24}
   - {fileID: 25}
   - {fileID: 26}
@@ -366,6 +466,11 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
+<<<<<<< HEAD
+=======
+<<<<<<<< HEAD:UserSettings/Layouts/default-2021.dwlt
+========
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e98b4a8982e76bc4d86c10db25cd7193, type: 3}
   m_Name: 
@@ -395,6 +500,7 @@ MonoBehaviour:
   m_GroupEditor:
     m_TreeState:
       scrollPos: {x: 0, y: 0}
+<<<<<<< HEAD
       m_SelectedIDs: 209510ac
       m_LastClickedID: -1408199392
       m_ExpandedIDs: 564558a3e2b143c3cc72add4fffffffffdf76570
@@ -402,18 +508,36 @@ MonoBehaviour:
         m_UserAcceptedRename: 0
         m_Name: SceneObjects
         m_OriginalName: SceneObjects
+=======
+      m_SelectedIDs: 564558a3
+      m_LastClickedID: -1554496170
+      m_ExpandedIDs: 564558a3e2b143c34201a2cecc72add41eb8cbebfffffffffdf7657082ea807b
+      m_RenameOverlay:
+        m_UserAcceptedRename: 0
+        m_Name: 
+        m_OriginalName: 
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
+<<<<<<< HEAD
         m_UserData: -828243646
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
         m_OriginalEventType: 4
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 9}
+=======
+        m_UserData: 0
+        m_IsWaitingForDelay: 0
+        m_IsRenaming: 0
+        m_OriginalEventType: 11
+        m_IsRenamingFilename: 0
+        m_ClientGUIView: {fileID: 0}
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
       m_SearchString: 
     m_Mchs:
       m_Columns:
@@ -506,6 +630,10 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
+<<<<<<< HEAD
+=======
+>>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:UserSettings/Layouts/default-2022.dwlt
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
   m_EditorHideFlags: 1
   m_Script: {fileID: 12061, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
@@ -523,11 +651,20 @@ MonoBehaviour:
     y: 73
     width: 253
     height: 599
+<<<<<<< HEAD
+=======
+<<<<<<<< HEAD:UserSettings/Layouts/default-2021.dwlt
+========
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
     m_SupportedDataModes: 
     isAutomatic: 1
+<<<<<<< HEAD
+=======
+>>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:UserSettings/Layouts/default-2022.dwlt
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -538,7 +675,15 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
+<<<<<<< HEAD
       m_ExpandedIDs: 3cabffff8cabffff9eafffffc0b0ffffd0b0ffffe0b0ffffd6cdffff40ceffff4ad2ffff6ed3ffff76d3ffff7ed3ffffe0faffff
+=======
+<<<<<<<< HEAD:UserSettings/Layouts/default-2021.dwlt
+      m_ExpandedIDs: 1cfbffff
+========
+      m_ExpandedIDs: 0af0ffff16fbfffff4ffffff
+>>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:UserSettings/Layouts/default-2022.dwlt
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -562,7 +707,11 @@ MonoBehaviour:
       m_IsLocked: 0
     m_CurrentSortingName: TransformSorting
   m_WindowGUID: 4c969a2b90040154d917609493e03593
+<<<<<<< HEAD
 --- !u!114 &17
+=======
+--- !u!114 &16
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -587,11 +736,20 @@ MonoBehaviour:
     y: 73
     width: 710
     height: 599
+<<<<<<< HEAD
+=======
+<<<<<<<< HEAD:UserSettings/Layouts/default-2021.dwlt
+========
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
     m_SupportedDataModes: 
     isAutomatic: 1
+<<<<<<< HEAD
+=======
+>>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:UserSettings/Layouts/default-2022.dwlt
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -649,6 +807,7 @@ MonoBehaviour:
       size: {x: 0, y: 0}
       sizeOverriden: 0
     - dockPosition: 0
+<<<<<<< HEAD
       containerId: overlay-container--left
       floating: 0
       collapsed: 0
@@ -658,6 +817,17 @@ MonoBehaviour:
       snapCorner: 0
       id: unity-transform-toolbar
       index: 0
+=======
+      containerId: overlay-toolbar__bottom
+      floating: 0
+      collapsed: 0
+      displayed: 1
+      snapOffset: {x: 0, y: 26}
+      snapOffsetDelta: {x: 0, y: 0}
+      snapCorner: 0
+      id: unity-transform-toolbar
+      index: 1
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
       layout: 2
       size: {x: 0, y: 0}
       sizeOverriden: 0
@@ -896,11 +1066,19 @@ MonoBehaviour:
       size: {x: 0, y: 0}
       sizeOverriden: 0
     - dockPosition: 0
+<<<<<<< HEAD
       containerId: Floating
       floating: 1
       collapsed: 0
       displayed: 1
       snapOffset: {x: -216, y: 40}
+=======
+      containerId: overlay-toolbar__bottom
+      floating: 0
+      collapsed: 1
+      displayed: 1
+      snapOffset: {x: -216, y: 26}
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 1
       id: AINavigationOverlay
@@ -930,7 +1108,11 @@ MonoBehaviour:
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: Scene View/TrailRenderer
+<<<<<<< HEAD
       index: 9
+=======
+      index: 8
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
       layout: 4
       size: {x: 0, y: 0}
       sizeOverriden: 0
@@ -943,7 +1125,11 @@ MonoBehaviour:
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: UnityEditor.SceneViewCameraOverlay
+<<<<<<< HEAD
       index: 10
+=======
+      index: 9
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
       layout: 4
       size: {x: 0, y: 0}
       sizeOverriden: 0
@@ -958,9 +1144,21 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
+<<<<<<< HEAD
     m_Target: {x: -0.40148348, y: 6.822156, z: -0.013258204}
     speed: 2
     m_Value: {x: -0.40148348, y: 6.822156, z: -0.013258204}
+=======
+<<<<<<<< HEAD:UserSettings/Layouts/default-2021.dwlt
+    m_Target: {x: 0.11754131, y: 3.2986984, z: -0.012039008}
+    speed: 2
+    m_Value: {x: 0.11754131, y: 3.2986984, z: -0.012039008}
+========
+    m_Target: {x: -1.1388961, y: -1.7233018, z: -0.052918814}
+    speed: 2
+    m_Value: {x: -1.1388961, y: -1.7233018, z: -0.052918814}
+>>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:UserSettings/Layouts/default-2022.dwlt
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1010,9 +1208,21 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
+<<<<<<< HEAD
     m_Target: 7.6131487
     speed: 2
     m_Value: 7.6131487
+=======
+<<<<<<<< HEAD:UserSettings/Layouts/default-2021.dwlt
+    m_Target: 17.928444
+    speed: 2
+    m_Value: 17.928444
+========
+    m_Target: 16.191843
+    speed: 2
+    m_Value: 16.191843
+>>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:UserSettings/Layouts/default-2022.dwlt
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1037,7 +1247,11 @@ MonoBehaviour:
   m_SceneVisActive: 0
   m_LastLockedObject: {fileID: 0}
   m_ViewIsLockedToObject: 0
+<<<<<<< HEAD
 --- !u!114 &18
+=======
+--- !u!114 &17
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1072,7 +1286,11 @@ MonoBehaviour:
     m_LastAppliedPresetName: Default
     m_SaveData: []
     m_OverlaysVisible: 1
+<<<<<<< HEAD
 --- !u!114 &19
+=======
+--- !u!114 &18
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1113,7 +1331,10 @@ MonoBehaviour:
     - {fileID: 110700000, guid: 93fc243d755a4e54fa91237aeeb8263a, type: 2}
     - {fileID: 3520554729569115905, guid: 091eae07351c93c48947cb8fc08baa51, type: 2}
     - {fileID: -1070269223208490586, guid: ba274ea61f23d2041ac8117fc4f3e05d, type: 2}
+<<<<<<< HEAD
     - {fileID: 7211018838179773493, guid: 95755d572338331498ae55ac5523eae0, type: 2}
+=======
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
     m_ValueSerializationHelper:
     - e00: 0.5223301
       e01: 0
@@ -1179,6 +1400,7 @@ MonoBehaviour:
       e31: 0
       e32: 0
       e33: 1
+<<<<<<< HEAD
     - e00: 0.66004616
       e01: 0
       e02: 0
@@ -1195,6 +1417,8 @@ MonoBehaviour:
       e31: 0
       e32: 0
       e33: 1
+=======
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
   m_PreviewAnimator: {fileID: 0}
   m_AnimatorController: {fileID: 9100000, guid: 963e9bf72de13734b849a7f50ead7e97,
     type: 2}
@@ -1213,7 +1437,11 @@ MonoBehaviour:
   m_CurrentEditor: 0
   m_LayerEditor:
     m_SelectedLayerIndex: 0
+<<<<<<< HEAD
 --- !u!114 &20
+=======
+--- !u!114 &19
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1236,6 +1464,13 @@ MonoBehaviour:
     serializedVersion: 2
     x: 966
     y: 73
+<<<<<<< HEAD
+=======
+<<<<<<<< HEAD:UserSettings/Layouts/default-2021.dwlt
+    width: 710
+    height: 599
+========
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
     width: 565
     height: 257
   m_SerializedDataModeController:
@@ -1243,11 +1478,111 @@ MonoBehaviour:
     m_PreferredDataMode: 0
     m_SupportedDataModes: 
     isAutomatic: 1
+<<<<<<< HEAD
+=======
+>>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:UserSettings/Layouts/default-2022.dwlt
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
     m_SaveData: []
     m_OverlaysVisible: 1
+<<<<<<< HEAD
+=======
+<<<<<<<< HEAD:UserSettings/Layouts/default-2021.dwlt
+  m_GroupEditor:
+    m_TreeState:
+      scrollPos: {x: 0, y: 0}
+      m_SelectedIDs: 564558a3
+      m_LastClickedID: -1554496170
+      m_ExpandedIDs: 564558a3ffffffff
+      m_RenameOverlay:
+        m_UserAcceptedRename: 0
+        m_Name: 
+        m_OriginalName: 
+        m_EditFieldRect:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+        m_UserData: 0
+        m_IsWaitingForDelay: 0
+        m_IsRenaming: 0
+        m_OriginalEventType: 11
+        m_IsRenamingFilename: 0
+        m_ClientGUIView: {fileID: 9}
+      m_SearchString: 
+    m_Mchs:
+      m_Columns:
+      - width: 312.27274
+        sortedAscending: 0
+        headerContent:
+          m_Text: Group Name \ Addressable Name
+          m_Image: {fileID: 0}
+          m_Tooltip: Address used to load asset at runtime
+        contextMenuText: 
+        headerTextAlignment: 0
+        sortingArrowAlignment: 1
+        minWidth: 100
+        maxWidth: 10000
+        autoResize: 1
+        allowToggleVisibility: 1
+        canSort: 1
+        userData: 0
+      - width: 20
+        sortedAscending: 0
+        headerContent:
+          m_Text: 
+          m_Image: {fileID: 3147778976006948682, guid: 0000000000000000d000000000000000,
+            type: 0}
+          m_Tooltip: Asset type
+        contextMenuText: 
+        headerTextAlignment: 0
+        sortingArrowAlignment: 1
+        minWidth: 20
+        maxWidth: 20
+        autoResize: 1
+        allowToggleVisibility: 1
+        canSort: 0
+        userData: 0
+      - width: 312.27274
+        sortedAscending: 0
+        headerContent:
+          m_Text: Path
+          m_Image: {fileID: 0}
+          m_Tooltip: Current Path of asset
+        contextMenuText: 
+        headerTextAlignment: 0
+        sortingArrowAlignment: 1
+        minWidth: 100
+        maxWidth: 10000
+        autoResize: 1
+        allowToggleVisibility: 1
+        canSort: 1
+        userData: 0
+      - width: 62.454544
+        sortedAscending: 0
+        headerContent:
+          m_Text: Labels
+          m_Image: {fileID: 0}
+          m_Tooltip: Assets can have multiple labels
+        contextMenuText: 
+        headerTextAlignment: 0
+        sortingArrowAlignment: 1
+        minWidth: 20
+        maxWidth: 1000
+        autoResize: 1
+        allowToggleVisibility: 1
+        canSort: 1
+        userData: 0
+      m_VisibleColumns: 00000000010000000200000003000000
+      m_SortedColumns: 
+    window: {fileID: 19}
+    m_VerticalSplitterPercent: 0.21180555
+--- !u!114 &20
+========
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
   m_SerializedViewNames:
   - UnityEditor.GameView
   m_SerializedViewValues:
@@ -1281,6 +1616,10 @@ MonoBehaviour:
     networkReachability: 1
     systemLanguage: 10
 --- !u!114 &21
+<<<<<<< HEAD
+=======
+>>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:UserSettings/Layouts/default-2022.dwlt
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1305,11 +1644,20 @@ MonoBehaviour:
     y: 351
     width: 565
     height: 321
+<<<<<<< HEAD
+=======
+<<<<<<<< HEAD:UserSettings/Layouts/default-2021.dwlt
+========
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
     m_SupportedDataModes: 
     isAutomatic: 1
+<<<<<<< HEAD
+=======
+>>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:UserSettings/Layouts/default-2022.dwlt
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -1326,7 +1674,15 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
+<<<<<<< HEAD
     - Assets/AddressableAssetsData/AssetGroups
+=======
+<<<<<<<< HEAD:UserSettings/Layouts/default-2021.dwlt
+    - Assets/Grids
+========
+    - Assets/Resources/Static Data/Levels
+>>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:UserSettings/Layouts/default-2022.dwlt
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -1334,6 +1690,7 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
+<<<<<<< HEAD
   - Assets/AddressableAssetsData/AssetGroups
   m_LastFoldersGridSize: 16
   m_LastProjectPath: "G:\\Gamedev\\AliceGame \u2014 \u043A\u043E\u043F\u0438\u044F"
@@ -1344,6 +1701,29 @@ MonoBehaviour:
     m_SelectedIDs: 8eb10000
     m_LastClickedID: 45454
     m_ExpandedIDs: 000000003c7700003e77000040770000427700004477000046770000487700004a7700004c7700004e77000050770000527700005477000056770000587700005a7700005c7700005e77000060770000627700006477000066770000687700006a7700006c7700006e77000070770000727700007477000076770000787700007a7700007c7700007e77000080770000827700008477000086770000887700008a7700008c7700008e77000090770000927700009477000096770000987700009a7700009c7700009e770000a0770000a2770000a4770000a6770000a8770000aa770000ac770000487b000000ca9a3b
+=======
+<<<<<<<< HEAD:UserSettings/Layouts/default-2021.dwlt
+  - Assets/Grids
+========
+  - Assets/Resources/Static Data/Levels
+>>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:UserSettings/Layouts/default-2022.dwlt
+  m_LastFoldersGridSize: 16
+  m_LastProjectPath: G:\Gamedev\test
+  m_LockTracker:
+    m_IsLocked: 0
+  m_FolderTreeState:
+<<<<<<<< HEAD:UserSettings/Layouts/default-2021.dwlt
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: 82750000
+    m_LastClickedID: 30082
+    m_ExpandedIDs: 00000000287100002a7100002c7100002e71000030710000327100003471000036710000387100003a7100003c7100003e71000040710000427100004471000046710000487100004a7100004c7100004e71000050710000527100005471000056710000587100005a7100005c7100005e71000060710000627100006471000066710000687100006a7100006c7100006e71000070710000727100007471000076710000787100007a7100007c7100007e71000080710000827100008471000086710000887100008a7100008c7100008e7100009071000000ca9a3b
+========
+    scrollPos: {x: 0, y: 191}
+    m_SelectedIDs: 486f0000
+    m_LastClickedID: 28488
+    m_ExpandedIDs: 00000000ec670000ee670000f06700002c6900002e69000000ca9a3b
+>>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:UserSettings/Layouts/default-2022.dwlt
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1371,7 +1751,15 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
+<<<<<<< HEAD
     m_ExpandedIDs: 000000003c7700003e77000040770000427700004477000046770000487700004a7700004c7700004e77000050770000527700005477000056770000587700005a7700005c7700005e77000060770000627700006477000066770000687700006a7700006c7700006e77000070770000727700007477000076770000787700007a7700007c7700007e77000080770000827700008477000086770000887700008a7700008c7700008e77000090770000927700009477000096770000987700009a7700009c7700009e770000a0770000a2770000a4770000a6770000a8770000aa770000ac770000
+=======
+<<<<<<<< HEAD:UserSettings/Layouts/default-2021.dwlt
+    m_ExpandedIDs: 00000000287100002a7100002c7100002e71000030710000327100003471000036710000387100003a7100003c7100003e71000040710000427100004471000046710000487100004a7100004c7100004e71000050710000527100005471000056710000587100005a7100005c7100005e71000060710000627100006471000066710000687100006a7100006c7100006e71000070710000727100007471000076710000787100007a7100007c7100007e71000080710000827100008471000086710000887100008a7100008c7100008e71000090710000
+========
+    m_ExpandedIDs: 00000000ec670000ee670000f0670000
+>>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:UserSettings/Layouts/default-2022.dwlt
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1398,8 +1786,17 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
+<<<<<<< HEAD
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: 9edd0000b26000005e5f0000a65f00002602000040600000aa5d0000b65d00002a02000020680000866400007264000074640000fe630000fc6300000e640000c4660000e66500002a6600008c6500006aa1000082640000be800000446400006c64000042640000f46600000264000018640000947b0000bc8b0000340200002e970000ca790000f67500008e8e0000bc730000a87600004c780000ac7600006a70000096760000b47d0000287c0000da830000b48f0000b68f0000b28e0000d47b0100b88f000000000000d67a0000e4a000004e7c0000
+=======
+<<<<<<<< HEAD:UserSettings/Layouts/default-2021.dwlt
+    m_HadKeyboardFocusLastEvent: 0
+========
+    m_HadKeyboardFocusLastEvent: 1
+>>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:UserSettings/Layouts/default-2022.dwlt
+    m_ExpandedInstanceIDs: 9edd0000b26000005e5f0000a65f00002602000040600000aa5d0000b65d00002a02000020680000866400007264000074640000fe630000fc6300000e640000c4660000e66500002a6600008c6500006aa1000082640000be800000446400006c64000042640000f46600000264000018640000947b0000bc8b0000340200002e970000ca790000f67500008e8e0000bc730000a87600004c780000ac7600006a70000096760000b47d0000287c0000da830000b48f0000b68f0000b28e0000d47b0100b88f000000000000d67a0000e4a00000
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1427,7 +1824,11 @@ MonoBehaviour:
     m_GridSize: 16
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 218
+<<<<<<< HEAD
 --- !u!114 &22
+=======
+--- !u!114 &21
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1452,17 +1853,30 @@ MonoBehaviour:
     y: 693
     width: 1532
     height: 298
+<<<<<<< HEAD
+=======
+<<<<<<<< HEAD:UserSettings/Layouts/default-2021.dwlt
+========
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
     m_SupportedDataModes: 
     isAutomatic: 1
+<<<<<<< HEAD
+=======
+>>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:UserSettings/Layouts/default-2022.dwlt
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
     m_SaveData: []
     m_OverlaysVisible: 1
+<<<<<<< HEAD
 --- !u!114 &23
+=======
+--- !u!114 &22
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1499,8 +1913,18 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
+<<<<<<< HEAD
   m_LastSelectedObjectID: 30244
 --- !u!114 &24
+=======
+<<<<<<<< HEAD:UserSettings/Layouts/default-2021.dwlt
+  m_LastSelectedObjectID: 71826
+--- !u!114 &23
+========
+  m_LastSelectedObjectID: 35642
+--- !u!114 &24
+>>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:UserSettings/Layouts/default-2022.dwlt
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1548,7 +1972,11 @@ MonoBehaviour:
   m_LockTracker:
     m_IsLocked: 0
   m_PreviewWindow: {fileID: 0}
+<<<<<<< HEAD
 --- !u!114 &25
+=======
+--- !u!114 &24
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1582,6 +2010,51 @@ MonoBehaviour:
     m_LastAppliedPresetName: Default
     m_SaveData: []
     m_OverlaysVisible: 1
+<<<<<<< HEAD
+=======
+<<<<<<<< HEAD:UserSettings/Layouts/default-2021.dwlt
+  m_PreviewResizer:
+    m_CachedPref: 50
+    m_ControlHash: 1964396721
+    m_PrefName: Preview_TilemapBrushInspector
+  m_Palette: {fileID: 5887146491072914882, guid: 9e43961d0d8412342b9d610e26869a37,
+    type: 3}
+  m_DrawGridGizmo: 0
+  m_DrawGizmos: 1
+--- !u!114 &25
+========
+--- !u!114 &26
+>>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:UserSettings/Layouts/default-2022.dwlt
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+<<<<<<<< HEAD:UserSettings/Layouts/default-2021.dwlt
+  m_Script: {fileID: 12402, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MinSize: {x: 300, y: 150}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_TitleContent:
+    m_Text: Services
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  m_Pos:
+    serializedVersion: 2
+    x: 1533
+    y: 73
+    width: 386
+    height: 918
+  m_ViewDataDictionary: {fileID: 0}
+  m_OverlayCanvas:
+    m_LastAppliedPresetName: Default
+    m_SaveData: []
+    m_OverlaysVisible: 1
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
 --- !u!114 &26
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1591,6 +2064,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
+<<<<<<< HEAD
+=======
+========
+>>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9:UserSettings/Layouts/default-2022.dwlt
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9
   m_Script: {fileID: 11500000, guid: 77af4245676cdae4e90c350b07b947d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
@@ -1616,3 +2094,67 @@ MonoBehaviour:
     m_LastAppliedPresetName: Default
     m_SaveData: []
     m_OverlaysVisible: 1
+<<<<<<< HEAD
+=======
+--- !u!114 &27
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 13974, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_TitleContent:
+    m_Text: Simulator
+    m_Image: {fileID: 8720083202187608617, guid: 0000000000000000d000000000000000,
+      type: 0}
+    m_Tooltip: 
+  m_Pos:
+    serializedVersion: 2
+    x: 966
+    y: 73
+    width: 565
+    height: 257
+  m_ViewDataDictionary: {fileID: 0}
+  m_OverlayCanvas:
+    m_LastAppliedPresetName: Default
+    m_SaveData: []
+    m_OverlaysVisible: 1
+  m_SerializedViewNames:
+  - UnityEditor.GameView
+  m_SerializedViewValues:
+  - G:\Gamedev\AliceGame\Library\PlayModeViewStates\b268232f086e2c049ab34c70971d8b77
+  m_PlayModeViewName: Device Simulator
+  m_ShowGizmos: 0
+  m_TargetDisplay: 0
+  m_ClearColor: {r: 0, g: 0, b: 0, a: 1}
+  m_TargetSize: {x: 2260, y: 1080}
+  m_TextureFilterMode: 0
+  m_TextureHideFlags: 61
+  m_RenderIMGUI: 1
+  m_EnterPlayModeBehavior: 2
+  m_UseMipMap: 0
+  m_SimulatorState:
+    controlPanelVisible: 0
+    controlPanelWidth: 0
+    controlPanelFoldoutKeys:
+    - UnityEditor.DeviceSimulation.ApplicationSettingsPlugin
+    controlPanelFoldoutValues: 00
+    pluginNames:
+    - UnityEditor.DeviceSimulation.ApplicationSettingsPlugin
+    pluginStates:
+    - '{}'
+    scale: 20
+    fitToScreenEnabled: 1
+    rotationDegree: 90
+    highlightSafeAreaEnabled: 0
+    friendlyName: Xiaomi Redmi Note 7
+    networkReachability: 1
+    systemLanguage: 10
+>>>>>>> 884faa757ea49c0624f6142f92af3e27e5492eb9

@@ -2,7 +2,6 @@
 using CodeBase.Logic;
 using CodeBase.Services.SaveLoad;
 using CodeBase.UI.Services.Factory;
-using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
 {
