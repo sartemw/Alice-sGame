@@ -1,20 +1,21 @@
 ﻿using CodeBase.Infrastructure;
 using CodeBase.Infrastructure.States;
-using CodeBase.UI.Services.Windows;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Zenject;
 
 namespace CodeBase.UI.Elements
 {
-    public class LoadLevelButton : MonoBehaviour
+    public class StartGame : MonoBehaviour
     {
         public Button Button;
-        public string LoadLevel;
+        public string LoadLevel = "0-1";
         
-        private GameStateMachine _stateMachine;
+        private IGameStateMachine _stateMachine;
         private SceneLoader _sceneLoader;
-
-        public void Init(GameStateMachine stateMachine, SceneLoader sceneLoader)
+        
+        public void Construct (IGameStateMachine stateMachine, SceneLoader sceneLoader)
         {
             _sceneLoader = sceneLoader;
             _stateMachine = stateMachine;

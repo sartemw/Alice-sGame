@@ -24,20 +24,22 @@ namespace CodeBase.Infrastructure.States
         [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, services, diContainer),
         
         [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadingCurtain
-          ,services.Single<IGameFactory>()
-          ,services.Single<IPersistentProgressService>()
-          , services.Single<IStaticDataService>()
-          , services.Single<IUIFactory>()),
+          ,diContainer.Resolve<IGameFactory>()
+          ,diContainer.Resolve<IPersistentProgressService>()
+          , diContainer.Resolve<IStaticDataService>()
+          , diContainer.Resolve<IUIFactory>()),
         
         [typeof(LoadProgressState)] = new LoadProgressState(this
-          ,services.Single<IPersistentProgressService>()
-          ,services.Single<ISaveLoadService>()),
+          ,diContainer.Resolve<IPersistentProgressService>()
+          ,diContainer.Resolve<ISaveLoadService>()
+          ,sceneLoader),
         
         [typeof(LoadMainMenuState)] = new LoadMainMenuState(this
-          ,services.Single<IUIFactory>()
+          ,diContainer.Resolve<IUIFactory>()
           , sceneLoader
           , loadingCurtain
-          ,services.Single<ISaveLoadService>()),
+          ,diContainer.Resolve<ISaveLoadService>()
+          , diContainer.Resolve<IGameFactory>()),
         
         [typeof(GameLoopState)] = new GameLoopState(this),
       };

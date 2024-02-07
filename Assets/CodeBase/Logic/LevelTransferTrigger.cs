@@ -14,14 +14,13 @@ namespace CodeBase.Logic
     private IGameStateMachine _stateMachine;
     private bool _triggered;
     private ISaveLoadService _saveLoad;
-    private AllServices _services;
+    private IPersistentProgressService _progress;
 
-    public void Construct(IGameStateMachine stateMachine, AllServices services)
+    public void Construct(IGameStateMachine stateMachine, IPersistentProgressService progress, ISaveLoadService saveLoadService)
     {
-      _services = services;
+      _progress = progress;
       _stateMachine = stateMachine;
-      
-      _saveLoad = _services.Single<ISaveLoadService>();
+      _saveLoad = saveLoadService;
 
     }
 
@@ -32,11 +31,11 @@ namespace CodeBase.Logic
 
       if (other.CompareTag(PlayerTag))
       {
-        _services.Single<IPersistentProgressService>().Progress.GameProgressData.LevelCompleted();
+        _progress.Progress.GameProgressData.LevelCompleted();
         _saveLoad.SaveLevelCompleted();
+        
         _stateMachine.Enter<LoadLevelState, string>(TransferTo);
         _triggered = true;
-        Debug.Log("Open level " + _services.Single<IPersistentProgressService>().Progress.GameProgressData.LevelsCompleted);
       }
     }
   }

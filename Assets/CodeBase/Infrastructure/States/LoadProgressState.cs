@@ -8,25 +8,35 @@ namespace CodeBase.Infrastructure.States
 {
     public class LoadProgressState : IState
     {
+        //private const string InitialLevel = "MainMenu";
         private const string InitialLevel = "0-1";
+        
         private readonly GameStateMachine _gameStateMachine;
         private readonly IPersistentProgressService _progressService;
         private readonly ISaveLoadService _saveLoadProgress;
+        
+        private SceneLoader _sceneLoader;
 
 
-        public LoadProgressState(GameStateMachine gameStateMachine, IPersistentProgressService progressService, ISaveLoadService saveLoadProgress)
+        public LoadProgressState(GameStateMachine gameStateMachine, IPersistentProgressService progressService, ISaveLoadService saveLoadProgress, SceneLoader sceneLoader)
         {
             _gameStateMachine = gameStateMachine;
             _progressService = progressService;
             _saveLoadProgress = saveLoadProgress;
+            _sceneLoader = sceneLoader;
         }
 
         public void Enter()
         {
             LoadProgressOrInitNew();
       
-            _gameStateMachine.Enter<LoadLevelState, string>(LoadLevel(CurrentLevelProgress()));
+            _sceneLoader.Load(InitialLevel, onLoaded: EnterLoadLevel);
+            //_gameStateMachine.Enter<LoadLevelState, string>(LoadLevel(CurrentLevelProgress()));
         }
+
+        private void EnterLoadLevel() => 
+            _gameStateMachine.Enter<LoadLevelState, string>(InitialLevel);
+            //_gameStateMachine.Enter<LoadMainMenuState, string>(InitialLevel);
 
         public void Exit()
         {
@@ -59,7 +69,8 @@ namespace CodeBase.Infrastructure.States
         {
             int level = _progressService.Progress.GameProgressData.LevelsCompleted = _saveLoadProgress.LoadLevelCompleted();
             if (level == 0)
-                level = 1;
+                level = _progressService.Progress.GameProgressData.LevelsCompleted = 1;
+            
             return level;
         }
 

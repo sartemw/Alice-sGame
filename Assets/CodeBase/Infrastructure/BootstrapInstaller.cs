@@ -34,7 +34,6 @@ namespace CodeBase.Infrastructure
         private IPersistentProgressService _persistentProgress;
         private IUIFactory _uiFactory;
         private IWindowService _windowService;
-        private IGameStateMachine _stateMachine;
         private IRepaintingService _repaintingService;
         private IFishDataService _fishData;
 
@@ -179,22 +178,8 @@ namespace CodeBase.Infrastructure
         #endregion
 
         
-        public void Initialize()
-        {
+        public void Initialize() => 
             CreateGame();
-            
-            BindGameStateMachine();
-        }
-
-        private void BindGameStateMachine()
-        {
-            _stateMachine = _game.StateMachine;
-            
-            Container
-                .Bind<IGameStateMachine>()
-                .FromInstance(_stateMachine)
-                .AsSingle();
-        }
 
         private void CreateGame()
         {

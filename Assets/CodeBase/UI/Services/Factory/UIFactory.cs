@@ -18,12 +18,13 @@ namespace CodeBase.UI.Services.Factory
   public class UIFactory : IUIFactory
   {
     private const string UIRootPath = "UIRoot";
+    
     private readonly IAssetProvider _assets;
     private readonly IStaticDataService _staticData;
     private readonly IPersistentProgressService _progressService;
     private readonly IAdsService _adsService;
     private readonly DiContainer _container;
-    
+
     private Transform _uiRoot;
 
     public UIFactory(IAssetProvider assets, IStaticDataService staticData, IPersistentProgressService progressService,
@@ -40,18 +41,21 @@ namespace CodeBase.UI.Services.Factory
     {
       WindowConfig config = _staticData.ForWindow(WindowId.SelectLevels);
       SelectLevelsWindow window = Object.Instantiate(config.Template, _uiRoot) as SelectLevelsWindow;
-      window.Construct(_progressService, _container.Resolve<Game>().StateMachine);
+      window.Construct(_progressService, _container.Resolve<Game>().StateMachine, _container.Resolve<SceneLoader>());
     }
 
     public void CreateMainMenu()
     {
       WindowConfig config = _staticData.ForWindow(WindowId.MainMenu);
       MainMenu window = Object.Instantiate(config.Template, _uiRoot) as MainMenu;
+      
       window.Construct(_progressService);
 
+      var start = window.GetComponentInChildren<StartGame>();
+      start.Construct(_container.Resolve<IGameStateMachine>(), _container.Resolve<SceneLoader>());
+      
       foreach (OpenWindowButton openWindowButton in window.GetComponentsInChildren<OpenWindowButton>())
         openWindowButton.Init(_container.Resolve<IWindowService>());
-
     }
 
     public void CreateShop()
@@ -63,8 +67,8 @@ namespace CodeBase.UI.Services.Factory
 
     public async Task CreateUIRoot()
     {
-      GameObject root = await _assets.Instantiate(UIRootPath);
-      _uiRoot = root.transform;
+      GameObject result = await _assets.Instantiate(UIRootPath);
+      _uiRoot = result.transform;
     }
   }
 }

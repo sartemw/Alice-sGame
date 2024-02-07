@@ -1,4 +1,5 @@
-﻿using CodeBase.Infrastructure.States;
+﻿using CodeBase.Infrastructure;
+using CodeBase.Infrastructure.States;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.UI.Elements;
 using TMPro;
@@ -12,11 +13,14 @@ namespace CodeBase.UI.Windows.LevelsProgress
         public GameObject LevelIcon;
         public RectTransform LevelsContainer;
         private GameStateMachine _stateMachine;
+        private SceneLoader _sceneLoader;
 
-        public void Construct(IPersistentProgressService progressService, GameStateMachine stateMachine)
+        public void Construct(IPersistentProgressService progressService, GameStateMachine stateMachine,
+            SceneLoader sceneLoader)
         {
             base.Construct(progressService);
             _stateMachine = stateMachine;
+            _sceneLoader = sceneLoader;
         }
         
         protected override void Initialize() => 
@@ -34,10 +38,9 @@ namespace CodeBase.UI.Windows.LevelsProgress
         private void RefreshLevelsContainer()
         {
             int levelsCompleted = Progress.GameProgressData.LevelsCompleted;
-            Debug.Log("Level progress " + levelsCompleted);
-            for (int j = 1; j < 2; j++)
+            for (int j = 0; j < 1; j++)
             {
-                for (int i = 1; i < 6; i++)
+                for (int i = 1; i < 11; i++)
                 {
                     GameObject level = Instantiate(LevelIcon, LevelsContainer);
                     level.GetComponentInChildren<TMP_Text>().text = i.ToString();
@@ -49,7 +52,7 @@ namespace CodeBase.UI.Windows.LevelsProgress
                     else
                     {
                         LoadLevelButton loadLevel = level.GetComponent<LoadLevelButton>();
-                        loadLevel.Init(_stateMachine);
+                        loadLevel.Init(_stateMachine, _sceneLoader);
                         loadLevel.LoadLevel = $"{j}-{i}";
                     }
                 }

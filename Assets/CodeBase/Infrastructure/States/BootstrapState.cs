@@ -31,7 +31,7 @@ namespace CodeBase.Infrastructure.States
       RegisterServices();
     }
 
-    public void Enter() =>
+    public void Enter() => 
       _sceneLoader.Load(Initial, onLoaded: EnterLoadLevel);
 
     public void Exit()
@@ -40,29 +40,46 @@ namespace CodeBase.Infrastructure.States
 
     private void RegisterServices()
     {
-      _services.RegisterSingle<IGameStateMachine>(_stateMachine);
-      
-      _services.RegisterSingle<IGameFactory>(new GameFactory(
-        _services.Single<IInputService>(),
-        _services.Single<IAssetProvider>(),
-        _services.Single<IStaticDataService>(),
-        _services.Single<IRandomService>(),
-        _services.Single<IPersistentProgressService>(),
-        _services.Single<IWindowService>(),
-        _services.Single<IGameStateMachine>(),
-          _diContainer,
-          _services
-        ));
+      _diContainer
+        .Bind<IGameStateMachine>()
+        .FromInstance(_stateMachine)
+        .AsSingle();
 
-      _services.RegisterSingle<ISaveLoadService>(new SaveLoadService(
-        _services.Single<IPersistentProgressService>(),
-        _services.Single<IGameFactory>()));
+      BindGameFactory();
+      BindSaveLoadService();
     }
-    
+
+    private void BindSaveLoadService()
+    {
+      ISaveLoadService saveLoadService = new SaveLoadService(
+        _diContainer.Resolve<IPersistentProgressService>(),
+        _diContainer.Resolve<IGameFactory>());
+
+      _diContainer
+        .Bind<ISaveLoadService>()
+        .FromInstance(saveLoadService)
+        .AsSingle();
+    }
+
+    private void BindGameFactory()
+    {
+      IGameFactory gameFactory = new GameFactory
+      (_diContainer.Resolve<IInputService>(),
+        _diContainer.Resolve<IAssetProvider>(),
+        _diContainer.Resolve<IStaticDataService>(),
+        _diContainer.Resolve<IRandomService>(),
+        _diContainer.Resolve<IPersistentProgressService>(),
+        _diContainer.Resolve<IWindowService>(),
+        _stateMachine,
+        _diContainer);
+
+      _diContainer
+        .Bind<IGameFactory>()
+        .FromInstance(gameFactory)
+        .AsSingle();
+    }
+
     private void EnterLoadLevel() =>
       _stateMachine.Enter<LoadProgressState>();
-   
-
-    
   }
 }

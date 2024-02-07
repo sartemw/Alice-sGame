@@ -21,10 +21,12 @@ MonoBehaviour:
     m_Address: Hud
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cf5e000fb9383314ebcc597ef196d89e
     m_Address: UIRoot
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d78b6c7a5abc2784c90e7f6881d27a04, type: 2}
   m_SchemaSet:

@@ -39,7 +39,6 @@ namespace CodeBase.Infrastructure.Factory
     private readonly IWindowService _windowService;
     private readonly IGameStateMachine _stateMachine;
     private readonly DiContainer _diContainer;
-    private AllServices _services;
 
     public GameFactory(
       IInputService inputService,
@@ -49,10 +48,8 @@ namespace CodeBase.Infrastructure.Factory
       IPersistentProgressService persistentProgressService, 
       IWindowService windowService, 
       IGameStateMachine stateMachine,
-      DiContainer diContainer,
-      AllServices services)
+      DiContainer diContainer)
     {
-      _services = services;
       _diContainer = diContainer;
       _inputService = inputService;
       _assets = assets;
@@ -94,7 +91,7 @@ namespace CodeBase.Infrastructure.Factory
       LevelStaticData levelStaticData = _staticData.ForLevel(SceneManager.GetActiveScene().name);
 
       levelTransfer.TransferTo = levelStaticData.LevelTransfer.TransferTo;
-      levelTransfer.Construct(_stateMachine, _services);
+      levelTransfer.Construct(_stateMachine, _persistentProgressService,  _diContainer.Resolve<ISaveLoadService>());
       levelTransfer.GetComponent<BoxCollider2D>().enabled = false;
 
       doorOpener.Construct(_diContainer.Resolve<IRepaintingService>());
