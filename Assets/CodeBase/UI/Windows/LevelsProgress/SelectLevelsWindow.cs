@@ -52,7 +52,7 @@ namespace CodeBase.UI.Windows.LevelsProgress
                     else
                     {
                         LoadLevelButton loadLevel = level.GetComponent<LoadLevelButton>();
-                        loadLevel.Init(_stateMachine, _sceneLoader);
+                        loadLevel.Init(_stateMachine);
                         loadLevel.LoadLevel = $"{j}-{i}";
                     }
                 }

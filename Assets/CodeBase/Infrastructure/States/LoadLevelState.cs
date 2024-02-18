@@ -26,8 +26,6 @@ namespace CodeBase.Infrastructure.States
     private readonly IStaticDataService _staticData;
     private readonly IUIFactory _uiFactory;
     
-    private string _mainMenu = "MainMenu";
-
     public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IGameFactory gameFactory, IPersistentProgressService progressService, IStaticDataService staticDataService, IUIFactory uiFactory)
     {
       _stateMachine = gameStateMachine;
@@ -53,23 +51,16 @@ namespace CodeBase.Infrastructure.States
 
     private async void OnLoaded()
     {      
+      Debug.Log("OnLoaded");
       await InitUIRoot();
       Debug.Log("InitUIRoot loaded");
 
       await InitGameWorld();
       
-      // if (SceneManager.GetActiveScene().name != _mainMenu)
-      //   await InitGameWorld();
-      // else
-      //   InitMainMenu();
-
       InformProgressReaders();
 
       _stateMachine.Enter<GameLoopState>();
     }
-
-    // private void InitMainMenu() => 
-    //   _uiFactory.CreateMainMenu();
 
     private async Task InitUIRoot() => 
       await _uiFactory.CreateUIRoot();

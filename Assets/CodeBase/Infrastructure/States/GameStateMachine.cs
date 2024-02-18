@@ -38,7 +38,7 @@ namespace CodeBase.Infrastructure.States
           ,diContainer.Resolve<IUIFactory>()
           , sceneLoader
           , loadingCurtain
-          ,diContainer.Resolve<ISaveLoadService>()
+          ,diContainer.Resolve<IPersistentProgressService>()
           , diContainer.Resolve<IGameFactory>()),
         
         [typeof(GameLoopState)] = new GameLoopState(this),

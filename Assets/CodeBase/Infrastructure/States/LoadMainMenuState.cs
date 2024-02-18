@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Logic;
+using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
 using CodeBase.UI.Services.Factory;
 using UnityEngine;
@@ -15,14 +16,14 @@ namespace CodeBase.Infrastructure.States
         private readonly SceneLoader _sceneLoader;
         private GameStateMachine _stateMachine;
         private LoadingCurtain _loadingCurtain;
-        private ISaveLoadService _saveLoadService;
         private IGameFactory _gameFactory;
+        private IPersistentProgressService _progressService;
 
 
         public LoadMainMenuState(GameStateMachine stateMachine, IUIFactory uiFactory, SceneLoader sceneLoader,
-            LoadingCurtain curtain, ISaveLoadService saveLoadService, IGameFactory gameFactory)
+            LoadingCurtain curtain, IPersistentProgressService progressService, IGameFactory gameFactory)
         {
-            _saveLoadService = saveLoadService;
+            _progressService = progressService;
             _loadingCurtain = curtain;
             _stateMachine = stateMachine;
             _uiFactory = uiFactory;
@@ -33,7 +34,7 @@ namespace CodeBase.Infrastructure.States
         public void Enter(string sceneName)
         {
             _loadingCurtain.Show();
-            
+
             _sceneLoader.Load(sceneName, OnLoaded);
         }
 
@@ -45,9 +46,17 @@ namespace CodeBase.Infrastructure.States
             await InitUIRoot();
             InitMainMenu();
             
+            InformProgressReaders();
+            
             _stateMachine.Enter<GameLoopState>();
         }
 
+        private void InformProgressReaders()
+        {
+            foreach (ISavedProgressReader progressReader in _gameFactory.ProgressReaders)
+                progressReader.LoadProgress(_progressService.Progress);
+        }
+        
         private void InitMainMenu() => 
              _uiFactory.CreateMainMenu();
 

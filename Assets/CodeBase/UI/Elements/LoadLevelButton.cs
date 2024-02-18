@@ -1,6 +1,4 @@
-﻿using CodeBase.Infrastructure;
-using CodeBase.Infrastructure.States;
-using CodeBase.UI.Services.Windows;
+﻿using CodeBase.Infrastructure.States;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,23 +10,16 @@ namespace CodeBase.UI.Elements
         public string LoadLevel;
         
         private GameStateMachine _stateMachine;
-        private SceneLoader _sceneLoader;
 
-        public void Init(GameStateMachine stateMachine, SceneLoader sceneLoader)
+        public void Init(GameStateMachine stateMachine)
         {
-            _sceneLoader = sceneLoader;
             _stateMachine = stateMachine;
         }
 
         private void Awake() => 
             Button.onClick.AddListener(StartLevel);
 
-        private void StartLevel()
-        {
-            _sceneLoader.Load(LoadLevel, onLoaded: EnterLoadLevel);
-        }
-        
-        private void EnterLoadLevel() => 
+        private void StartLevel() => 
             _stateMachine.Enter<LoadLevelState, string>(LoadLevel);
     }
 }

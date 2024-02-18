@@ -8,8 +8,8 @@ namespace CodeBase.Infrastructure.States
 {
     public class LoadProgressState : IState
     {
-        //private const string InitialLevel = "MainMenu";
-        private const string InitialLevel = "0-1";
+        private const string InitialLevel = "MainMenu";
+        //private const string InitialLevel = "0-1";
         
         private readonly GameStateMachine _gameStateMachine;
         private readonly IPersistentProgressService _progressService;
@@ -29,14 +29,10 @@ namespace CodeBase.Infrastructure.States
         public void Enter()
         {
             LoadProgressOrInitNew();
-      
-            _sceneLoader.Load(InitialLevel, onLoaded: EnterLoadLevel);
-            //_gameStateMachine.Enter<LoadLevelState, string>(LoadLevel(CurrentLevelProgress()));
+            
+            //_gameStateMachine.Enter<LoadLevelState, string>(_progressService.Progress.WorldData.PositionOnLevel.Level);
+            _gameStateMachine.Enter<LoadMainMenuState, string>(_progressService.Progress.WorldData.PositionOnLevel.Level);
         }
-
-        private void EnterLoadLevel() => 
-            _gameStateMachine.Enter<LoadLevelState, string>(InitialLevel);
-            //_gameStateMachine.Enter<LoadMainMenuState, string>(InitialLevel);
 
         public void Exit()
         {
