@@ -16,30 +16,18 @@ namespace CodeBase.Infrastructure.States
     private Dictionary<Type, IExitableState> _states;
     private IExitableState _activeState;
 
-    public GameStateMachine(SceneLoader sceneLoader, LoadingCurtain loadingCurtain, AllServices services,
+    public GameStateMachine(SceneLoader sceneLoader, LoadingCurtain loadingCurtain,
       DiContainer diContainer)
     {
       _states = new Dictionary<Type, IExitableState>
       {
-        [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, services, diContainer),
+        [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, diContainer),
         
-        [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadingCurtain
-          ,diContainer.Resolve<IGameFactory>()
-          ,diContainer.Resolve<IPersistentProgressService>()
-          , diContainer.Resolve<IStaticDataService>()
-          , diContainer.Resolve<IUIFactory>()),
+        [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadingCurtain, diContainer),
         
-        [typeof(LoadProgressState)] = new LoadProgressState(this
-          ,diContainer.Resolve<IPersistentProgressService>()
-          ,diContainer.Resolve<ISaveLoadService>()
-          ,sceneLoader),
+        [typeof(LoadProgressState)] = new LoadProgressState(this, diContainer),
         
-        [typeof(LoadMainMenuState)] = new LoadMainMenuState(this
-          ,diContainer.Resolve<IUIFactory>()
-          , sceneLoader
-          , loadingCurtain
-          ,diContainer.Resolve<IPersistentProgressService>()
-          , diContainer.Resolve<IGameFactory>()),
+        [typeof(LoadMainMenuState)] = new LoadMainMenuState(this, sceneLoader, loadingCurtain, diContainer),
         
         [typeof(GameLoopState)] = new GameLoopState(this),
       };

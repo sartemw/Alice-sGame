@@ -2,13 +2,11 @@
 using CodeBase.Infrastructure.States;
 using CodeBase.Logic;
 using CodeBase.Mask;
-using CodeBase.Services;
 using CodeBase.Services.Ads;
 using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Randomizer;
 using CodeBase.Services.Repainting;
-using CodeBase.Services.SaveLoad;
 using CodeBase.Services.StaticData;
 using CodeBase.UI.Services.Factory;
 using CodeBase.UI.Services.Windows;
@@ -25,7 +23,6 @@ namespace CodeBase.Infrastructure
         public Material Colorless;
 
         private Game _game;
-        private AllServices _services;
         private IAssetProvider _assetProvider;
         private IStaticDataService _staticData;
         private IInputService _inputService;
@@ -40,8 +37,6 @@ namespace CodeBase.Infrastructure
         public override void InstallBindings()
         {
             BindBootstrapInstaller();
-            BindAllServices();
-            
             BindStaticDataService();
             BindAdsService();
             BindAssetProvider();
@@ -60,14 +55,12 @@ namespace CodeBase.Infrastructure
         private void BindFishDataService()
         {
             _fishData = new FishDataService(_staticData);
-            _services.RegisterSingle<IFishDataService>(_fishData);
             Container.Bind<IFishDataService>().FromInstance(_fishData).AsSingle();
         }
 
         private void BindWindowService()
         {
             _windowService = new WindowService(_uiFactory);
-            _services.RegisterSingle<IWindowService>(_windowService);
             Container
                 .Bind<IWindowService>()
                 .FromInstance(_windowService)
@@ -76,7 +69,6 @@ namespace CodeBase.Infrastructure
         private void BindUIFactory()
         {
             _uiFactory = new UIFactory(_assetProvider, _staticData, _persistentProgress, _adsService, Container);
-            _services.RegisterSingle<IUIFactory>(_uiFactory);
             Container
                 .Bind<IUIFactory>()
                 .FromInstance(_uiFactory)
@@ -85,7 +77,6 @@ namespace CodeBase.Infrastructure
         private void BindPersistentProgressService()
         {
             _persistentProgress = new PersistentProgressService();
-            _services.RegisterSingle<IPersistentProgressService>(_persistentProgress);
             Container
                 .Bind<IPersistentProgressService>()
                 .FromInstance(_persistentProgress)
@@ -94,7 +85,6 @@ namespace CodeBase.Infrastructure
         private void BindRandomService()
         {
             _randomService = new RandomService();
-            _services.RegisterSingle<IRandomService>(_randomService);
             Container
                 .Bind<IRandomService>()
                 .FromInstance(_randomService)
@@ -108,22 +98,12 @@ namespace CodeBase.Infrastructure
                 .Bind<IAdsService>()
                 .FromInstance(_adsService)
                 .AsSingle();
-            _services.RegisterSingle<IAdsService>(_adsService);
         }
         private void BindBootstrapInstaller()
         {
             Container
                 .BindInterfacesTo<BootstrapInstaller>()
                 .FromInstance(this)
-                .AsSingle();
-        }
-        private void BindAllServices()
-        {
-            _services = new AllServices();
-
-            Container
-                .Bind<AllServices>()
-                .FromInstance(_services)
                 .AsSingle();
         }
         private void BindStaticDataService()
@@ -134,8 +114,6 @@ namespace CodeBase.Infrastructure
                 .FromInstance(_staticData)
                 .AsSingle();
             
-            _services.RegisterSingle<IStaticDataService>(_staticData);
-
             _staticData.Load();
         }
         private void BindAssetProvider()
@@ -146,8 +124,6 @@ namespace CodeBase.Infrastructure
                 .FromInstance(_assetProvider)
                 .AsSingle();
             
-            _services.RegisterSingle<IAssetProvider>(_assetProvider);
-
             _assetProvider.Initialize();
         }
         private void BindInputService()
@@ -159,12 +135,10 @@ namespace CodeBase.Infrastructure
                 .Bind<IInputService>()
                 .FromInstance(_inputService)
                 .AsSingle();
-            _services.RegisterSingle<IInputService>(_inputService);
         }
         private void BindRepaintingService()
         {
             _repaintingService = new RepaintingService(Colorless, Colored, Container.Resolve<ScalerPaintingMask.Factory>(), _fishData);
-            _services.RegisterSingle<IRepaintingService>(_repaintingService);
             Container
                 .Bind<IRepaintingService>()
                 .FromInstance(_repaintingService)
@@ -185,7 +159,6 @@ namespace CodeBase.Infrastructure
         {
             _game = new Game(this
                 , Instantiate(CurtainPrefab)
-                , _services
                 , Container);
             Container.Bind<Game>().FromInstance(_game).AsSingle();
 

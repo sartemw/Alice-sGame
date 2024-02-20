@@ -13,6 +13,7 @@ using CodeBase.UI.Elements;
 using CodeBase.UI.Services.Factory;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace CodeBase.Infrastructure.States
 {
@@ -26,15 +27,15 @@ namespace CodeBase.Infrastructure.States
     private readonly IStaticDataService _staticData;
     private readonly IUIFactory _uiFactory;
     
-    public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IGameFactory gameFactory, IPersistentProgressService progressService, IStaticDataService staticDataService, IUIFactory uiFactory)
+    public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain, DiContainer diContainer)
     {
       _stateMachine = gameStateMachine;
       _sceneLoader = sceneLoader;
       _loadingCurtain = loadingCurtain;
-      _gameFactory = gameFactory;
-      _progressService = progressService;
-      _staticData = staticDataService;
-      _uiFactory = uiFactory;
+      _gameFactory = diContainer.Resolve<IGameFactory>();
+      _progressService = diContainer.Resolve<IPersistentProgressService>();
+      _staticData = diContainer.Resolve<IStaticDataService>();
+      _uiFactory = diContainer.Resolve<IUIFactory>();
     }
 
     public void Enter(string sceneName)

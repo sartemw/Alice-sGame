@@ -26,10 +26,7 @@ namespace CodeBase.UI.Elements
 
         private void StartLevel()
         {
-            _sceneLoader.Load(LoadLevel, onLoaded: EnterLoadLevel);
-        }
-        
-        private void EnterLoadLevel() => 
             _stateMachine.Enter<LoadLevelState, string>(LoadLevel);
+        }
     }
 }

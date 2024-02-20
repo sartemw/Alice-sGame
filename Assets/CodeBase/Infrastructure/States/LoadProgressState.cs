@@ -3,35 +3,32 @@ using CodeBase.Data;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.SaveLoad;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.Infrastructure.States
 {
     public class LoadProgressState : IState
     {
         private const string InitialLevel = "MainMenu";
-        //private const string InitialLevel = "0-1";
         
-        private readonly GameStateMachine _gameStateMachine;
+        private readonly GameStateMachine _stateMachine;
         private readonly IPersistentProgressService _progressService;
         private readonly ISaveLoadService _saveLoadProgress;
         
-        private SceneLoader _sceneLoader;
-
-
-        public LoadProgressState(GameStateMachine gameStateMachine, IPersistentProgressService progressService, ISaveLoadService saveLoadProgress, SceneLoader sceneLoader)
+        public LoadProgressState(GameStateMachine stateMachine, DiContainer diContainer)
         {
-            _gameStateMachine = gameStateMachine;
-            _progressService = progressService;
-            _saveLoadProgress = saveLoadProgress;
-            _sceneLoader = sceneLoader;
+            _stateMachine = stateMachine;
+            _progressService = diContainer.Resolve<IPersistentProgressService>();
+            _saveLoadProgress = diContainer.Resolve<ISaveLoadService>();
         }
 
         public void Enter()
         {
             LoadProgressOrInitNew();
             
-            //_gameStateMachine.Enter<LoadLevelState, string>(_progressService.Progress.WorldData.PositionOnLevel.Level);
-            _gameStateMachine.Enter<LoadMainMenuState, string>(_progressService.Progress.WorldData.PositionOnLevel.Level);
+            //_stateMachine.Enter<LoadLevelState, string>("0-1");
+            _stateMachine.Enter<LoadMainMenuState, string>(_progressService.Progress.WorldData.PositionOnLevel.Level);
+            
         }
 
         public void Exit()

@@ -2,16 +2,13 @@
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Logic;
 using CodeBase.Services.PersistentProgress;
-using CodeBase.Services.SaveLoad;
 using CodeBase.UI.Services.Factory;
-using UnityEngine;
+using Zenject;
 
 namespace CodeBase.Infrastructure.States
 {
     public class LoadMainMenuState : IPayloadedState<string>
     {
-        private const string sceneName = "MainMenu";
-
         private readonly IUIFactory _uiFactory;
         private readonly SceneLoader _sceneLoader;
         private GameStateMachine _stateMachine;
@@ -20,21 +17,23 @@ namespace CodeBase.Infrastructure.States
         private IPersistentProgressService _progressService;
 
 
-        public LoadMainMenuState(GameStateMachine stateMachine, IUIFactory uiFactory, SceneLoader sceneLoader,
-            LoadingCurtain curtain, IPersistentProgressService progressService, IGameFactory gameFactory)
+        public LoadMainMenuState(GameStateMachine stateMachine, SceneLoader sceneLoader,
+            LoadingCurtain curtain, DiContainer diContainer)
         {
-            _progressService = progressService;
-            _loadingCurtain = curtain;
             _stateMachine = stateMachine;
-            _uiFactory = uiFactory;
             _sceneLoader = sceneLoader;
-            _gameFactory = gameFactory;
+            _loadingCurtain = curtain;
+            _progressService = diContainer.Resolve<IPersistentProgressService>();
+            _uiFactory = diContainer.Resolve<IUIFactory>();
+            _gameFactory = diContainer.Resolve<IGameFactory>();
         }
 
         public void Enter(string sceneName)
         {
             _loadingCurtain.Show();
-
+            _gameFactory.Cleanup();
+            _gameFactory.WarmUp();
+            
             _sceneLoader.Load(sceneName, OnLoaded);
         }
 
@@ -49,6 +48,7 @@ namespace CodeBase.Infrastructure.States
             InformProgressReaders();
             
             _stateMachine.Enter<GameLoopState>();
+            //_stateMachine.Enter<LoadProgressState>();
         }
 
         private void InformProgressReaders()

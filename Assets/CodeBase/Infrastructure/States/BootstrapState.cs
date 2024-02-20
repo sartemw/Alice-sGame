@@ -17,16 +17,14 @@ namespace CodeBase.Infrastructure.States
     private const string Initial = "Initial";
     private readonly GameStateMachine _stateMachine;
     private readonly SceneLoader _sceneLoader;
-    private readonly AllServices _services;
-    private DiContainer _diContainer;
+    private readonly DiContainer _diContainer;
 
-    public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader, AllServices services,
+    public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader,
       DiContainer diContainer)
     {
       _diContainer = diContainer;
       _stateMachine = stateMachine;
       _sceneLoader = sceneLoader;
-      _services = services;
       
       RegisterServices();
     }
