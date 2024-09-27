@@ -38,11 +38,11 @@ namespace CodeBase.Infrastructure.AssetManagement
         cacheKey: address);
     }
 
-    public Task<GameObject> Instantiate(string address, Vector3 at) => 
-      Addressables.InstantiateAsync(address, at, Quaternion.identity).Task;
+    public async Task<GameObject> Instantiate(string address, Vector3 at) => 
+      await Addressables.InstantiateAsync(address, at, Quaternion.identity).Task;
 
-    public Task<GameObject> Instantiate(string address) => 
-      Addressables.InstantiateAsync(address).Task;
+    public async Task<GameObject> Instantiate(string address) => 
+      await Addressables.InstantiateAsync(address).Task;
 
     public void Cleanup()
     {

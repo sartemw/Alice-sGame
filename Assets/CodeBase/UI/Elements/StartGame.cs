@@ -13,20 +13,14 @@ namespace CodeBase.UI.Elements
         public string LoadLevel = "0-1";
         
         private IGameStateMachine _stateMachine;
-        private SceneLoader _sceneLoader;
         
-        public void Construct (IGameStateMachine stateMachine, SceneLoader sceneLoader)
-        {
-            _sceneLoader = sceneLoader;
+        public void Construct (IGameStateMachine stateMachine) => 
             _stateMachine = stateMachine;
-        }
 
         private void Awake() => 
             Button.onClick.AddListener(StartLevel);
 
-        private void StartLevel()
-        {
+        private void StartLevel() => 
             _stateMachine.Enter<LoadLevelState, string>(LoadLevel);
-        }
     }
 }

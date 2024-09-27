@@ -43,7 +43,7 @@ namespace CodeBase.Infrastructure.States
         private async void OnLoaded()
         {
             await InitUIRoot();
-            InitMainMenu();
+            await InitMainMenu();
             
             InformProgressReaders();
             
@@ -57,8 +57,8 @@ namespace CodeBase.Infrastructure.States
                 progressReader.LoadProgress(_progressService.Progress);
         }
         
-        private void InitMainMenu() => 
-             _uiFactory.CreateMainMenu();
+        private async Task InitMainMenu() => 
+            await _uiFactory.CreateMainMenu();
 
         private async Task InitUIRoot() => 
             await _uiFactory.CreateUIRoot();

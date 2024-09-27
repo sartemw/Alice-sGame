@@ -8,6 +8,6 @@ namespace CodeBase.UI.Services.Factory
     Task CreateUIRoot();
     void CreateShop();
     void CreateLevelsProgress();
-    void CreateMainMenu();
+    Task CreateMainMenu();
   }
 }

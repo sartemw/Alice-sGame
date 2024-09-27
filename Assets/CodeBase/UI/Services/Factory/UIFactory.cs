@@ -44,18 +44,19 @@ namespace CodeBase.UI.Services.Factory
       window.Construct(_progressService, _container.Resolve<Game>().StateMachine, _container.Resolve<SceneLoader>());
     }
 
-    public void CreateMainMenu()
+    public Task CreateMainMenu()
     {
       WindowConfig config = _staticData.ForWindow(WindowId.MainMenu);
-      MainMenu window = Object.Instantiate(config.Template, _uiRoot) as MainMenu;
+      MainMenu window =  Object.Instantiate(config.Template, _uiRoot) as MainMenu;
       
       window.Construct(_progressService);
 
-      var start = window.GetComponentInChildren<StartGame>();
-      start.Construct(_container.Resolve<IGameStateMachine>(), _container.Resolve<SceneLoader>());
+      StartGame start = window.GetComponentInChildren<StartGame>();
+      start.Construct(_container.Resolve<IGameStateMachine>());
       
       foreach (OpenWindowButton openWindowButton in window.GetComponentsInChildren<OpenWindowButton>())
         openWindowButton.Init(_container.Resolve<IWindowService>());
+      return Task.CompletedTask;
     }
 
     public void CreateShop()
@@ -67,8 +68,11 @@ namespace CodeBase.UI.Services.Factory
 
     public async Task CreateUIRoot()
     {
+      Debug.Log("CreateUIRoot");
       GameObject result = await _assets.Instantiate(UIRootPath);
+      Debug.Log("_assets UIRootPath DONE");
       _uiRoot = result.transform;
+      Debug.Log("_uiRoot");
     }
   }
 }
