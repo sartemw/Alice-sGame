@@ -8,10 +8,11 @@ namespace CodeBase.UI
         protected override void Cleanup()
         {
             base.Cleanup();
-            Exit();
         }
-        private void Exit() => 
+        private void Exit()
+        {
+            Cleanup();
             Application.Quit();
-        
+        }
     }
 }

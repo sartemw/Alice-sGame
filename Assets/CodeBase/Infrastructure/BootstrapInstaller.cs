@@ -1,8 +1,10 @@
 ﻿using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.States;
 using CodeBase.Logic;
+using CodeBase.Logic.Curtain;
 using CodeBase.Mask;
 using CodeBase.Services.Ads;
+using CodeBase.Services.Audio;
 using CodeBase.Services.Input;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.Randomizer;
@@ -18,7 +20,7 @@ namespace CodeBase.Infrastructure
     public class BootstrapInstaller : MonoInstaller, IInitializable, ICoroutineRunner
     {
         public LoadingCurtain CurtainPrefab;
-        
+
         public Material Colored;
         public Material Colorless;
 
@@ -33,12 +35,14 @@ namespace CodeBase.Infrastructure
         private IWindowService _windowService;
         private IRepaintingService _repaintingService;
         private IFishDataService _fishData;
+        private IAudioService _audioService;
+        private IAudioAssetsService _audioAssetsService;
 
         public override void InstallBindings()
         {
             BindBootstrapInstaller();
             BindStaticDataService();
-            BindAdsService();
+            //BindAdsService();
             BindAssetProvider();
             BindInputService();
             BindRandomService();
@@ -47,7 +51,10 @@ namespace CodeBase.Infrastructure
             BindWindowService();
 
             BindFishDataService();
-            BindRepaintingService();
+            BindRepaintingService(); 
+            
+            BindAudioAssetService();
+            BindAudioService();
         }
 
         #region Binding
@@ -66,6 +73,7 @@ namespace CodeBase.Infrastructure
                 .FromInstance(_windowService)
                 .AsSingle();
         }
+
         private void BindUIFactory()
         {
             _uiFactory = new UIFactory(_assetProvider, _staticData, _persistentProgress, _adsService, Container);
@@ -74,6 +82,7 @@ namespace CodeBase.Infrastructure
                 .FromInstance(_uiFactory)
                 .AsSingle();
         }
+
         private void BindPersistentProgressService()
         {
             _persistentProgress = new PersistentProgressService();
@@ -82,6 +91,7 @@ namespace CodeBase.Infrastructure
                 .FromInstance(_persistentProgress)
                 .AsSingle();
         }
+
         private void BindRandomService()
         {
             _randomService = new RandomService();
@@ -90,15 +100,25 @@ namespace CodeBase.Infrastructure
                 .FromInstance(_randomService)
                 .AsSingle();
         }
-        private void BindAdsService()
-        {
-            _adsService = new AdsService();
-            _adsService.Initialize();
-            Container
-                .Bind<IAdsService>()
-                .FromInstance(_adsService)
-                .AsSingle();
-        }
+
+        // private void BindAdsService()
+
+        // {
+
+        //     _adsService = new AdsService();
+
+        //     _adsService.Initialize();
+
+        //     Container
+
+        //         .Bind<IAdsService>()
+
+        //         .FromInstance(_adsService)
+
+        //         .AsSingle();
+
+        // }
+
         private void BindBootstrapInstaller()
         {
             Container
@@ -106,53 +126,79 @@ namespace CodeBase.Infrastructure
                 .FromInstance(this)
                 .AsSingle();
         }
+
         private void BindStaticDataService()
         {
             _staticData = new StaticDataService();
-            
+
             Container.Bind<IStaticDataService>()
                 .FromInstance(_staticData)
                 .AsSingle();
-            
+
             _staticData.Load();
         }
+
         private void BindAssetProvider()
         {
             _assetProvider = new AssetProvider();
-            
+
             Container.Bind<IAssetProvider>()
                 .FromInstance(_assetProvider)
                 .AsSingle();
-            
+
             _assetProvider.Initialize();
         }
+
         private void BindInputService()
         {
             //_inputService = ChangeInputService();
             _inputService = new StandaloneInputService();
-            
+
             Container
                 .Bind<IInputService>()
                 .FromInstance(_inputService)
                 .AsSingle();
         }
+
         private void BindRepaintingService()
         {
-            _repaintingService = new RepaintingService(Colorless, Colored, Container.Resolve<ScalerPaintingMask.Factory>(), _fishData);
+            _repaintingService = new RepaintingService(Colorless, Colored,
+                Container.Resolve<ScalerPaintingMask.Factory>(), _fishData);
             Container
                 .Bind<IRepaintingService>()
                 .FromInstance(_repaintingService)
                 .AsSingle();
         }
-       
+
+        private void BindAudioAssetService()
+        {
+            _audioAssetsService = new AudioAssetsService();
+            Container
+                .Bind<IAudioAssetsService>()
+                .FromInstance(_audioAssetsService)
+                .AsSingle();
+            
+            _audioAssetsService.Load();
+        }
+
+        private void BindAudioService()
+        {
+            _audioService = new AudioService(GetComponent<AudioSource>(), _audioAssetsService);
+            Container
+                .Bind<IAudioService>()
+                .FromInstance(_audioService)
+                .AsSingle();
+        }
+
         private static IInputService ChangeInputService() =>
             Application.isEditor
                 ? (IInputService) new StandaloneInputService()
                 : new MobileInputService();
+
         #endregion
 
-        
-        public void Initialize() => 
+
+        public void Initialize() =>
             CreateGame();
 
         private void CreateGame()
@@ -163,7 +209,6 @@ namespace CodeBase.Infrastructure
             Container.Bind<Game>().FromInstance(_game).AsSingle();
 
             _game.StateMachine.Enter<BootstrapState>();
-
         }
     }
 }
