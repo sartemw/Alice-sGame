@@ -162,7 +162,6 @@ GameObject:
   - component: {fileID: 1549920665017603986}
   - component: {fileID: 4241181723013207809}
   - component: {fileID: 2559078547859956341}
-  - component: {fileID: 8220489719761852583}
   m_Layer: 5
   m_Name: PawAnimation
   m_TagString: Untagged
@@ -318,21 +317,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8220489719761852583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6900868321175700443}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c29137df7981ba34ab259c458ff46ffe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _splash:
-  - {fileID: 8300000, guid: 4bdb78900577fad47814c6c1709a55c8, type: 3}
-  - {fileID: 8300000, guid: 4959380985ec15b489007e13ef09f31c, type: 3}
 --- !u!1 &7647130732292204781
 GameObject:
   m_ObjectHideFlags: 0

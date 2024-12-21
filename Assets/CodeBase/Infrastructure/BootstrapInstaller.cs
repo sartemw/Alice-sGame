@@ -159,7 +159,6 @@ namespace CodeBase.Infrastructure
                 .FromInstance(_inputService)
                 .AsSingle();
         }
-
         private void BindRepaintingService()
         {
             _repaintingService = new RepaintingService(Colorless, Colored,
