@@ -1,6 +1,11 @@
 fileFormatVersion: 2
-guid: 5e6fa8d2c1467cf40be24844780477e8
+<<<<<<<< HEAD:Assets/Resources/PerformanceTestRunInfo.json.meta
+guid: 0787ac98e6bd9c840a0fa24996e708c3
+TextScriptImporter:
+========
+guid: 90921d8cc4c840a44818eeb6c3bebbae
 DefaultImporter:
+>>>>>>>> bdff220ae6a0b1d2e205cc25d0a04cc733b3e9a7:Assets/Plugins/Android/mainTemplate.gradle.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

@@ -27,8 +27,7 @@ namespace CodeBase.Infrastructure.States
             LoadProgressOrInitNew();
             
             //_stateMachine.Enter<LoadLevelState, string>("0-1");
-            _stateMachine.Enter<LoadMainMenuState, string>(_progressService.Progress.WorldData.PositionOnLevel.Level);
-            
+            _stateMachine.Enter<LoadMainMenuState, string>(InitialLevel);
         }
 
         public void Exit()
@@ -47,7 +46,7 @@ namespace CodeBase.Infrastructure.States
         private PlayerProgress NewProgress()
         {
 
-            var progress =  new PlayerProgress(initialLevel: InitialLevel);
+            var progress =  new PlayerProgress(initialLevel: "0-1");
 
             progress.HeroState.MaxHP = 50;
             progress.HeroStats.Damage = 1;

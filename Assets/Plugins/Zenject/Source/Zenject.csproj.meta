@@ -1,8 +1,13 @@
 fileFormatVersion: 2
-guid: 8645273165cb7f54290d6eaa1e10ab37
-timeCreated: 1461878212
+<<<<<<<< HEAD:Assets/Plugins/Zenject/OptionalExtras/IntegrationTests/SceneContractTests/AutoLoader/Scene1.unity.meta
+guid: 842c1766cf27f1e469d9d41b9f829ab7
+timeCreated: 1520771077
 licenseType: Store
+========
+guid: 8645273165cb7f54290d6eaa1e10ab37
+>>>>>>>> bdff220ae6a0b1d2e205cc25d0a04cc733b3e9a7:Assets/Plugins/Zenject/Source/Zenject.csproj.meta
 DefaultImporter:
+  externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 

@@ -5,7 +5,7 @@
   <files />
   <settings>
     <setting name="androidAbis" value="armeabi-v7a,x86" />
-    <setting name="bundleId" value="com.ArtemSgame.AlicesGame" />
+    <setting name="bundleId" value="com.ArtemSgame.AliceGame" />
     <setting name="explodeAars" value="True" />
     <setting name="gradleBuildEnabled" value="True" />
     <setting name="gradleTemplateEnabled" value="True" />
@@ -14,6 +14,6 @@
     <setting name="patchAndroidManifest" value="True" />
     <setting name="patchMainTemplateGradle" value="True" />
     <setting name="projectExportEnabled" value="False" />
-    <setting name="useJetifier" value="True" />
+    <setting name="useJetifier" value="False" />
   </settings>
 </dependencies>

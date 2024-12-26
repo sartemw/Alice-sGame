@@ -1,5 +1,11 @@
 fileFormatVersion: 2
-guid: 46257f83edfbdea4ea4aff7074b1e052
+<<<<<<<< HEAD:Assets/Plugins/Zenject/OptionalExtras/IntegrationTests/SceneContractTests/AutoLoader/Scene3.unity.meta
+guid: faa2053ed94777648896eb4be8f2b5c1
+timeCreated: 1520771077
+licenseType: Store
+========
+guid: d05793ef9324b4f46ac289c80882a9c9
+>>>>>>>> bdff220ae6a0b1d2e205cc25d0a04cc733b3e9a7:Assets/Plugins/Android/settingsTemplate.gradle.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

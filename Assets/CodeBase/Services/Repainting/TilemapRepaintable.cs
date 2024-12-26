@@ -22,6 +22,7 @@ namespace CodeBase.Services.Repainting
         {
             GameObject colorless = Instantiate(gameObject, transform.position, transform.rotation, transform);
             TilemapRenderer colorlessRenderer = colorless.GetComponent<TilemapRenderer>();
+            colorlessRenderer.sortingOrder = -(int) ColorType*10;
             colorlessRenderer.material = _repaintingService.Colorless;
             colorlessRenderer.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
         }
@@ -29,6 +30,8 @@ namespace CodeBase.Services.Repainting
         private void ColoredSetup()
         {
             TilemapRenderer coloredRenderer = GetComponent<TilemapRenderer>();
+            if (!coloredRenderer) return;
+            coloredRenderer.sortingOrder = -(int) ColorType*10;
             coloredRenderer.material = _repaintingService.Colored;
             coloredRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
         }

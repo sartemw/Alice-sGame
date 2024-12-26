@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using CodeBase.Infrastructure;
 using CodeBase.Infrastructure.AssetManagement;
-using CodeBase.Infrastructure.States;
 using CodeBase.Services.Ads;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
@@ -50,9 +49,6 @@ namespace CodeBase.UI.Services.Factory
       MainMenu window =  Object.Instantiate(config.Template, _uiRoot) as MainMenu;
       
       window.Construct(_progressService);
-
-      StartGame start = window.GetComponentInChildren<StartGame>();
-      start.Construct(_container.Resolve<IGameStateMachine>());
       
       foreach (OpenWindowButton openWindowButton in window.GetComponentsInChildren<OpenWindowButton>())
         openWindowButton.Init(_container.Resolve<IWindowService>());
@@ -68,11 +64,8 @@ namespace CodeBase.UI.Services.Factory
 
     public async Task CreateUIRoot()
     {
-      Debug.Log("CreateUIRoot");
       GameObject result = await _assets.Instantiate(UIRootPath);
-      Debug.Log("_assets UIRootPath DONE");
       _uiRoot = result.transform;
-      Debug.Log("_uiRoot");
     }
   }
 }

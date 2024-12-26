@@ -1,5 +1,11 @@
 fileFormatVersion: 2
-guid: e5f4a9cc396306049819a4d43f5846a1
+<<<<<<<< HEAD:Assets/Plugins/Zenject/OptionalExtras/MemoryPoolMonitor/Editor/Resources/Installers/MpmSettingsInstaller.asset.meta
+guid: b8f181012b3a35f46ab27f3840f85f55
+timeCreated: 1521391162
+licenseType: Store
+========
+guid: 434bf9d413ecb5044968ea550e352ef7
+>>>>>>>> bdff220ae6a0b1d2e205cc25d0a04cc733b3e9a7:Assets/Adaptive Performance/Settings/Simulator Provider Settings.asset.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

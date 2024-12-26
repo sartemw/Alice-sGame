@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using CodeBase.Infrastructure.Factory;
-using CodeBase.Logic;
+using CodeBase.Logic.Curtain;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.UI.Services.Factory;
 using Zenject;
@@ -33,12 +33,14 @@ namespace CodeBase.Infrastructure.States
             _loadingCurtain.Show();
             _gameFactory.Cleanup();
             _gameFactory.WarmUp();
-            
+
             _sceneLoader.Load(sceneName, OnLoaded);
         }
 
-        public void Exit() => 
+        public void Exit()
+        {
             _loadingCurtain.Hide();
+        }
 
         private async void OnLoaded()
         {
@@ -48,7 +50,6 @@ namespace CodeBase.Infrastructure.States
             InformProgressReaders();
             
             _stateMachine.Enter<GameLoopState>();
-            //_stateMachine.Enter<LoadProgressState>();
         }
 
         private void InformProgressReaders()

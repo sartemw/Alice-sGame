@@ -43,7 +43,7 @@ namespace CodeBase.Logic.Jumper
             
             _rigidbody2D
                 .DOJump(end, JumpForce, 1, 2)
-                .SetEase(Ease.OutQuart)
+                .SetEase(Ease.InOutBack)
                 .OnComplete(ActiveHero);
         }
 

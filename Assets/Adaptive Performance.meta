@@ -1,6 +1,11 @@
 fileFormatVersion: 2
-guid: e0c62cd431c1b2243a611956980e3351
+guid: 501c011c3fd985f4795fdbb2e8fd1cf0
 folderAsset: yes
+<<<<<<<< HEAD:Assets/Plugins/Zenject/OptionalExtras/IntegrationTests/Bindings/TestFromGameObjectInstaller.meta
+timeCreated: 1538468409
+licenseType: Store
+========
+>>>>>>>> bdff220ae6a0b1d2e205cc25d0a04cc733b3e9a7:Assets/Adaptive Performance.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

@@ -6,6 +6,7 @@ using CodeBase.Enemy;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Logic;
+using CodeBase.Logic.Curtain;
 using CodeBase.Services.PersistentProgress;
 using CodeBase.Services.StaticData;
 using CodeBase.StaticData;
@@ -45,16 +46,18 @@ namespace CodeBase.Infrastructure.States
       _gameFactory.WarmUp();
 
       _sceneLoader.Load(sceneName, OnLoaded);
+      Debug.Log($"<color=yellow> Load {sceneName} scene</color>");
     }
 
-    public void Exit() =>
+    public void Exit()
+    {
       _loadingCurtain.Hide();
+      
+    }
 
     private async void OnLoaded()
     {      
-      Debug.Log("OnLoaded");
       await InitUIRoot();
-      Debug.Log("InitUIRoot loaded");
 
       await InitGameWorld();
       

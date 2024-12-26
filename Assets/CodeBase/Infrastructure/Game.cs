@@ -1,5 +1,6 @@
 using CodeBase.Infrastructure.States;
 using CodeBase.Logic;
+using CodeBase.Logic.Curtain;
 using CodeBase.Services;
 using CodeBase.Services.Input;
 using Zenject;
