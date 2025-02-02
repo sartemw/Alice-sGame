@@ -16,7 +16,7 @@ namespace CodeBase.Infrastructure
         public void Initialize()
         {
             ResolveFishDataService();
-            ResolveFishRepaintableService();
+            ResolveRepaintingService();
         }
 
         private void BindInstaller()
@@ -33,7 +33,7 @@ namespace CodeBase.Infrastructure
             fishDataService.Restart();
         }
 
-        private void ResolveFishRepaintableService()
+        private void ResolveRepaintingService()
         {
             IRepaintingService repaintingService = Container.Resolve<IRepaintingService>();
             repaintingService.Restart();
