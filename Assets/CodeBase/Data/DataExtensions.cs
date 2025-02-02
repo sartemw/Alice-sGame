@@ -85,5 +85,48 @@ namespace CodeBase.Data
                     return Color.white;
             }
         }
+        
+        public static int SorterPaintLayer(this ColorType colorType)
+        {
+            // switch (colorType)
+            // {
+            //     case ColorType.Red:       //грунт
+            //         return -2;
+            //     case ColorType.Green:     //трава
+            //         return -4;
+            //     case ColorType.Blue:      //вода
+            //         return -3;
+            //     case ColorType.Yellow:    //солнце
+            //         return -5;
+            //     case ColorType.Cyan:      //фон
+            //         return -1;
+            //     case ColorType.Purple:    //хз
+            //         return -6;
+            //     case ColorType.Rainbow:   //все остальное
+            //         return -7;
+            //     default:
+            //         return -8;            //что-то
+            // }
+            
+            switch (colorType)
+            {
+                case ColorType.Red:       //грунт
+                    return -7;
+                case ColorType.Green:     //трава
+                    return -5;
+                case ColorType.Blue:      //вода
+                    return -6;
+                case ColorType.Yellow:    //солнце
+                    return -4;
+                case ColorType.Cyan:      //фон
+                    return -8;
+                case ColorType.Purple:    //хз
+                    return -3;
+                case ColorType.Rainbow:   //все остальное
+                    return -2;
+                default:
+                    return -1;            //что-то
+            }
+        }
     }
 }

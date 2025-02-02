@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CodeBase.Data;
 using CodeBase.Fish;
 using CodeBase.Mask;
 using CodeBase.Services.StaticData;
@@ -87,6 +88,24 @@ namespace CodeBase.Services.Repainting
             fish.gameObject.SetActive(false);
         }
 
+        private bool cenrep = true;
+        private Material repaints;
+        public void Painting(GameObject paintingObject)
+        {
+            //repaints.Add(paintingObject, paintingObject.GetComponent<SpriteRenderer>().material);
+            if (cenrep = true)
+            {
+                repaints = paintingObject.GetComponent<SpriteRenderer>().material;
+                cenrep = false;
+            }
+
+            paintingObject.GetComponent<SpriteRenderer>().material = Colorless;
+        }
+        public void RePainting(GameObject paintingObject)
+        {
+            paintingObject.GetComponent<SpriteRenderer>().material = repaints;
+        }
+
         private ScalerPaintingMask CreateMask(ColoredFish fish)
         {
             ScalerPaintingMask mask = _maskFactory.Create();
@@ -102,8 +121,10 @@ namespace CodeBase.Services.Repainting
             else
             {
                 mask.GetComponent<SpriteRenderer>().color = fish.Color;
-                mask.GetComponent<SpriteMask>().frontSortingOrder = +5- (int) fish.ColorType*10;
-                mask.GetComponent<SpriteMask>().backSortingOrder = -5 - (int) fish.ColorType*10;
+                // mask.GetComponent<SpriteMask>().frontSortingOrder = +5- (int) fish.ColorType*10;
+                // mask.GetComponent<SpriteMask>().backSortingOrder = -5 - (int) fish.ColorType*10;
+                mask.GetComponent<SpriteMask>().frontSortingOrder = fish.ColorType.SorterPaintLayer()*10+5;
+                mask.GetComponent<SpriteMask>().backSortingOrder = fish.ColorType.SorterPaintLayer()*10-5;
             }
             
             return mask;

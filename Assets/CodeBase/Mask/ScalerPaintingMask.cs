@@ -23,7 +23,6 @@ namespace CodeBase.Mask
                 .OnComplete(ScalingCompleted);
         }
 
-
         private void ScalingCompleted() => 
             OnScalingComplete?.Invoke();
 

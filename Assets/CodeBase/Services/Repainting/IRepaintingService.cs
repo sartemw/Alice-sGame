@@ -14,6 +14,9 @@ namespace CodeBase.Services.Repainting
         public List<Repaintable> ColoredObjs{ get; }
         public Material Colorless{get;}
         public  Material Colored {get;}
+
+        public void Painting(GameObject paintingObject);
+        public void RePainting(GameObject paintingObject);
         public void Restart();
     }
 }
