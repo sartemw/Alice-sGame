@@ -40,42 +40,42 @@ namespace CodeBase.Services.Repainting
             _maskFactory = maskFactory;
             _fishDataService = fishDataService;
             _fishDataService.FishPickedUp += Painting;
+
+            CleanUp();
         }
 
         public void Restart()
         {
-            CleanUp();
-
-            Repaintable[] repaintables = GameObject.FindObjectsOfType<Repaintable>();
-        
-            foreach (Repaintable repaintable in repaintables)
-            {
-                FillingRepaintingData(repaintable);
-
-                ColorlessObjs.Add(repaintable);
-            }
+            // Repaintable[] repaintables = GameObject.FindObjectsOfType<Repaintable>();
+            //
+            // foreach (Repaintable repaintable in repaintables)
+            // {
+            //     FillingRepaintingData(repaintable);
+            //
+            //     ColorlessObjs.Add(repaintable);
+            // }
 
             if (_fishDataService.FishOnLevel == 0)
                 PaintingOverLevel();
         }
         
-        private void FillingRepaintingData(Repaintable repaintable)
-        {
-            Vector2 posC = repaintable.GetComponent<Renderer>().bounds.center;
-            Vector2 size = repaintable.GetComponent<Renderer>().bounds.size;
-
-            RepaintingData repaintingData = new RepaintingData();
-            repaintingData.AnglesCoordinates = new Dictionary<int, Vector2>()
-            {
-                {1, new Vector2(posC.x + size.x / 2, posC.y + size.y / 2)},
-                {2, new Vector2(posC.x + size.x / -2, posC.y + size.y / -2)},
-                {3, new Vector2(posC.x + size.x / 2, posC.y + size.y / -2)},
-                {4, new Vector2(posC.x + size.x / -2, posC.y + size.y / 2)}
-            };
-            repaintingData.RepaintableObjects = repaintable;
-
-            RepaintingDatas.Add(repaintingData);
-        }
+        // private void FillingRepaintingData(Repaintable repaintable)
+        // {
+        //     Vector2 posC = repaintable.GetComponent<Renderer>().bounds.center;
+        //     Vector2 size = repaintable.GetComponent<Renderer>().bounds.size;
+        //
+        //     RepaintingData repaintingData = new RepaintingData();
+        //     repaintingData.AnglesCoordinates = new Dictionary<int, Vector2>()
+        //     {
+        //         {1, new Vector2(posC.x + size.x / 2, posC.y + size.y / 2)},
+        //         {2, new Vector2(posC.x + size.x / -2, posC.y + size.y / -2)},
+        //         {3, new Vector2(posC.x + size.x / 2, posC.y + size.y / -2)},
+        //         {4, new Vector2(posC.x + size.x / -2, posC.y + size.y / 2)}
+        //     };
+        //     repaintingData.RepaintableObjects = repaintable;
+        //
+        //     RepaintingDatas.Add(repaintingData);
+        // }
 
         private static bool IsInitialOrEndScene() => 
             SceneManager.GetActiveScene().name == Initial 
@@ -172,46 +172,69 @@ namespace CodeBase.Services.Repainting
 
         private void PaintingPickedUpFish(ColoredFish fish)
         {
-            float increaseScale = 0;
-            float maxDistancePainting = 0;
-            foreach (Repaintable colorlessObj in ColorlessObjs.ToList())
+            Debug.Log($"<color={fish.ColorType}> Picked {fish.ColorType} fish</color>");
+            Debug.Log(            ColorlessObjs.Count);
+            Debug.Log(            ColoredObjs.Count);
+            foreach (Repaintable colorlessObj in ColorlessObjs)
             {
                 if (fish.ColorType == colorlessObj.ColorType
                     || fish.ColorType == ColorType.Rainbow)
                 {
-                    foreach (RepaintingData data in RepaintingDatas.ToList())
-                    {
-                        if (data.RepaintableObjects == colorlessObj)
-                        {
-                            for (int i = 1; i < 5; i++)
-                            {
-                                float distance = Vector2.Distance(
-                                    fish.transform.position
-                                    , data.AnglesCoordinates[i]);
-                                if (maxDistancePainting < distance)
-                                {
-                                    maxDistancePainting = distance;
-                                    increaseScale = maxDistancePainting * ScaleMultiple;
-                                }
-                            }
-                            RepaintingDatas.Remove(data);
-                        }
-                    }
-                    ColoredObjs.Add(colorlessObj);
-                    ColorlessObjs.Remove(colorlessObj);
+                    Debug.Log($"<color=red> Destroy {colorlessObj.name}</color>");
+                    GameObject.Destroy(colorlessObj.gameObject);
                 }
             }
-            ScalerPaintingMask mask = CreateMask(fish);
-            mask.StartScaling(increaseScale);
-
-            if(_fishDataService.FishOnLevel == 0)
-            {
-                _finishedMask = mask;
-                _finishedMask.OnScalingComplete += PaintingOverLevel;
-            }
-
             
+            foreach (Repaintable coloredObj in ColoredObjs)
+            {
+                if (fish.ColorType == coloredObj.ColorType
+                    || fish.ColorType == ColorType.Rainbow)
+                {
+                    Debug.Log($"<color=purple> Repainting {coloredObj.name}</color>");
+                    coloredObj.GetComponent<Renderer>().material.SetFloat("Fade", 1);
+                }
+            }
         }
+        // private void PaintingPickedUpFish(ColoredFish fish)
+        // {
+        //     float increaseScale = 0;
+        //     float maxDistancePainting = 0;
+        //     foreach (Repaintable colorlessObj in ColorlessObjs.ToList())
+        //     {
+        //         if (fish.ColorType == colorlessObj.ColorType
+        //             || fish.ColorType == ColorType.Rainbow)
+        //         {
+        //             foreach (RepaintingData data in RepaintingDatas.ToList())
+        //             {
+        //                 if (data.RepaintableObjects == colorlessObj)
+        //                 {
+        //                     for (int i = 1; i < 5; i++)
+        //                     {
+        //                         float distance = Vector2.Distance(
+        //                             fish.transform.position
+        //                             , data.AnglesCoordinates[i]);
+        //                         if (maxDistancePainting < distance)
+        //                         {
+        //                             maxDistancePainting = distance;
+        //                             increaseScale = maxDistancePainting * ScaleMultiple;
+        //                         }
+        //                     }
+        //                     RepaintingDatas.Remove(data);
+        //                 }
+        //             }
+        //             ColoredObjs.Add(colorlessObj);
+        //             ColorlessObjs.Remove(colorlessObj);
+        //         }
+        //     }
+        //     ScalerPaintingMask mask = CreateMask(fish);
+        //     mask.StartScaling(increaseScale);
+        //
+        //     if(_fishDataService.FishOnLevel == 0)
+        //     {
+        //         _finishedMask = mask;
+        //         _finishedMask.OnScalingComplete += PaintingOverLevel;
+        //     }
+        // }
 
         private void CleanUp()
         {

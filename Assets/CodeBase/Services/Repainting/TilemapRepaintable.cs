@@ -28,19 +28,24 @@ namespace CodeBase.Services.Repainting
                 return;
             }
             //coloredRenderer.sortingOrder = -(int) ColorType*10;
-            coloredRenderer.sortingOrder = ColorType.SorterPaintLayer()*10;
+            //coloredRenderer.sortingOrder = ColorType.SorterPaintLayer()*10;
             coloredRenderer.material = _repaintingService.Colored;
-            coloredRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+            coloredRenderer.material.SetFloat("Fade", 0);
+            
+            _repaintingService.ColoredObjs.Add(this);
+            
+            //coloredRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
         }
 
         private void ColorlessSetup()
         {
             GameObject colorless = Instantiate(gameObject, transform.position, transform.rotation, transform);
             TilemapRenderer colorlessRenderer = colorless.GetComponent<TilemapRenderer>();
+            _repaintingService.ColorlessObjs.Add(colorless.GetComponent<Repaintable>());
             //colorlessRenderer.sortingOrder = -(int) ColorType*10;
-            colorlessRenderer.sortingOrder = ColorType.SorterPaintLayer()*10;
+            //colorlessRenderer.sortingOrder = ColorType.SorterPaintLayer()*10;
             colorlessRenderer.material = _repaintingService.Colorless;
-            colorlessRenderer.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
+            //colorlessRenderer.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
         }
 
         public new void Painting(Material material)

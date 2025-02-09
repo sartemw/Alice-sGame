@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using CodeBase.Data;
 using CodeBase.Fish;
 using CodeBase.Logic;
 using CodeBase.Logic.EnemySpawners;
@@ -7,6 +8,7 @@ using CodeBase.StaticData;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace CodeBase.Editor
 {

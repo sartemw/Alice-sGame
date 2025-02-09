@@ -117,6 +117,7 @@ Material:
     - _OutlineWidth: 1
     - _Parallax: 0.02
     - _Scale: 40
+    - _Shadow: 0.332
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 5
