@@ -59,13 +59,13 @@ Material:
     m_Ints: []
     m_Floats:
     - _EnableExternalAlpha: 0
-    - _InnerEdge: 1.27
+    - _InnerEdge: 1
     - _InnerFalloff: 1
-    - _OuterEdge: 3.92
-    - _OuterFolloff: 0.92
+    - _OuterEdge: 5
+    - _OuterFolloff: 1
     - _OutlineSize: 0
     - _OutlineWidth: 5.68
-    - _SpriteEdgeAlpha: 0.53
+    - _SpriteEdgeAlpha: 0.592
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
