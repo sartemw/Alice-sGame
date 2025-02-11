@@ -2,7 +2,10 @@
 using System.Linq;
 using CodeBase.Data;
 using CodeBase.Fish;
+using CodeBase.Logic;
+using CodeBase.Logic.EnemySpawners;
 using CodeBase.Services.Repainting;
+using CodeBase.StaticData;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,7 +16,7 @@ namespace CodeBase.Editor
     {
       private static ToolsLevelSettings _window;
       private static Repaintable[] _outlineObjects { get; set; }
-      private static FishSpawnMarker[] _fishSpawner;
+      private static FishSpawnMarker[] _fishSpawnersToOutline;
       private static GameObject _parent;
       private static Dictionary<ColorType, int> _colorTypesObjects = new Dictionary<ColorType, int>();
       private static Dictionary<ColorType, int> _colorTypesFishs = new Dictionary<ColorType, int>();
@@ -22,13 +25,21 @@ namespace CodeBase.Editor
       private bool _colorButton;
       private bool _clearButton;
 
-      //Settings
-      private string _myString = "Hello World";
-      private bool _groupEnabled;
-      private bool _myBool = true;
-      private float _myFloat = 1.23f;
+      //Collect
+      private const string LevelsDataPath = "Static Data/Levels/";
+      private const string InitialPointTag = "InitialPoint";
+      private const string LevelTransferInitialPointTag = "LevelTransferInitialPoint";
+      private bool _toggleGroup;
+      private static bool _reloadLevelKey;
+      private static string _levelKey;
+      private static string _transferTo;
+      private static List<EnemySpawnerStaticData> _enemySpawners = new List<EnemySpawnerStaticData>();
+      private static List<FishSpawnerStaticData> _fishSpawners = new List<FishSpawnerStaticData>();
+      private static Vector3 _initialHeroPosition;
+      private static LevelTransferStaticData _levelTransfer;
+      private static string _message;
+      private static bool _containsKey;
 
-      
 
       [MenuItem("Tools/LevelSettings")]
       public static void Init()
@@ -41,9 +52,14 @@ namespace CodeBase.Editor
       {
         GUILayout.Label("Base Settings", EditorStyles.boldLabel);
         
+        IsNewLevel();
+        
+        if (!_reloadLevelKey) 
+          CountRepaintableAndFish();
+
         //кнопки
         EditorGUILayout.BeginHorizontal("Button",GUILayout.Width(200));
-        if (GUILayout.Button("Color", GUILayout.Width(100)) && !_parent) 
+        if (GUILayout.Button("Outline", GUILayout.Width(100)) && !_parent) 
           AddOutline();
 
         if (GUILayout.Button("Clear", GUILayout.Width(100))) 
@@ -82,13 +98,85 @@ namespace CodeBase.Editor
         GUI.contentColor = originalFontColor;
         
         EditorGUILayout.EndHorizontal();
+
+        if (_containsKey)
+          GUI.contentColor = Color.green;
+        else
+          GUI.contentColor = Color.red;
+        GUILayout.TextArea($"{_message}");
+        GUI.contentColor = originalFontColor;
         
         //данные для сохранения
-        _groupEnabled = EditorGUILayout.BeginToggleGroup("Optional Settings", _groupEnabled);
-        _myString = EditorGUILayout.TextField("Scene name", _myString = SceneManager.GetActiveScene().name);
-        _myBool = EditorGUILayout.Toggle("Toggle", _myBool);
-        _myFloat = EditorGUILayout.Slider("Slider", _myFloat, -3, 3);
+        _toggleGroup = EditorGUILayout.BeginToggleGroup("Collect", _toggleGroup);
+        
+        _levelKey = SceneManager.GetActiveScene().name;
+
+        Dictionary<string, LevelStaticData> levels = Resources
+          .LoadAll<LevelStaticData>(LevelsDataPath)
+          .ToDictionary(x => x.LevelKey, x => x);
+        
+        _containsKey = levels.ContainsKey(_levelKey);
+
+        if (!_containsKey)
+        {
+          _reloadLevelKey = true;
+          _message = "Level is not found";
+          EditorGUILayout.EndToggleGroup();
+          return;
+        }
+        
+        Vector3 levelTransferInitialPoint = CollectLevelData();
+
+        if (!_reloadLevelKey)
+        {
+          _reloadLevelKey = true;
+          _message = "Level is found";
+          LevelStaticData level = levels[_levelKey];
+          _transferTo = level.LevelTransfer.TransferTo;
+        }
+
+          EditorGUILayout.BeginHorizontal("box");
+        GUILayout.TextArea("Enemy spawners", GUILayout.Width(120));
+        GUILayout.TextArea($"{_enemySpawners.Count.ToString()}", GUILayout.Width(30));
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal("box");
+        GUILayout.TextArea("Fish spawners", GUILayout.Width(120));
+        GUILayout.TextArea($"{_fishSpawners.Count.ToString()}", GUILayout.Width(30));
+        EditorGUILayout.EndHorizontal();
+        
+        EditorGUILayout.TextField("Scene name", _levelKey);
+        
+        EditorGUILayout.TextField("Initial hero position", _initialHeroPosition.ToString()); 
+        
+        _transferTo = EditorGUILayout.TextField("Transfer to", _transferTo);
+        _levelTransfer = new LevelTransferStaticData(_transferTo, levelTransferInitialPoint);
+        EditorGUILayout.TextField("Level transfer initial point", _levelTransfer.Position.ToString());
+        
+        if (GUILayout.Button("Save", GUILayout.Width(100))) 
+          SaveLevel();
+
         EditorGUILayout.EndToggleGroup();
+      }
+
+      private static void CountRepaintableAndFish()
+      {
+        _colorTypesObjects.Clear();
+        _colorTypesFishs.Clear();
+
+        _outlineObjects = GameObject.FindObjectsOfType<Repaintable>();
+        _fishSpawnersToOutline = GameObject.FindObjectsOfType<FishSpawnMarker>();
+
+        foreach (Repaintable repaintable in _outlineObjects)
+          CountingRepaintable(repaintable);
+        foreach (FishSpawnMarker fishSpawnMarker in _fishSpawnersToOutline)
+          CountingFish(fishSpawnMarker);
+      }
+
+      private static void IsNewLevel()
+      {
+        if (_levelKey != SceneManager.GetActiveScene().name)
+          _reloadLevelKey = false;
       }
 
       private static void AddOutline()
@@ -98,48 +186,37 @@ namespace CodeBase.Editor
         Material material = new Material(Shader.Find("Shader Graphs/Outline"));
 
         foreach (Repaintable repaintable in _outlineObjects) 
-          SetMaterialAndCounting(repaintable, material);
-
-        foreach (FishSpawnMarker fishSpawnMarker in _fishSpawner) 
-          CountingFish(fishSpawnMarker);
+          SetMaterial(repaintable, material);
       }
 
-      private static void ClearOutline()
-      {
+      private static void ClearOutline() => 
         GameObject.DestroyImmediate(_parent);
-        _colorTypesObjects.Clear();
-        _colorTypesFishs.Clear();
-      }
 
       void OnDestroy() => 
         ClearOutline();
 
       private static void InitOutline()
       {
-        _outlineObjects = GameObject.FindObjectsOfType<Repaintable>();
-        _fishSpawner = GameObject.FindObjectsOfType<FishSpawnMarker>();
-
         _parent = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
         foreach (var comp in _parent.GetComponents<Component>())
-        {
           if (!(comp is Transform))
-          {
             GameObject.DestroyImmediate(comp);
-          }
-        }
 
         _parent.AddComponent<Grid>();
       }
 
-      private static void SetMaterialAndCounting(Repaintable repaintable, Material material)
+      private static void SetMaterial(Repaintable repaintable, Material material)
       {
         Renderer outline = GameObject.Instantiate(repaintable.gameObject, repaintable.gameObject.transform.position,
           repaintable.gameObject.transform.rotation, _parent.transform).GetComponent<Renderer>();
         outline.material = material;
         Color color = repaintable.ColorType.SwitchColor();
         outline.material.SetColor("_OuterGlowColor", color);
+      }
 
+      private static void CountingRepaintable(Repaintable repaintable)
+      {
         if (!_colorTypesObjects.ContainsKey(repaintable.ColorType))
           _colorTypesObjects.Add(repaintable.ColorType, 1);
         else
@@ -152,6 +229,40 @@ namespace CodeBase.Editor
           _colorTypesFishs.Add(fishSpawnMarker.ColorType, 1);
         else
           _colorTypesFishs[fishSpawnMarker.ColorType]++;
+      }
+
+      private static Vector3 CollectLevelData()
+      {
+        _enemySpawners = FindObjectsOfType<SpawnMarker>()
+          .Select(x => new EnemySpawnerStaticData(x.GetComponent<UniqueId>().Id, x.MonsterTypeId, x.transform.position))
+          .ToList();
+        
+        _fishSpawners = FindObjectsOfType<FishSpawnMarker>()
+          .Select(x =>
+            new FishSpawnerStaticData(x.GetComponent<UniqueId>().Id, x.ColorType, x.FishBehaviour, x.transform.position))
+          .ToList();
+        
+        _initialHeroPosition = GameObject.FindWithTag(InitialPointTag).transform.position;
+        
+        Vector3 levelTransferInitialPoint = GameObject.FindWithTag(LevelTransferInitialPointTag).transform.position;
+        
+        return levelTransferInitialPoint;
+      }
+
+      private static void SaveLevel()
+      {
+        LevelStaticData level = ScriptableObject.CreateInstance<LevelStaticData>();
+
+        level.EnemySpawners = _enemySpawners;
+        level.FishSpawners = _fishSpawners;
+        level.LevelKey = _levelKey;
+        level.LevelTransfer = _levelTransfer;
+        level.InitialHeroPosition = _initialHeroPosition;
+
+        string levelPath = "Assets/Resources/" + LevelsDataPath + _levelKey + ".asset";
+
+        AssetDatabase.DeleteAsset(levelPath);
+        AssetDatabase.CreateAsset(level, levelPath);
       }
     }
 }
