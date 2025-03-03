@@ -1,0 +1,9 @@
+﻿using _Project.CodeBase.Services;
+
+namespace _Project.CodeBase.UI.Services.Windows
+{
+  public interface IWindowService : IService
+  {
+    void Open(WindowId windowId);
+  }
+}

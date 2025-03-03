@@ -1,0 +1,79 @@
+﻿using System.Threading.Tasks;
+using _Project.CodeBase.Infrastructure;
+using _Project.CodeBase.Infrastructure.AssetManagement;
+using _Project.CodeBase.Services.Ads;
+using _Project.CodeBase.Services.PersistentProgress;
+using _Project.CodeBase.Services.StaticData;
+using _Project.CodeBase.StaticData.Windows;
+using _Project.CodeBase.UI.Elements;
+using _Project.CodeBase.UI.Services.Windows;
+using _Project.CodeBase.UI.Windows;
+using _Project.CodeBase.UI.Windows.LevelsProgress;
+using _Project.CodeBase.UI.Windows.Shop;
+using UnityEngine;
+using Zenject;
+
+namespace _Project.CodeBase.UI.Services.Factory
+{
+  public class UIFactory : IUIFactory
+  {
+    private const string UIRootPath = "UIRoot";
+    
+    private readonly IAssetProvider _assets;
+    private readonly IStaticDataService _staticData;
+    private readonly IPersistentProgressService _progressService;
+    private readonly IAdsService _adsService;
+    private readonly DiContainer _container;
+
+    private Transform _uiRoot;
+
+    public UIFactory(IAssetProvider assets, IStaticDataService staticData, IPersistentProgressService progressService,
+      IAdsService adsService, DiContainer container)
+    {
+      _container = container;
+      _assets = assets;
+      _staticData = staticData;
+      _progressService = progressService;
+      _adsService = adsService;
+    }
+
+    public void CreateLevelsProgress()
+    {
+      WindowConfig config = _staticData.ForWindow(WindowId.SelectLevels);
+      SelectLevelsWindow window = Object.Instantiate(config.Template, _uiRoot) as SelectLevelsWindow;
+      window.Construct(_progressService, _container.Resolve<Game>().StateMachine, _container.Resolve<SceneLoader>());
+    }
+
+    public Task CreateMainMenu()
+    {
+      WindowConfig config = _staticData.ForWindow(WindowId.MainMenu);
+      MainMenu window =  Object.Instantiate(config.Template, _uiRoot) as MainMenu;
+      
+      window.Construct(_progressService);
+      
+      foreach (OpenWindowButton openWindowButton in window.GetComponentsInChildren<OpenWindowButton>())
+        openWindowButton.Init(_container.Resolve<IWindowService>());
+      return Task.CompletedTask;
+    }
+
+    public void CreateGameMenu()
+    {
+      WindowConfig config = _staticData.ForWindow(WindowId.GameMenu);
+      GameMenuWindow window = Object.Instantiate(config.Template, _uiRoot) as GameMenuWindow;
+      window.Construct(_progressService,  _container.Resolve<Game>().StateMachine);
+    }
+
+    public void CreateShop()
+    {
+      WindowConfig config = _staticData.ForWindow(WindowId.Shop);
+      ShopWindow window = Object.Instantiate(config.Template, _uiRoot) as ShopWindow;
+      window.Construct(_adsService,_progressService);
+    }
+
+    public async Task CreateUIRoot()
+    {
+      GameObject result = await _assets.Instantiate(UIRootPath);
+      _uiRoot = result.transform;
+    }
+  }
+}

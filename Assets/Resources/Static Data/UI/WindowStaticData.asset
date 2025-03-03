@@ -22,3 +22,6 @@ MonoBehaviour:
   - WindowId: 3
     Template: {fileID: 3774198752647779091, guid: 006dc00583e3f3b409561acd72ddfae4,
       type: 3}
+  - WindowId: 4
+    Template: {fileID: 7042704513970222686, guid: 8d332655146f3ed4391c4acfc455067e,
+      type: 3}
