@@ -644,9 +644,9 @@ RectTransform:
   m_Father: {fileID: 1198110311400335403}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 200, y: 200}
-  m_SizeDelta: {x: 400, y: 400}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8242530159424890338
 GameObject:
@@ -737,26 +737,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114282555968907678, guid: e0815e227ed46e445b99930271e8942c,
         type: 3}
-      propertyPath: isDynamicJoystick
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114282555968907678, guid: e0815e227ed46e445b99930271e8942c,
-        type: 3}
       propertyPath: dynamicJoystickMovementArea
       value: 
       objectReference: {fileID: 2860288828164526997}
-    - target: {fileID: 114592483299003616, guid: e0815e227ed46e445b99930271e8942c,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 8d00ad584047669458dff31e6af9c333,
-        type: 3}
-    - target: {fileID: 114675716580427132, guid: e0815e227ed46e445b99930271e8942c,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: dc3403f5ad12529419b610a596754d14,
-        type: 3}
     - target: {fileID: 224977699150327530, guid: e0815e227ed46e445b99930271e8942c,
         type: 3}
       propertyPath: m_Pivot.x
@@ -766,11 +749,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224977699150327530, guid: e0815e227ed46e445b99930271e8942c,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224977699150327530, guid: e0815e227ed46e445b99930271e8942c,
         type: 3}

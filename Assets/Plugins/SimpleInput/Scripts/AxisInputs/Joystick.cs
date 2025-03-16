@@ -10,7 +10,7 @@ namespace SimpleInputNamespace
 
 		public SimpleInput.AxisInput xAxis = new SimpleInput.AxisInput( "Horizontal" );
 		public SimpleInput.AxisInput yAxis = new SimpleInput.AxisInput( "Vertical" );
-
+		
 		private RectTransform joystickTR;
 		private Graphic background;
 
@@ -142,6 +142,8 @@ namespace SimpleInputNamespace
 		public void OnPointerDown( PointerEventData eventData )
 		{
 			joystickHeld = true;
+			
+			SimpleInput.GetClickPosition = eventData.position;
 
 			if( isDynamicJoystick )
 			{
@@ -157,6 +159,7 @@ namespace SimpleInputNamespace
 
 		public void OnDrag( PointerEventData eventData )
 		{
+			SimpleInput.GetClickPosition = eventData.position;
 			Vector2 pointerPos;
 			RectTransformUtility.ScreenPointToLocalPointInRectangle( joystickTR, eventData.position, eventData.pressEventCamera, out pointerPos );
 
@@ -190,6 +193,8 @@ namespace SimpleInputNamespace
 
 		public void OnPointerUp( PointerEventData eventData )
 		{
+			SimpleInput.GetClickPosition = Vector2.zero;
+
 			joystickHeld = false;
 			m_value = Vector2.zero;
 

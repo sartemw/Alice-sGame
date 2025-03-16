@@ -140,6 +140,8 @@ public class SimpleInput : MonoBehaviour
 	/// </summary>
 	public static bool GetAxisTimeScaleDependent = true;
 
+	public static Vector2 GetClickPosition = Vector2.zero;
+
 	private static bool m_trackUnityInput = true;
 	public static bool TrackUnityInput
 	{
@@ -188,6 +190,7 @@ public class SimpleInput : MonoBehaviour
 
 	private static Dictionary<KeyCode, Key> keys = new Dictionary<KeyCode, Key>();
 	private static List<Key> keysList = new List<Key>();
+	private static Vector2 clickPosition;
 
 	public delegate void UpdateCallback();
 	public static event UpdateCallback OnUpdate;
@@ -231,7 +234,7 @@ public class SimpleInput : MonoBehaviour
 		trackedTemporaryButtons.Clear();
 		trackedTemporaryMouseButtons.Clear();
 	}
-
+	
 	public static float GetAxis( string axis )
 	{
 		Axis axisInput;

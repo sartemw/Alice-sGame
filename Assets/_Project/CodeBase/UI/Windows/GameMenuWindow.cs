@@ -34,7 +34,7 @@ namespace _Project.CodeBase.UI.Windows
 
         private void OnRestartLevelClicked()
         {
-            _stateMachine.Enter<LoadLevelState, string>(SceneManager.GetActiveScene().name);
+            _stateMachine.Enter<RestartLevelState, string>(SceneManager.GetActiveScene().name);
             Close();
         }
 

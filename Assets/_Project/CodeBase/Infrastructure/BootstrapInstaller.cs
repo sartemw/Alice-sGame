@@ -149,8 +149,8 @@ namespace _Project.CodeBase.Infrastructure
 
         private void BindInputService()
         {
-            _inputService = ChangeInputService();
-            //_inputService = new StandaloneInputService();
+            //_inputService = ChangeInputService();
+            _inputService = new FoolScreenInputService();
 
             Container
                 .Bind<IInputService>()
