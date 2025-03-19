@@ -1,4 +1,6 @@
 ﻿using System;
+using _Project.CodeBase.EventBus;
+using _Project.CodeBase.EventBus.Events;
 using _Project.CodeBase.Fish;
 using _Project.CodeBase.Services.StaticData;
 using _Project.CodeBase.StaticData;
@@ -9,18 +11,20 @@ namespace _Project.CodeBase.Services.Repainting
     public class FishDataService : IFishDataService
     {
         private readonly IStaticDataService _staticDataService;
-        public event Action<ColoredFish> FishPickedUp;
+        
+        private BaseOnEvent<FishPickupSignal>  _onFishPickup  = new BaseOnEvent<FishPickupSignal>();
         public int FishOnLevel { get; set; }
         
         public FishDataService(IStaticDataService staticDataService)
         {
             _staticDataService = staticDataService;
+            
+            EventBus.EventBus.Subscribe(_onFishPickup.SetOnInvoke(OnFishPickUp));
         }
-        public void FishPickUp(ColoredFish fish)
+        public void OnFishPickUp(FishPickupSignal fish)
         {
             if (FishOnLevel > 0)
                 FishOnLevel--;
-            FishPickedUp?.Invoke(fish);
         }
 
         public void Restart()

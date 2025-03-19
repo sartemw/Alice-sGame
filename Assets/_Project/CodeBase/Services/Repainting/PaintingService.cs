@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using _Project.CodeBase.EventBus;
+using _Project.CodeBase.EventBus.Events;
 using _Project.CodeBase.Fish;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,7 +15,7 @@ namespace _Project.CodeBase.Services.Repainting
         private const string GameEnd = "GameEnd";
         
         private readonly IFishDataService _fishDataService;
-
+        private BaseOnEvent<FishPickupSignal>  _onFishPickup  = new BaseOnEvent<FishPickupSignal>();
         public Material Colorless {get;}
         public Material Colored {get;}
 
@@ -28,7 +30,7 @@ namespace _Project.CodeBase.Services.Repainting
             Colored = colored;
             Colorless = colorless;
             _fishDataService = fishDataService;
-            _fishDataService.FishPickedUp += Painting;
+            EventBus.EventBus.Subscribe(_onFishPickup.SetOnInvoke(Painting));
         }
 
         public void StartLevel()
@@ -53,8 +55,9 @@ namespace _Project.CodeBase.Services.Repainting
         public void SetColorless(Paintable paintable) => 
             ColorlessObjs.Add(paintable);
 
-        public void Painting(ColoredFish fish)
+        public void Painting(FishPickupSignal fishSignal)
         {
+            ColoredFish fish = fishSignal.ColoredFish;
             Debug.Log($"<color={fish.ColorType}> Picked {fish.ColorType} fish</color>");
 
             foreach (Paintable colorlessObj in ColorlessObjs.ToList())
@@ -62,8 +65,6 @@ namespace _Project.CodeBase.Services.Repainting
                 if (fish.ColorType == colorlessObj.ColorType
                     || fish.ColorType == ColorType.Rainbow)
                 {
-                    Debug.Log($"<color=red> Destroy {colorlessObj.name}</color>");
-
                     ColorlessObjs.Remove(colorlessObj);
                     colorlessObj.Fade();
                 }
@@ -76,11 +77,8 @@ namespace _Project.CodeBase.Services.Repainting
                 if (fish.ColorType == coloredObj.ColorType
                     || fish.ColorType == ColorType.Rainbow)
                 {
-                    Debug.Log($"<color=purple> Repainting {coloredObj.name}</color>");
                     ColoredObjs.Remove(coloredObj);
                     coloredObj.Brightening();
-
-                    //coloredObj.GetComponent<Renderer>().material.SetFloat("Fade", 1);
                 }
             }
             

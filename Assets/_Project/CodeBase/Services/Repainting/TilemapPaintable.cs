@@ -31,7 +31,6 @@ namespace _Project.CodeBase.Services.Repainting
             while (alpha.color.a >= 0)
             {
                 yield return new WaitForFixedUpdate();
-                DeltaAlpha = 0.01f;
                 Color fadeColor = new Color(alpha.color.r, alpha.color.g, alpha.color.b, alpha.color.a - DeltaAlpha);
                 alpha.color = fadeColor;
             }
@@ -44,8 +43,7 @@ namespace _Project.CodeBase.Services.Repainting
             while (fade <= 1)
             {
                 yield return new WaitForFixedUpdate();
-                DeltaFade = 0.02f;
-                colored.SetFloat("_Fade", fade +=DeltaFade);
+                colored.SetFloat("_Fade", fade += DeltaFade);
             }
         }
 

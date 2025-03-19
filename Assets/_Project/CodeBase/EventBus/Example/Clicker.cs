@@ -1,8 +1,8 @@
-using Assets.EventBus.Example.Events;
+using _Project.CodeBase.EventBus.Events;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.EventBus.Example
+namespace _Project.CodeBase.EventBus.Example
 {
     public class Clicker : MonoBehaviour
     {

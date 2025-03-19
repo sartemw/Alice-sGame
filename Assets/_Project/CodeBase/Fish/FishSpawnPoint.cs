@@ -13,15 +13,11 @@ namespace _Project.CodeBase.Fish
         private ColoredFish.Factory _fishFactory;
 
         [Inject]
-        public void Construct(ColoredFish.Factory fishFactory)
-        {
+        public void Construct(ColoredFish.Factory fishFactory) => 
             _fishFactory = fishFactory;
-        }
 
-        public void Start()
-        {
+        public void Start() => 
             SpawnFish();
-        }
 
         private void SpawnFish()
         {

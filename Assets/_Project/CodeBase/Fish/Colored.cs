@@ -8,6 +8,7 @@ namespace _Project.CodeBase.Fish
     {
         public ColorType ColorType;
         public Color Color;
+        public Vector2 Position;
 
         private int _i;
 

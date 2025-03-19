@@ -1,4 +1,5 @@
 ﻿using _Project.CodeBase.Services.Repainting;
+using _Project.CodeBase.EventBus.Events;
 using UnityEngine;
 using Zenject;
 
@@ -6,7 +7,6 @@ namespace _Project.CodeBase.Fish
 {
     public class ColoredFish : Colored
     {
-        
         private IFishDataService _fishData;
         private IPaintingService _paintingService;
         private bool _flag = true;
@@ -30,7 +30,11 @@ namespace _Project.CodeBase.Fish
         {
             if (_flag)
             {
-                _fishData.FishPickUp(this);
+                Position = transform.position;
+                EventBus.EventBus.Invoke(new FishPickupSignal
+                {
+                    ColoredFish = this
+                });
                 
                 _flag = false;
             }

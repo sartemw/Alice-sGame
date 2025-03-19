@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 
-namespace Assets.EventBus
+namespace _Project.CodeBase.EventBus
 {
     /*
      *   EventBus.Subscribe<T>(IEvent<T> callback, bool toFirst = false) where T : class, IEventSignal

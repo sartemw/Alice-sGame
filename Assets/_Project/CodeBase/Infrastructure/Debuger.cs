@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using _Project.CodeBase.EventBus;
+using _Project.CodeBase.EventBus.Events;
 using _Project.CodeBase.Fish;
 using _Project.CodeBase.Services.Repainting;
 using TMPro;
@@ -14,6 +16,8 @@ namespace _Project.CodeBase.Infrastructure
         public GameObject NameText;
         public TMP_Text Text;
         
+        private BaseOnEvent<FishPickupSignal>  _onFishPickup  = new BaseOnEvent<FishPickupSignal>();
+        
         public List<string> ColoredObjects = new List<string>();
         public List<string> ColorlessObjects = new List<string>();
         
@@ -26,10 +30,11 @@ namespace _Project.CodeBase.Infrastructure
         {
             _paintingService = paintingService;
             _fishDataService = fishDataService;
-            _fishDataService.FishPickedUp += Repaint;
+            
+            EventBus.EventBus.Subscribe(_onFishPickup.SetOnInvoke(Repaint));
         }
 
-        private void Repaint(ColoredFish obj)
+        private void Repaint(FishPickupSignal obj)
         {
             Clear();
             Collect();
@@ -78,11 +83,6 @@ namespace _Project.CodeBase.Infrastructure
 
             Painting(ColoredObjects, Color.red);
             Painting(ColorlessObjects, Color.green);
-        }
-
-        private void OnDisable()
-        {
-            _fishDataService.FishPickedUp -= Repaint;
         }
     }
 }

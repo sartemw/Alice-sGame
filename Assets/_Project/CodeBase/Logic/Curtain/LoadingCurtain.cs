@@ -24,7 +24,7 @@ namespace _Project.CodeBase.Logic.Curtain
     {
       while (Curtain.alpha > 0)
       {
-        Curtain.alpha -= 0.03f;
+        Curtain.alpha -= Constants.CurtainAlphaFade;
         yield return new WaitForSeconds(0.03f);
       }
       

@@ -15,8 +15,8 @@ namespace _Project.CodeBase.Services.Repainting
         protected IPaintingService PaintingService;
         protected GameObject Colorless;
 
-        protected float DeltaFade = 0.01f;
-        protected float DeltaAlpha = 0.015f;
+        protected float DeltaFade = Constants.PaintableDeltaFade;
+        protected float DeltaAlpha = Constants.PaintableDeltaAlpha;
         
         [Inject]
         public void Construct(IPaintingService paintingService) => 
