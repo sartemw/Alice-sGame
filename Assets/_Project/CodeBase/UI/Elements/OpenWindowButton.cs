@@ -1,4 +1,5 @@
-﻿using _Project.CodeBase.UI.Services.Windows;
+﻿using _Project.CodeBase.Events;
+using _Project.CodeBase.UI.Services.Windows;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +17,10 @@ namespace _Project.CodeBase.UI.Elements
     private void Awake() => 
       Button.onClick.AddListener(Open);
 
-    private void Open() => 
+    private void Open()
+    {
+      EventBus.Invoke(new ChangeLevelsButtonClickSignal());
       _windowService.Open(WindowId);
+    }
   }
 }

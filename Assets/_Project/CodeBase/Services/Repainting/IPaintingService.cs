@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Project.CodeBase.EventBus.Events;
-using _Project.CodeBase.Fish;
 using UnityEngine;
 
 namespace _Project.CodeBase.Services.Repainting

@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using _Project.CodeBase.Infrastructure;
 using _Project.CodeBase.Infrastructure.AssetManagement;
+using _Project.CodeBase.Infrastructure.States;
 using _Project.CodeBase.Services.Ads;
 using _Project.CodeBase.Services.PersistentProgress;
 using _Project.CodeBase.Services.StaticData;
@@ -49,7 +50,7 @@ namespace _Project.CodeBase.UI.Services.Factory
       WindowConfig config = _staticData.ForWindow(WindowId.MainMenu);
       MainMenu window =  Object.Instantiate(config.Template, _uiRoot) as MainMenu;
       
-      window.Construct(_progressService);
+      window.Construct(_progressService, _container.Resolve<Game>().StateMachine);
       
       foreach (OpenWindowButton openWindowButton in window.GetComponentsInChildren<OpenWindowButton>())
         openWindowButton.Init(_container.Resolve<IWindowService>());

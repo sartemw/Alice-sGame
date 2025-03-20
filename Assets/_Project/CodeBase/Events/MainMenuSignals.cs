@@ -1,0 +1,9 @@
+﻿using _Project.CodeBase.Infrastructure;
+
+namespace _Project.CodeBase.Events
+{
+        public class SoundButtonClickSignal : IEventSignal { }
+        public class StartGameButtonClickSignal : IEventSignal { }
+        public class ChangeLevelsButtonClickSignal : IEventSignal { }
+        public class CloseButtonClickSignal : IEventSignal { }
+}

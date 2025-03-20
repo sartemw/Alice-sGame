@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace _Project.CodeBase.EventBus.Events
+namespace _Project.CodeBase.Events.Example
 {
     public class GreenClickSignal : IEventSignal { }
     public class RedClickSignal : IEventSignal { }

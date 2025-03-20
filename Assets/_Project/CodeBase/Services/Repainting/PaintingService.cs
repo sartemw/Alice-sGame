@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using _Project.CodeBase.EventBus;
-using _Project.CodeBase.EventBus.Events;
+using _Project.CodeBase.Events;
 using _Project.CodeBase.Fish;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -30,7 +29,7 @@ namespace _Project.CodeBase.Services.Repainting
             Colored = colored;
             Colorless = colorless;
             _fishDataService = fishDataService;
-            EventBus.EventBus.Subscribe(_onFishPickup.SetOnInvoke(Painting));
+            EventBus.Subscribe(_onFishPickup.SetOnInvoke(Painting));
         }
 
         public void StartLevel()

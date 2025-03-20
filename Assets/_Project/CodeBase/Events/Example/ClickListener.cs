@@ -1,7 +1,6 @@
-using _Project.CodeBase.EventBus.Events;
 using UnityEngine;
 
-namespace _Project.CodeBase.EventBus.Example
+namespace _Project.CodeBase.Events.Example
 {
     public class ClickListener : MonoBehaviour
     {
