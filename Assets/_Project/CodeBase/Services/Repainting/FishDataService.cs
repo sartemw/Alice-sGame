@@ -1,7 +1,4 @@
-﻿using System;
-using _Project.CodeBase.EventBus;
-using _Project.CodeBase.EventBus.Events;
-using _Project.CodeBase.Fish;
+﻿using _Project.CodeBase.Events;
 using _Project.CodeBase.Services.StaticData;
 using _Project.CodeBase.StaticData;
 using UnityEngine.SceneManagement;
@@ -19,7 +16,7 @@ namespace _Project.CodeBase.Services.Repainting
         {
             _staticDataService = staticDataService;
             
-            EventBus.EventBus.Subscribe(_onFishPickup.SetOnInvoke(OnFishPickUp));
+            EventBus.Subscribe(_onFishPickup.SetOnInvoke(OnFishPickUp));
         }
         public void OnFishPickUp(FishPickupSignal fish)
         {

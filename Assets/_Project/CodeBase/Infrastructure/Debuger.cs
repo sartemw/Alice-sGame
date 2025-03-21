@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using _Project.CodeBase.EventBus;
-using _Project.CodeBase.EventBus.Events;
-using _Project.CodeBase.Fish;
+using _Project.CodeBase.Events;
 using _Project.CodeBase.Services.Repainting;
 using TMPro;
 using UnityEngine;
@@ -31,7 +29,7 @@ namespace _Project.CodeBase.Infrastructure
             _paintingService = paintingService;
             _fishDataService = fishDataService;
             
-            EventBus.EventBus.Subscribe(_onFishPickup.SetOnInvoke(Repaint));
+            EventBus.Subscribe(_onFishPickup.SetOnInvoke(Repaint));
         }
 
         private void Repaint(FishPickupSignal obj)
