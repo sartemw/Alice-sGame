@@ -50,7 +50,7 @@ namespace _Project.CodeBase.UI.Services.Factory
       WindowConfig config = _staticData.ForWindow(WindowId.MainMenu);
       MainMenu window =  Object.Instantiate(config.Template, _uiRoot) as MainMenu;
       
-      window.Construct(_progressService, _container.Resolve<Game>().StateMachine);
+      window.Construct(_progressService, _container.Resolve<Game>().StateMachine, _staticData.ForConfig());
       
       foreach (OpenWindowButton openWindowButton in window.GetComponentsInChildren<OpenWindowButton>())
         openWindowButton.Init(_container.Resolve<IWindowService>());

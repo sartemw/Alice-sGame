@@ -1,6 +1,7 @@
 ﻿using _Project.CodeBase.Events;
 using _Project.CodeBase.Infrastructure.States;
 using _Project.CodeBase.Services.PersistentProgress;
+using _Project.CodeBase.StaticData;
 using _Project.CodeBase.UI.Elements;
 using _Project.CodeBase.UI.Windows;
 using UnityEngine;
@@ -13,11 +14,13 @@ namespace _Project.CodeBase.UI
         public Button SoundButton;
         public Button StartButton;
         private GameStateMachine _stateMachine;
+        private ConfigStaticData _config;
 
-        public void Construct(IPersistentProgressService progressService, GameStateMachine stateMachine)
+        public void Construct(IPersistentProgressService progressService, GameStateMachine stateMachine, ConfigStaticData config)
         {
             base.Construct(progressService);
             _stateMachine = stateMachine;
+            _config = config;
         }
 
         private void Start()
@@ -38,7 +41,8 @@ namespace _Project.CodeBase.UI
         private void SoundClick()
         {
             EventBus.Invoke(new SoundButtonClickSignal());
-            Debug.Log("Выключить в конфиге звук");
+            
+            _config.Sound = !_config.Sound;
         }
 
         void StartClick()

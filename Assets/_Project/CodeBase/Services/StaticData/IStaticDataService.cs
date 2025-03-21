@@ -8,6 +8,7 @@ namespace _Project.CodeBase.Services.StaticData
   public interface IStaticDataService : IService
   {
     void Load();
+    ConfigStaticData ForConfig();
     HeroStaticData ForHero(HeroTypeId typeId);
     MonsterStaticData ForMonster(MonsterTypeId typeId);
     FishStaticData ForFish(ColorType color, FishBehaviourEnum behaviour);

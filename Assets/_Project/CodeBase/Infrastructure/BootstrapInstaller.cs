@@ -179,7 +179,7 @@ namespace _Project.CodeBase.Infrastructure
 
         private void BindAudioService()
         {
-            _audioService = new AudioService(GetComponent<AudioSource>(), _audioAssetsService);
+            _audioService = new AudioService(GetComponent<AudioSource>(), _audioAssetsService, _staticData.ForConfig());
             Container
                 .Bind<IAudioService>()
                 .FromInstance(_audioService)

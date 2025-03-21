@@ -1,5 +1,5 @@
-﻿using _Project.CodeBase.Services.Repainting;
-using _Project.CodeBase.Events;
+﻿using _Project.CodeBase.Events;
+using _Project.CodeBase.Services.Repainting;
 using UnityEngine;
 using Zenject;
 
