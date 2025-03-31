@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: SceneObjects
   m_EditorClassIdentifier: 
   m_GroupName: SceneObjects
+  m_Data:
+    m_SerializedData: []
   m_GUID: dddb23ed2eeaf774cba34211a936b236
   m_SerializeEntries:
   - m_GUID: 0006666f10481ac41ac44257d798e24f

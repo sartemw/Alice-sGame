@@ -9,6 +9,7 @@ namespace _Project.CodeBase.Services.StaticData
   {
     void Load();
     ConfigStaticData ForConfig();
+    AudioStaticData ForAudio();
     HeroStaticData ForHero(HeroTypeId typeId);
     MonsterStaticData ForMonster(MonsterTypeId typeId);
     FishStaticData ForFish(ColorType color, FishBehaviourEnum behaviour);

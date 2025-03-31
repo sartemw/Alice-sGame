@@ -31,3 +31,4 @@ MonoBehaviour:
   LevelTransfer:
     TransferTo: 0-2
     Position: {x: 6.28, y: -2.16, z: 0}
+  Music: Game1

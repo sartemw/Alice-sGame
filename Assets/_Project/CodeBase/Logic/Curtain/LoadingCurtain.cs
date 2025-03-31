@@ -1,4 +1,5 @@
 using System.Collections;
+using _Project.CodeBase.Events;
 using UnityEngine;
 
 namespace _Project.CodeBase.Logic.Curtain
@@ -16,6 +17,7 @@ namespace _Project.CodeBase.Logic.Curtain
     {
       gameObject.SetActive(true);
       Curtain.alpha = 1;
+      EventBus.Invoke(new ShowCurtainSignal());
     }
     
     public void Hide() => StartCoroutine(DoFadeIn());
@@ -24,6 +26,7 @@ namespace _Project.CodeBase.Logic.Curtain
     {
       while (Curtain.alpha > 0)
       {
+        EventBus.Invoke(new ShowCurtainSignal());
         Curtain.alpha -= Constants.CurtainAlphaFade;
         yield return new WaitForSeconds(0.03f);
       }

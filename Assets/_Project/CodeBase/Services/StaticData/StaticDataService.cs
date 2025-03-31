@@ -11,6 +11,7 @@ namespace _Project.CodeBase.Services.StaticData
   public class StaticDataService : IStaticDataService
   {
     private const string ConfigDataPath = "Static Data/Config/ConfigData";
+    private const string AudioDataPath = "Static Data/Audio/AudioData";
     private const string MonstersDataPath = "Static Data/Monsters";
     private const string LevelsDataPath = "Static Data/Levels";
     private const string StaticDataWindowPath = "Static Data/UI/WindowStaticData";
@@ -19,6 +20,7 @@ namespace _Project.CodeBase.Services.StaticData
     private const string HeroDataPath = "Static Data/Heroes";
 
     private ConfigStaticData _config;
+    private AudioStaticData _audio;
     private Dictionary<MonsterTypeId, MonsterStaticData> _monsters;
     private Dictionary<FishBehaviourEnum, FishStaticData> _fishs;
     private Dictionary<string, LevelStaticData> _levels;
@@ -30,6 +32,8 @@ namespace _Project.CodeBase.Services.StaticData
     public void Load()
     {
       _config = Resources.Load<ConfigStaticData>(ConfigDataPath);
+      
+      _audio = Resources.Load<AudioStaticData>(AudioDataPath);
 
       _hero = Resources
         .LoadAll<HeroStaticData>(HeroDataPath)
@@ -59,6 +63,9 @@ namespace _Project.CodeBase.Services.StaticData
 
     public ConfigStaticData ForConfig() =>
       _config;
+    
+    public AudioStaticData ForAudio() =>
+      _audio;
     
     public HeroStaticData ForHero(HeroTypeId typeId) =>
       _hero.TryGetValue(typeId, out HeroStaticData staticData)

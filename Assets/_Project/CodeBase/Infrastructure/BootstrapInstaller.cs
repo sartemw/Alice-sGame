@@ -10,6 +10,7 @@ using _Project.CodeBase.Services.Repainting;
 using _Project.CodeBase.Services.StaticData;
 using _Project.CodeBase.UI.Services.Factory;
 using _Project.CodeBase.UI.Services.Windows;
+using Ami.BroAudio;
 using UnityEngine;
 using Zenject;
 
@@ -34,7 +35,6 @@ namespace _Project.CodeBase.Infrastructure
         private IPaintingService _paintingService;
         private IFishDataService _fishData;
         private IAudioService _audioService;
-        private IAudioAssetsService _audioAssetsService;
 
         public override void InstallBindings()
         {
@@ -51,7 +51,6 @@ namespace _Project.CodeBase.Infrastructure
             BindFishDataService();
             BindRepaintingService(); 
             
-            BindAudioAssetService();
             BindAudioService();
         }
 
@@ -166,24 +165,15 @@ namespace _Project.CodeBase.Infrastructure
                 .AsSingle();
         }
 
-        private void BindAudioAssetService()
-        {
-            _audioAssetsService = new AudioAssetsService();
-            Container
-                .Bind<IAudioAssetsService>()
-                .FromInstance(_audioAssetsService)
-                .AsSingle();
-            
-            _audioAssetsService.Load();
-        }
-
+        
         private void BindAudioService()
         {
-            _audioService = new AudioService(GetComponent<AudioSource>(), _audioAssetsService, _staticData.ForConfig());
+            _audioService = new AudioService(_staticData.ForConfig(), _staticData);
             Container
                 .Bind<IAudioService>()
                 .FromInstance(_audioService)
                 .AsSingle();
+            _audioService.Init();
         }
 
         private static IInputService ChangeInputService() =>

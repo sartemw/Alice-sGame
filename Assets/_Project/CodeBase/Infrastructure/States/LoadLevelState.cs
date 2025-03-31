@@ -3,10 +3,12 @@ using System.Threading.Tasks;
 using _Project.CodeBase.CameraLogic;
 using _Project.CodeBase.Data;
 using _Project.CodeBase.Enemy;
+using _Project.CodeBase.Events;
 using _Project.CodeBase.Hero;
 using _Project.CodeBase.Infrastructure.Factory;
 using _Project.CodeBase.Logic;
 using _Project.CodeBase.Logic.Curtain;
+using _Project.CodeBase.Services.Audio;
 using _Project.CodeBase.Services.PersistentProgress;
 using _Project.CodeBase.Services.StaticData;
 using _Project.CodeBase.StaticData;
@@ -27,6 +29,7 @@ namespace _Project.CodeBase.Infrastructure.States
     private readonly IPersistentProgressService _progressService;
     private readonly IStaticDataService _staticData;
     private readonly IUIFactory _uiFactory;
+    private readonly IAudioService _audioService;
 
     public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain, DiContainer diContainer)
     {
@@ -37,6 +40,7 @@ namespace _Project.CodeBase.Infrastructure.States
       _progressService = diContainer.Resolve<IPersistentProgressService>();
       _staticData = diContainer.Resolve<IStaticDataService>();
       _uiFactory = diContainer.Resolve<IUIFactory>();
+      _audioService = diContainer.Resolve<IAudioService>();
     }
 
     public void Enter(string sceneName)
@@ -63,6 +67,7 @@ namespace _Project.CodeBase.Infrastructure.States
       
       InformProgressReaders();
 
+
       _stateMachine.Enter<GameLoopState>();
     }
 
@@ -85,6 +90,11 @@ namespace _Project.CodeBase.Infrastructure.States
       await InitLevelTransfer(levelData);
       await InitHud(hero);
       
+      EventBus.Invoke(new LoadLevelSignals
+      {
+        Music = levelData.Music
+      });
+
       CameraFollow(hero);
     }
 

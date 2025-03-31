@@ -2,5 +2,6 @@
 {
     public interface IAudioService: IService
     {
+        void Init();
     }
 }

@@ -11,6 +11,7 @@ namespace _Project.CodeBase.UI
 {
     public class MainMenu : WindowBase
     {
+        private const string MusicTrack = "MainMenu";
         public Button SoundButton;
         public Button StartButton;
         private GameStateMachine _stateMachine;
@@ -25,6 +26,8 @@ namespace _Project.CodeBase.UI
 
         private void Start()
         {
+            EventBus.Invoke(new EnterMainMenuSignal());
+            
             SoundButton.onClick.AddListener(SoundClick);
             StartButton.onClick.AddListener(StartClick);
             CloseButton.onClick.AddListener(CloseClick);
@@ -40,9 +43,8 @@ namespace _Project.CodeBase.UI
 
         private void SoundClick()
         {
-            EventBus.Invoke(new SoundButtonClickSignal());
-            
             _config.Sound = !_config.Sound;
+            EventBus.Invoke(new SoundButtonClickSignal());
         }
 
         void StartClick()

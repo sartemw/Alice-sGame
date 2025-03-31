@@ -11,5 +11,6 @@ namespace _Project.CodeBase.StaticData
     public List<FishSpawnerStaticData> FishSpawners;
     public Vector3 InitialHeroPosition;
     public LevelTransferStaticData LevelTransfer;
+    public string Music;
   }
 }
