@@ -121,12 +121,14 @@ namespace _Project.CodeBase.Infrastructure.Factory
       return lootPiece;
     }
     
-    public async Task<Ink> CreateInk(Vector2 moveTo, Paintable coloredObj)
+    public async Task<Ink> CreateInk(Vector2 moveTo, Paintable coloredObj, IPaintingService paintingService)
     {
       GameObject prefab = await _assets.Load<GameObject>(AssetAddress.Ink);
       Ink ink = InstantiateRegistered(prefab)
         .GetComponent<Ink>();
-      ink.Construct(moveTo, coloredObj);
+      ink.Construct(moveTo, coloredObj, paintingService);
+      
+      
 
       return ink;
     }

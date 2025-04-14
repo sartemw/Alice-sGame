@@ -158,7 +158,7 @@ namespace _Project.CodeBase.Infrastructure
         }
         private void BindRepaintingService()
         {
-            _paintingService = new PaintingService(Colorless, Colored, _fishData, Container);
+            _paintingService = new PaintingService(Colorless, Colored, Container);
             Container
                 .Bind<IPaintingService>()
                 .FromInstance(_paintingService)

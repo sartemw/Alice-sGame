@@ -50,6 +50,8 @@ namespace _Project.CodeBase.Services.Repainting
                 yield return new WaitForFixedUpdate();
                 colored.SetFloat(FadeValue, fade += DeltaFade);
             }
+            
+            EventBus.Invoke(new PaintingCompletedSignal());
         }
 
         private void ColoredSetup()

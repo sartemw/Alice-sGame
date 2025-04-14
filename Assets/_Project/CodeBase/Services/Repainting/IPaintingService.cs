@@ -6,7 +6,6 @@ namespace _Project.CodeBase.Services.Repainting
 {
     public interface IPaintingService: IService
     {
-        public event Action LevelOver;
         public List<Paintable> ColorlessObjs { get; }
         public List<Paintable> ColoredObjs{ get; }
         public Material Colorless{get;}

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using _Project.CodeBase.Events;
 using _Project.CodeBase.Services.Repainting;
 using UnityEngine;
 
@@ -6,28 +7,28 @@ namespace _Project.CodeBase.Logic.Door
 {
     public class DoorOpener : MonoBehaviour
     {
+        private BaseOnEvent<LevelCompletedSignals>  _onLevelCompleted  = new BaseOnEvent<LevelCompletedSignals>();
+        
         public GameObject Door;
         public GameObject DoorFrame;
-        private IPaintingService _paintingService;
+
+        private bool _flag = false;
         public void Construct(IPaintingService paintingService)
         {
                 if (paintingService != null)
                 {
-                    _paintingService = paintingService;
-                    _paintingService.LevelOver += OpenDoor;
+                    EventBus.Subscribe(_onLevelCompleted.SetOnInvoke(OpenDoor));
                     Door.GetComponent<SpritePaintable>().Construct(paintingService);
                     DoorFrame.GetComponent<SpritePaintable>().Construct(paintingService);
                 }
         }
 
-        private void OnDisable()
+        private void OpenDoor(LevelCompletedSignals signals)
         {
-            if (_paintingService != null)
-                _paintingService.LevelOver -= OpenDoor;
-        }
+            if (_flag) return;
 
-        private void OpenDoor()
-        {
+            _flag = true;
+            
             gameObject.GetComponent<BoxCollider2D>().enabled = true;
             StartCoroutine(RotateY());
         }

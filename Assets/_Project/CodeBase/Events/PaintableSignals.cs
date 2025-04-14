@@ -6,4 +6,6 @@ namespace _Project.CodeBase.Events
     {
         public ColoredFish ColoredFish;
     }
+    
+    public class PaintingCompletedSignal : IEventSignal { }
 }
