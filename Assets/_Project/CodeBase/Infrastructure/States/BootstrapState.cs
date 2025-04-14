@@ -1,4 +1,5 @@
-﻿using _Project.CodeBase.Infrastructure.AssetManagement;
+﻿using _Project.CodeBase.Events;
+using _Project.CodeBase.Infrastructure.AssetManagement;
 using _Project.CodeBase.Infrastructure.Factory;
 using _Project.CodeBase.Services.Input;
 using _Project.CodeBase.Services.PersistentProgress;
@@ -40,6 +41,8 @@ namespace _Project.CodeBase.Infrastructure.States
 
       BindGameFactory();
       BindSaveLoadService();
+      
+      EventBus.Invoke(new BootstrapFinishedSignal());
     }
 
     private void BindGameFactory()

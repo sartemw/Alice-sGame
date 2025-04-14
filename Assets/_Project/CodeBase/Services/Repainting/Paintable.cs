@@ -1,4 +1,5 @@
-﻿using _Project.CodeBase.Fish;
+﻿using _Project.CodeBase.Events;
+using _Project.CodeBase.Fish;
 using UnityEngine;
 using Zenject;
 
@@ -6,12 +7,14 @@ namespace _Project.CodeBase.Services.Repainting
 {
     public abstract class Paintable: MonoBehaviour
     {
-        public ColorType ColorType;
-
-        public abstract  void Initialize();
-        public abstract  void Fade();
-        public abstract void Brightening();
+        private BaseOnEvent<StartPaintingSignal>  _onStartPainting  = new BaseOnEvent<StartPaintingSignal>();
         
+        public ColorType ColorType;
+        
+        public abstract void Initialize();
+        public abstract void Fade();
+        protected abstract void Brightening(StartPaintingSignal obj);
+
         protected IPaintingService PaintingService;
         protected GameObject Colorless;
 
@@ -19,9 +22,13 @@ namespace _Project.CodeBase.Services.Repainting
         protected float DeltaAlpha = Constants.PaintableDeltaAlpha;
         
         [Inject]
-        public void Construct(IPaintingService paintingService) => 
+        public void Construct(IPaintingService paintingService)
+        {
             PaintingService = paintingService;
-        
+            EventBus.Subscribe(_onStartPainting.SetOnInvoke(Brightening));
+        }
+
+
         public void SetColorless(GameObject colorless) => 
             Colorless = colorless;
 

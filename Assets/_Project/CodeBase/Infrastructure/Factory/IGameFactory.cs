@@ -2,8 +2,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using _Project.CodeBase.Enemy;
 using _Project.CodeBase.Fish;
+using _Project.CodeBase.Infrastructure.Effects;
 using _Project.CodeBase.Services;
 using _Project.CodeBase.Services.PersistentProgress;
+using _Project.CodeBase.Services.Repainting;
 using _Project.CodeBase.StaticData;
 using UnityEngine;
 
@@ -18,6 +20,7 @@ namespace _Project.CodeBase.Infrastructure.Factory
     Task<GameObject> CreateMonster(MonsterTypeId typeId, Transform parent);
     Task<LootPiece> CreateLoot();
     Task CreateEnemySpawner(string spawnerId, Vector3 at, MonsterTypeId monsterTypeId);
+    Task<Ink> CreateInk(Vector2 moveTo, Paintable coloredObj);
     void Cleanup();
     Task WarmUp();
     Task CreateLevelTransfer(Vector3 at);

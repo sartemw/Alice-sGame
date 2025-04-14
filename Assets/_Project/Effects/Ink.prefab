@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1847804089198045998}
   - component: {fileID: 9018469076987202066}
   - component: {fileID: 5436460890862047931}
+  - component: {fileID: -388302460132819681}
   m_Layer: 0
   m_Name: Ink
   m_TagString: Untagged
@@ -69,7 +70,39 @@ VisualEffect:
     m_AnimationCurve:
       m_Array: []
     m_Gradient:
-      m_Array: []
+      m_Array:
+      - m_Value:
+          serializedVersion: 2
+          key0: {r: 0.19326274, g: 0.8808949, b: 0.9528302, a: 1}
+          key1: {r: 0.16887684, g: 0.6275958, b: 0.6509434, a: 1}
+          key2: {r: 0.46293163, g: 0.89872, b: 0.9716981, a: 0}
+          key3: {r: 0.46293163, g: 0.89872, b: 0.9716981, a: 0}
+          key4: {r: 0, g: 0, b: 0, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 0
+          ctime1: 26792
+          ctime2: 65535
+          ctime3: 65535
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 38743
+          atime2: 65535
+          atime3: 0
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_ColorSpace: 1
+          m_NumColorKeys: 3
+          m_NumAlphaKeys: 3
+        m_Name: BaseGradient
+        m_Overridden: 1
     m_NamedObject:
       m_Array: []
     m_Bool:
@@ -114,3 +147,15 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &-388302460132819681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256641048955450420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddf75414e0634472857eeffde3571b13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

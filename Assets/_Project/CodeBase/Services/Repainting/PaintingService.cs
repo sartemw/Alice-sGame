@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using _Project.CodeBase.Events;
 using _Project.CodeBase.Fish;
+using _Project.CodeBase.Infrastructure.Factory;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
+using Zenject;
+using Random = UnityEngine.Random;
 
 namespace _Project.CodeBase.Services.Repainting
 {
@@ -14,7 +19,11 @@ namespace _Project.CodeBase.Services.Repainting
         private const string GameEnd = "GameEnd";
         
         private readonly IFishDataService _fishDataService;
+        private readonly DiContainer _diContainer;
+        private IGameFactory _gameFactory;
+
         private BaseOnEvent<FishPickupSignal>  _onFishPickup  = new BaseOnEvent<FishPickupSignal>();
+        private BaseOnEvent<BootstrapFinishedSignal>  _onBootstrapFinished  = new BaseOnEvent<BootstrapFinishedSignal>();
         public Material Colorless {get;}
         public Material Colored {get;}
 
@@ -24,13 +33,18 @@ namespace _Project.CodeBase.Services.Repainting
         public event Action LevelOver;
 
         public PaintingService(Material colorless, Material colored, 
-            IFishDataService fishDataService)
+            IFishDataService fishDataService, DiContainer diContainer)
         {
             Colored = colored;
             Colorless = colorless;
             _fishDataService = fishDataService;
+            _diContainer = diContainer;
             EventBus.Subscribe(_onFishPickup.SetOnInvoke(Painting));
+            EventBus.Subscribe(_onBootstrapFinished.SetOnInvoke(ConstructBootstrap));
         }
+
+        private void ConstructBootstrap(BootstrapFinishedSignal obj) => 
+            _gameFactory = _diContainer.Resolve<IGameFactory>();
 
         public void StartLevel()
         {
@@ -66,6 +80,8 @@ namespace _Project.CodeBase.Services.Repainting
                 {
                     ColorlessObjs.Remove(colorlessObj);
                     colorlessObj.Fade();
+                    
+                    //_gameFactory.CreateInk(colorlessObj.transform.position, colorlessObj.transform.parent.GetComponent<Paintable>());
                 }
             }
             
@@ -76,13 +92,26 @@ namespace _Project.CodeBase.Services.Repainting
                 if (fish.ColorType == coloredObj.ColorType
                     || fish.ColorType == ColorType.Rainbow)
                 {
+                    _gameFactory.CreateInk(CreatePointInk(coloredObj), coloredObj);
+
                     ColoredObjs.Remove(coloredObj);
-                    coloredObj.Brightening();
                 }
             }
             
-            //рыба плывет
             fish.gameObject.SetActive(false);
+        }
+
+        private Vector2 CreatePointInk(Paintable paintable)
+        {
+            Vector2 positionInk = paintable.transform.position;
+            
+            if (paintable is TilemapPaintable)
+            {
+                var boundTile =paintable.GetComponent<TilemapRenderer>().bounds;
+                positionInk = new Vector2(Random.Range(boundTile.center.x - boundTile.size.x, boundTile.center.x + boundTile.size.x)/2, Random.Range(boundTile.center.y - boundTile.size.y,boundTile.center.y + boundTile.size.y)/2);
+            }
+
+            return positionInk;
         }
 
         private void PaintingLevelOver()

@@ -4,6 +4,7 @@ using _Project.CodeBase.Enemy;
 using _Project.CodeBase.Fish;
 using _Project.CodeBase.Hero;
 using _Project.CodeBase.Infrastructure.AssetManagement;
+using _Project.CodeBase.Infrastructure.Effects;
 using _Project.CodeBase.Infrastructure.States;
 using _Project.CodeBase.Logic;
 using _Project.CodeBase.Logic.Door;
@@ -118,6 +119,16 @@ namespace _Project.CodeBase.Infrastructure.Factory
       lootPiece.Construct(_persistentProgressService.Progress.WorldData);
 
       return lootPiece;
+    }
+    
+    public async Task<Ink> CreateInk(Vector2 moveTo, Paintable coloredObj)
+    {
+      GameObject prefab = await _assets.Load<GameObject>(AssetAddress.Ink);
+      Ink ink = InstantiateRegistered(prefab)
+        .GetComponent<Ink>();
+      ink.Construct(moveTo, coloredObj);
+
+      return ink;
     }
 
     public async Task<GameObject> CreateMonster(MonsterTypeId typeId, Transform parent)

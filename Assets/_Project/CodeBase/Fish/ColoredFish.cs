@@ -20,6 +20,8 @@ namespace _Project.CodeBase.Fish
 
         private void Start()
         {
+            base.Construct();
+            
             if (ColorType == ColorType.Rainbow)
             {
                StartCoroutine(RainbowColor());

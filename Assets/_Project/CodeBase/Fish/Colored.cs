@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using _Project.CodeBase.Data;
 using UnityEngine;
 
@@ -11,6 +12,9 @@ namespace _Project.CodeBase.Fish
         public Vector2 Position;
 
         private int _i;
+
+        protected virtual void Construct() => 
+            Position = transform.position;
 
         private void OnEnable() => 
             StopCoroutine(RainbowColor());

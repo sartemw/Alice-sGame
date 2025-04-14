@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _onlyPlayOnce: 0
-  _playOnEnable: 1
+  _playOnEnable: 0
   _stopOnDisable: 0
   _overrideFadeOut: -1
   _sound:

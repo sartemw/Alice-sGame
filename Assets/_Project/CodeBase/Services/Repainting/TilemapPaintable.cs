@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using _Project.CodeBase.Events;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -7,6 +8,7 @@ namespace _Project.CodeBase.Services.Repainting
     [RequireComponent(typeof(TilemapRenderer))]
     public class TilemapPaintable: Paintable
     {
+        private const string FadeValue = "_Fade";
         private TilemapRenderer _renderer;
         
         private TilemapRenderer _colorlessRenderer;
@@ -21,8 +23,11 @@ namespace _Project.CodeBase.Services.Repainting
         public override void Fade() => 
             StartCoroutine(FadeTilemap());
 
-        public override void Brightening() => 
-            StartCoroutine(BrighteningTilemap());
+        protected override void Brightening(StartPaintingSignal obj)
+        {
+            if (obj.Target == this)
+                StartCoroutine(BrighteningTilemap());
+        }
 
         private IEnumerator FadeTilemap()
         {
@@ -39,11 +44,11 @@ namespace _Project.CodeBase.Services.Repainting
         private IEnumerator BrighteningTilemap()
         {
             Material colored = _renderer.material;
-            float fade = colored.GetFloat("_Fade");
+            float fade = colored.GetFloat(FadeValue);
             while (fade <= 1)
             {
                 yield return new WaitForFixedUpdate();
-                colored.SetFloat("_Fade", fade += DeltaFade);
+                colored.SetFloat(FadeValue, fade += DeltaFade);
             }
         }
 
@@ -56,7 +61,7 @@ namespace _Project.CodeBase.Services.Repainting
                 return;
             }
             _renderer.material = PaintingService.Colored;
-            _renderer.material.SetFloat("_Fade", 0);
+            _renderer.material.SetFloat(FadeValue, 0);
         }
 
         private void ColorlessSetup()

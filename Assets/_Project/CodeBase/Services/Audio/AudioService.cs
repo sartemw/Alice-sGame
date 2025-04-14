@@ -22,7 +22,7 @@ namespace _Project.CodeBase.Services.Audio
             get
             {
                 if (_config.Sound)
-                    BroAudio.SetVolume(10);
+                    BroAudio.SetVolume(1);
                 else
                     BroAudio.SetVolume(0);
                 

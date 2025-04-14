@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using _Project.CodeBase.Events;
 using UnityEngine;
 
 namespace _Project.CodeBase.Services.Repainting
@@ -6,6 +7,7 @@ namespace _Project.CodeBase.Services.Repainting
     [RequireComponent(typeof(SpriteRenderer))]
     public class SpritePaintable: Paintable
     {
+        private const string FadeValue = "_Fade";
         private SpriteRenderer _renderer;
         
         private SpriteRenderer _colorlessRenderer;
@@ -19,8 +21,11 @@ namespace _Project.CodeBase.Services.Repainting
         public override void Fade() => 
             StartCoroutine(FadeSprite());
 
-        public override void Brightening() => 
-            StartCoroutine(BrighteningSprite());
+        protected override void Brightening(StartPaintingSignal obj)
+        {
+            if (obj.Target == this)
+                StartCoroutine(BrighteningSprite());
+        }
 
         private IEnumerator FadeSprite()
         {
@@ -37,11 +42,11 @@ namespace _Project.CodeBase.Services.Repainting
         private IEnumerator BrighteningSprite()
         {
             Material colored = _renderer.material;
-            float fade = colored.GetFloat("_Fade");
+            float fade = colored.GetFloat(FadeValue);
             while (fade <= 1)
             {
                 yield return new WaitForFixedUpdate();
-                colored.SetFloat("_Fade", fade += DeltaFade);
+                colored.SetFloat(FadeValue, fade += DeltaFade);
             }
         }
 
@@ -54,7 +59,7 @@ namespace _Project.CodeBase.Services.Repainting
                 return;
             }
             _renderer.material = PaintingService.Colored;
-            _renderer.material.SetFloat("_Fade", 0);
+            _renderer.material.SetFloat(FadeValue, 0);
         }
 
         private void ColorlessSetup()
