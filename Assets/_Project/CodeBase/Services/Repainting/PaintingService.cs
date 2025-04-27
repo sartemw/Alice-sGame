@@ -60,6 +60,7 @@ namespace _Project.CodeBase.Services.Repainting
         {
             ColoredFish fish = fishSignal.ColoredFish;
             Debug.Log($"<color={fish.ColorType}> Picked {fish.ColorType} fish</color>");
+            //_gameFactory.CanCreateInk();
 
             foreach (Paintable colorlessObj in ColorlessObjs.ToList())
             {
@@ -67,7 +68,6 @@ namespace _Project.CodeBase.Services.Repainting
                     || fish.ColorType == ColorType.Rainbow)
                 {
                     ColorlessObjs.Remove(colorlessObj);
-                    colorlessObj.Fade();
                 }
             }
 
@@ -76,11 +76,11 @@ namespace _Project.CodeBase.Services.Repainting
                 if (fish.ColorType == coloredObj.ColorType
                     || fish.ColorType == ColorType.Rainbow)
                 {
-                    if (coloredObj is TilemapPaintable)
+                    /*if (coloredObj is TilemapPaintable)
                         for (int i = 0; i < 3; i++)
-                            _gameFactory.CreateInk(CreatePointInk(coloredObj), coloredObj, this);
+                            _gameFactory.CreateInk(fish.Position, CreatePointInk(coloredObj), coloredObj, this);*/
 
-                    _gameFactory.CreateInk(CreatePointInk(coloredObj), coloredObj, this);
+                    _gameFactory.CreateInk(fish.Position, CreatePointInk(coloredObj), coloredObj, this);
 
                     ColoredObjs.Remove(coloredObj);
                 }

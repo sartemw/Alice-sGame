@@ -18,13 +18,13 @@ namespace _Project.CodeBase.Services.Repainting
             ColorlessSetup();
         }
 
-        public override void Fade() => 
-            StartCoroutine(FadeSprite());
-
         protected override void Brightening(StartPaintingSignal obj)
         {
             if (obj.Target == this)
+            {
                 StartCoroutine(BrighteningSprite());
+                StartCoroutine(FadeSprite());                
+            }
         }
 
         private IEnumerator FadeSprite()

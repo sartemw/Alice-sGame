@@ -40,6 +40,8 @@ namespace _Project.CodeBase.Infrastructure.Factory
     private readonly IGameStateMachine _stateMachine;
     private readonly DiContainer _diContainer;
 
+    //private int _countInk;
+    
     public GameFactory(
       IInputService inputService,
       IAssetProvider assets, 
@@ -121,17 +123,22 @@ namespace _Project.CodeBase.Infrastructure.Factory
       return lootPiece;
     }
     
-    public async Task<Ink> CreateInk(Vector2 moveTo, Paintable coloredObj, IPaintingService paintingService)
+    public async Task<Ink> CreateInk(Vector2 at, Vector2 moveTo, Paintable coloredObj, IPaintingService paintingService)
     {
+      /*_countInk++;
+      if (_countInk > 4) 
+        return null;*/
+      
       GameObject prefab = await _assets.Load<GameObject>(AssetAddress.Ink);
-      Ink ink = InstantiateRegistered(prefab)
+      Ink ink = InstantiateRegistered(prefab, at)
         .GetComponent<Ink>();
-      ink.Construct(moveTo, coloredObj, paintingService);
+      ink.Construct(moveTo, coloredObj, paintingService, _staticData.ForConfig());
       
-      
-
       return ink;
     }
+
+    // public void CanCreateInk() => 
+    //   _countInk = 0;
 
     public async Task<GameObject> CreateMonster(MonsterTypeId typeId, Transform parent)
     {

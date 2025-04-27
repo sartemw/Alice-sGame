@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5436460890862047931}
   - component: {fileID: -388302460132819681}
   m_Layer: 0
-  m_Name: Ink
+  m_Name: Ink Easy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42,7 +42,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1256641048955450420}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: 41d136381b16c3d4894e4f3d96a5487f, type: 3}
+  m_Asset: {fileID: 8926484042661614526, guid: 438d89b854d199e4b9b24a591e555854, type: 3}
   m_InitialEventName: OnPlay
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0

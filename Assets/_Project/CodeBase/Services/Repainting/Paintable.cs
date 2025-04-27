@@ -12,7 +12,6 @@ namespace _Project.CodeBase.Services.Repainting
         public ColorType ColorType;
         
         public abstract void Initialize();
-        public abstract void Fade();
         protected abstract void Brightening(StartPaintingSignal obj);
 
         protected IPaintingService PaintingService;

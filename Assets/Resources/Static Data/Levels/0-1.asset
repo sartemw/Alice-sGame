@@ -19,16 +19,8 @@ MonoBehaviour:
     FishColor: 1
     FishBehaviour: 0
     Position: {x: 0.22, y: -1.85}
-  - Id: Main_9197e9ca-e993-403f-91a7-658d2f42f495
-    FishColor: 2
-    FishBehaviour: 0
-    Position: {x: 2.06, y: -1.96}
-  - Id: Main_f04d9ab8-44d0-47f3-98b4-82b8c8bf2204
-    FishColor: 5
-    FishBehaviour: 0
-    Position: {x: -2.49, y: -1.82}
   InitialHeroPosition: {x: -5.36, y: -1.57, z: 0}
   LevelTransfer:
     TransferTo: 0-2
     Position: {x: 6.28, y: -2.16, z: 0}
-  Music: Game1
+  Music: 

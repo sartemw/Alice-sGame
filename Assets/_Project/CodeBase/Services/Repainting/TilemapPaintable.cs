@@ -18,15 +18,14 @@ namespace _Project.CodeBase.Services.Repainting
             ColoredSetup();
             ColorlessSetup();
         }
-     
-
-        public override void Fade() => 
-            StartCoroutine(FadeTilemap());
 
         protected override void Brightening(StartPaintingSignal obj)
         {
             if (obj.Target == this)
+            {
                 StartCoroutine(BrighteningTilemap());
+                StartCoroutine(FadeTilemap());
+            }
         }
 
         private IEnumerator FadeTilemap()
