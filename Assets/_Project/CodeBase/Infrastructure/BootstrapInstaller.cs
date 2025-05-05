@@ -149,7 +149,7 @@ namespace _Project.CodeBase.Infrastructure
         private void BindInputService()
         {
             //_inputService = ChangeInputService();
-            _inputService = new FoolScreenInputService();
+            _inputService = new HalfScreenInputService();
 
             Container
                 .Bind<IInputService>()

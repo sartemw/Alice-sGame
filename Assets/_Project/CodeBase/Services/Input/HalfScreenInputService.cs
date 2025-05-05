@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 namespace _Project.CodeBase.Services.Input
 {
-    public class FoolScreenInputService: InputService
+    public class HalfScreenInputService: InputService
     {
         private Vector2 _axis = Vector2.zero;
         public override Vector2 Axis

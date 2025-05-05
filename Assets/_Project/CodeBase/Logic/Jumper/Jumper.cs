@@ -2,7 +2,7 @@
 using _Project.CodeBase.Hero;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace _Project.CodeBase.Logic.Jumper
 {
@@ -11,8 +11,8 @@ namespace _Project.CodeBase.Logic.Jumper
         public TriggerObserver PointA;
         public TriggerObserver PointB;
 
-        public Button ButtonA;
-        public Button ButtonB;
+        public ClickTrigger ButtonA;
+        public ClickTrigger ButtonB;
 
         public float JumpForce;
         
@@ -20,7 +20,7 @@ namespace _Project.CodeBase.Logic.Jumper
         private float _gravityScale;
         private HeroMove _heroMove;
         private Rigidbody2D _rigidbody2D;
-
+        
         private void Start()
         {
             PointA.TriggerEnter += PrepareJumpA;
@@ -28,6 +28,9 @@ namespace _Project.CodeBase.Logic.Jumper
             
             PointA.TriggerExit += ResetA;
             PointB.TriggerExit += ResetB;
+
+            ButtonA.TriggeredClick += JumpA;
+            ButtonB.TriggeredClick += JumpB;
         }
 
         private void Jump(Vector2 end)
@@ -98,6 +101,9 @@ namespace _Project.CodeBase.Logic.Jumper
             
             PointA.TriggerExit -= ResetA;
             PointB.TriggerExit -= ResetB;
+            
+            ButtonA.TriggeredClick -= JumpA;
+            ButtonB.TriggeredClick -= JumpB;
         }
     }
 }
