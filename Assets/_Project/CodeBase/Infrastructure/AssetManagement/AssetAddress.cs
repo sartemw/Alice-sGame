@@ -4,7 +4,7 @@ namespace _Project.CodeBase.Infrastructure.AssetManagement
   {
     public const string HeroPath = "Hero";
     public const string Loot = "Loot";
-    public const string Ink = "Ink";
+    public const string Ink = "Ink3";
     public const string HudPath = "Hud";
     public const string FishSpawner = "FishSpawnPoint";
     public const string EnemySpawner = "EnemySpawnPoint";

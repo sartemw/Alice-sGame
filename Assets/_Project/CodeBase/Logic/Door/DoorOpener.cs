@@ -18,6 +18,8 @@ namespace _Project.CodeBase.Logic.Door
                 if (paintingService != null)
                 {
                     EventBus.Subscribe(_onLevelCompleted.SetOnInvoke(OpenDoor));
+                    paintingService.CheckLevelCompleted();
+                    
                     Door.GetComponent<SpritePaintable>().Construct(paintingService);
                     DoorFrame.GetComponent<SpritePaintable>().Construct(paintingService);
                 }
@@ -28,7 +30,7 @@ namespace _Project.CodeBase.Logic.Door
             if (_flag) return;
 
             _flag = true;
-            
+
             gameObject.GetComponent<BoxCollider2D>().enabled = true;
             StartCoroutine(RotateY());
         }

@@ -19,7 +19,7 @@ namespace _Project.CodeBase.StaticData
         [Range(.5f,1)]
         public float Cleavage = .5f;
 
-        [Range(0,100)]
-        public int MoveSpeed = 50;
+        [Range(0,20)]
+        public int MoveSpeed = 13;
     }
 }

@@ -14,13 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelKey: 0-1
   EnemySpawners: []
-  FishSpawners:
-  - Id: Main_a3e58d77-8276-4735-93e4-42e0c0b2d22a
-    FishColor: 1
-    FishBehaviour: 0
-    Position: {x: 0.22, y: -1.85}
+  FishSpawners: []
   InitialHeroPosition: {x: -5.36, y: -1.57, z: 0}
   LevelTransfer:
     TransferTo: 0-2
-    Position: {x: 6.28, y: -2.16, z: 0}
+    Position: {x: 6.28, y: -1.93, z: 0}
   Music: 

@@ -48,8 +48,7 @@ namespace _Project.CodeBase.Hero
 
         FlipHero();
       }
-      Rigidbody2D.MovePosition(_movementSpeed * _movementVector * Time.deltaTime  + Rigidbody2D.position);
-
+      Rigidbody2D.MovePosition(_movementSpeed * _movementVector * Time.deltaTime  + Rigidbody2D.position);;
     }
   
     public void UpdateProgress(PlayerProgress progress)

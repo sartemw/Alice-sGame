@@ -1,5 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
+using System.Data;
+using _Project.CodeBase.Data;
 using _Project.CodeBase.Events;
 using _Project.CodeBase.Fish;
 using _Project.CodeBase.Services.Repainting;
@@ -17,10 +18,10 @@ namespace _Project.CodeBase.Infrastructure.Effects
         private InkData _data;
         private IPaintingService _paintingService;
         private VisualEffect _effect;
+        private ParticleSystem _particle;
 
         [SerializeField] private float _speed;
         [SerializeField] private GameObject _sparks;
-        [SerializeField] private GameObject _ink;
         private ConfigStaticData _config;
 
 
@@ -34,14 +35,50 @@ namespace _Project.CodeBase.Infrastructure.Effects
             CreateSparks();
             _paintingService = paintingService;
             _config = config;
-            _effect = GetComponent<VisualEffect>();
-            
-            _effect.SetGradient(BaseGradient, SetGradient(coloredObj.ColorType));
+            //_effect = GetComponent<VisualEffect>();
+            _particle = GetComponent<ParticleSystem>();
 
-            StartCoroutine(MoveEffect());
+            SetColorOverLifeTime(coloredObj);
+            GetComponent<SpriteRenderer>().color = coloredObj.ColorType.SwitchColor();
+            //_effect.SetGradient(BaseGradient, SetGradient(coloredObj.ColorType));
+
+            RotateTo(moveTo);
+            //StartCoroutine(MoveEffect());
             
             MoveTo(moveTo);
         }
+
+        private void RotateTo(Vector2 moveTo)
+        {
+            Vector2 target = moveTo;
+            Vector2 inkPos = transform.position;
+            target.x -= inkPos.x;
+            target.y -= inkPos.y;
+            float angle = Mathf.Atan2(target.x, target.y) * Mathf.Rad2Deg;
+            Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, -angle-180));
+            gameObject.transform.rotation = targetRotation;
+        }
+
+        private void SetColorOverLifeTime(Paintable coloredObj)
+        {
+            ParticleSystem.ColorOverLifetimeModule col = _particle.colorOverLifetime;
+            col.enabled = true;
+            col.color = SetGradient(coloredObj.ColorType);
+        }
+
+        private void MoveTo(Vector2 moveTo) => 
+            transform.DOMove(moveTo, _speed).SetEase(Ease.InQuad).OnComplete(StartPainting);
+
+        private void StartPainting()
+        {
+            EventBus.Invoke(new StartPaintingSignal {Target = _data.Target});
+
+            CreateSparks();
+            Destroy(gameObject);
+        }
+
+        private void CreateSparks() => 
+            Instantiate(_sparks, transform.position, transform.rotation);
 
         private Gradient SetGradient(ColorType colorType)
         {
@@ -77,15 +114,6 @@ namespace _Project.CodeBase.Infrastructure.Effects
             return gradient;
         }
 
-        private void CreateSparks() => 
-            Instantiate(_sparks, transform.position, transform.rotation);
-
-        private void CreateInkEffect() => 
-            Instantiate(_sparks, transform.position, transform.rotation);
-        
-        private void MoveTo(Vector2 moveTo) => 
-            transform.DOMove(moveTo, _speed).SetEase(Ease.InQuad).OnComplete(StartPainting);
-
         private IEnumerator MoveEffect()
         {
             while (true)
@@ -96,12 +124,7 @@ namespace _Project.CodeBase.Infrastructure.Effects
             }
         }
 
-        private void StartPainting()
-        {
-            EventBus.Invoke(new StartPaintingSignal {Target = _data.Target});
-
-            CreateSparks();
-            Destroy(gameObject);
-        }
+        private void CreateInkEffect() => 
+            Instantiate(_sparks, transform.position, transform.rotation);
     }
 }

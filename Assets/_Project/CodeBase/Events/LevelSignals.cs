@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace _Project.CodeBase.Events
 {
@@ -10,6 +11,6 @@ namespace _Project.CodeBase.Events
     public class LevelCompletedSignals  : IEventSignal 
     {
         public LevelCompletedSignals() => 
-            Debug.Log("<color=green> Level Completed </color>");
+            Debug.Log($"<color=green> Level Completed {SceneManager.GetActiveScene().name}</color>");
     }
 }

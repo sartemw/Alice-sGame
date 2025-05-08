@@ -43,7 +43,7 @@ namespace _Project.CodeBase.Services.Repainting
             CleanUp();
             
             Paintable[] paintables = GameObject.FindObjectsOfType<Paintable>();
-
+            
             //на сцене только требующие раскраску объекты,
             //затемненные создаются и добавляются из Paintable
             foreach (Paintable paintable in paintables)
@@ -51,6 +51,12 @@ namespace _Project.CodeBase.Services.Repainting
                 ColoredObjs.Add(paintable);
                 paintable.Initialize();
             }
+        }
+
+        public void CheckLevelCompleted()
+        {
+            if (ColoredObjs.Count == 0) 
+                EventBus.Invoke(new LevelCompletedSignals());
         }
 
         public void SetColorless(Paintable paintable) => 
