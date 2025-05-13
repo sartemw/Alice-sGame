@@ -1,4 +1,5 @@
-﻿using _Project.CodeBase.Enemy;
+﻿using System.Collections;
+using _Project.CodeBase.Enemy;
 using _Project.CodeBase.Hero;
 using DG.Tweening;
 using UnityEngine;
@@ -8,6 +9,8 @@ namespace _Project.CodeBase.Logic.Jumper
 {
     public class Jumper : MonoBehaviour
     {
+        [Header("+0.27 to Y coordinate")]
+
         public TriggerObserver PointA;
         public TriggerObserver PointB;
 
@@ -15,12 +18,13 @@ namespace _Project.CodeBase.Logic.Jumper
         public ClickTrigger ButtonB;
 
         public float JumpForce;
-        
+        public bool FlagCanJumpB;
+
         private Collider2D _jumpObject;
         private float _gravityScale;
         private HeroMove _heroMove;
         private Rigidbody2D _rigidbody2D;
-        
+
         private void Start()
         {
             PointA.TriggerEnter += PrepareJumpA;
@@ -38,36 +42,27 @@ namespace _Project.CodeBase.Logic.Jumper
             _heroMove = _jumpObject.GetComponent<HeroMove>();
             _rigidbody2D = _jumpObject.GetComponent<Rigidbody2D>();
             _gravityScale = _rigidbody2D.gravityScale;
-
+            
             _heroMove.FlipHero(new Vector2(end.x - _jumpObject.transform.position.x  , 0).normalized);
             _heroMove.enabled = false;
             _rigidbody2D.gravityScale = 0;
-            
-            _rigidbody2D
+
+            _jumpObject.transform
                 .DOJump(end, JumpForce, 1, 2)
-                .SetEase(Ease.InOutBack)
+                .SetEase(Ease.OutExpo)
                 .OnComplete(ActiveHero);
         }
 
-        public void JumpA()
-        {
-            Vector2 end = PointB.transform.position;
+        private void JumpA() => 
+            Jump(PointB.transform.position);
 
-            Jump(end);
-        }
-
-        public void JumpB()
-        {
-            Vector2 end = PointA.transform.position;
-            
-            Jump(end);
-        }
+        private void JumpB() => 
+            Jump(PointA.transform.position);
 
         private void ActiveHero()
         {
             _heroMove.enabled = true;
             _rigidbody2D.gravityScale = _gravityScale;
-
         }
 
         private void PrepareJumpA(Collider2D obj)
@@ -78,6 +73,9 @@ namespace _Project.CodeBase.Logic.Jumper
 
         private void PrepareJumpB(Collider2D obj)
         {
+            if (!FlagCanJumpB)
+                return;
+            
             _jumpObject = obj;
             ButtonB.gameObject.SetActive(true);
         }
