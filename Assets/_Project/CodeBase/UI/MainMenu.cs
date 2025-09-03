@@ -63,7 +63,7 @@ namespace _Project.CodeBase.UI
         
         private string CurrentLevel()
         {
-            int levelsCompleted = Progress.GameProgressData.LevelsCompleted;
+            int levelsCompleted = Progress.GameProgressData.CurrentLevel;
             
             return $"0-{levelsCompleted}";
         }

@@ -37,7 +37,7 @@ namespace _Project.CodeBase.UI.Windows.Shop
       _adsService.ShowRewardedVideo(OnVideoFinished);
 
     private void OnVideoFinished() => 
-      _progressService.Progress.WorldData.LootData.Add(_adsService.Reward);
+      _progressService.PlayerProgress.WorldData.LootData.Add(_adsService.Reward);
 
     private void RefreshAvailableAd()
     {

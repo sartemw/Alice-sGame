@@ -1,7 +1,7 @@
-using System;
 using _Project.CodeBase.Data;
 using _Project.CodeBase.Services.PersistentProgress;
 using _Project.CodeBase.Services.SaveLoad;
+using UnityEngine;
 using Zenject;
 
 namespace _Project.CodeBase.Infrastructure.States
@@ -25,7 +25,6 @@ namespace _Project.CodeBase.Infrastructure.States
         {
             LoadProgressOrInitNew();
             
-            //_stateMachine.Enter<LoadLevelState, string>("0-1");
             _stateMachine.Enter<LoadMainMenuState, string>(InitialLevel);
         }
 
@@ -35,37 +34,25 @@ namespace _Project.CodeBase.Infrastructure.States
 
         private void LoadProgressOrInitNew()
         {
-            _progressService.Progress = 
+            _progressService.PlayerProgress = 
                 _saveLoadProgress.LoadProgress() 
                 ?? NewProgress();
-            
-            CurrentLevelProgress();
         }
 
         private PlayerProgress NewProgress()
         {
-
             var progress =  new PlayerProgress(initialLevel: "0-1");
 
             progress.HeroState.MaxHP = 50;
             progress.HeroStats.Damage = 1;
             progress.HeroStats.DamageRadius = 0.5f;
             progress.HeroState.ResetHP();
-            progress.GameProgressData.LevelsCompleted = 1;
+            progress.GameProgressData.CurrentLevel = 1;
       
             return progress;
         }
 
-        private int CurrentLevelProgress()
-        {
-            int level = _progressService.Progress.GameProgressData.LevelsCompleted = _saveLoadProgress.LoadLevelCompleted();
-            if (level == 0)
-                level = _progressService.Progress.GameProgressData.LevelsCompleted = 1;
-            
-            return level;
-        }
-
-        private string LoadLevel(int levelsCompleted) => 
-            String.Format("{0}-{1}", levelsCompleted / 10, levelsCompleted % 10);
+        // private string LoadLevel(int levelsCompleted) => 
+        //     String.Format("{0}-{1}", levelsCompleted / 10, levelsCompleted % 10);
     }
 }

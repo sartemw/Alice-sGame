@@ -8,7 +8,6 @@ namespace _Project.CodeBase.Services.SaveLoad
   public class SaveLoadService : ISaveLoadService
   {
     private const string ProgressKey = "Progress";
-    private const string LevelCompleted = "LevelCompleted";
 
     private readonly IPersistentProgressService _progressService;
     private readonly IGameFactory _gameFactory;
@@ -22,22 +21,9 @@ namespace _Project.CodeBase.Services.SaveLoad
     public void SaveProgress()
     {
       foreach (ISavedProgress progressWriter in _gameFactory.ProgressWriters)
-        progressWriter.UpdateProgress(_progressService.Progress);
+        progressWriter.UpdateProgress(_progressService.PlayerProgress);
       
-      PlayerPrefs.SetString(ProgressKey, _progressService.Progress.ToJson());
-    }
-
-    public void SaveLevelCompleted()
-    {
-      int temp = _progressService.Progress.GameProgressData.LevelsCompleted;
-      PlayerPrefs.SetInt(LevelCompleted, temp);
-    }
-
-    public int LoadLevelCompleted()
-    {
-      int value = PlayerPrefs.GetInt(LevelCompleted);
-      
-      return value;
+      PlayerPrefs.SetString(ProgressKey, _progressService.PlayerProgress.ToJson());
     }
 
     public PlayerProgress LoadProgress()

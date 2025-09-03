@@ -18,10 +18,12 @@ namespace _Project.CodeBase.Logic.Door
                 if (paintingService != null)
                 {
                     EventBus.Subscribe(_onLevelCompleted.SetOnInvoke(OpenDoor));
-                    paintingService.CheckLevelCompleted();
+                    paintingService.CheckLevelCompletedOnStart();
                     
                     Door.GetComponent<SpritePaintable>().Construct(paintingService);
                     DoorFrame.GetComponent<SpritePaintable>().Construct(paintingService);
+
+                    paintingService.IsStart(false);
                 }
         }
 

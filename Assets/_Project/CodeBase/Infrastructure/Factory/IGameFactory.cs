@@ -21,8 +21,6 @@ namespace _Project.CodeBase.Infrastructure.Factory
     Task<LootPiece> CreateLoot();
     Task CreateEnemySpawner(string spawnerId, Vector3 at, MonsterTypeId monsterTypeId);
     Task<Ink> CreateInk(Vector2 at, Vector2 moveTo, Paintable coloredObj, IPaintingService paintingService);
-    //void CanCreateInk();
-
     void Cleanup();
     Task WarmUp();
     Task CreateLevelTransfer(Vector3 at);

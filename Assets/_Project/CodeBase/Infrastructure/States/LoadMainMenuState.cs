@@ -1,8 +1,10 @@
 ﻿using System.Threading.Tasks;
 using _Project.CodeBase.Infrastructure.Factory;
 using _Project.CodeBase.Logic.Curtain;
+using _Project.CodeBase.Services.Analytics;
 using _Project.CodeBase.Services.PersistentProgress;
 using _Project.CodeBase.UI.Services.Factory;
+using Io.AppMetrica;
 using Zenject;
 
 namespace _Project.CodeBase.Infrastructure.States
@@ -15,6 +17,8 @@ namespace _Project.CodeBase.Infrastructure.States
         private LoadingCurtain _loadingCurtain;
         private IGameFactory _gameFactory;
         private IPersistentProgressService _progressService;
+        private IAnalyticsService _analyticsService;
+        
 
 
         public LoadMainMenuState(GameStateMachine stateMachine, SceneLoader sceneLoader,
@@ -26,6 +30,7 @@ namespace _Project.CodeBase.Infrastructure.States
             _progressService = diContainer.Resolve<IPersistentProgressService>();
             _uiFactory = diContainer.Resolve<IUIFactory>();
             _gameFactory = diContainer.Resolve<IGameFactory>();
+            _analyticsService = diContainer.Resolve<IAnalyticsService>();
         }
 
         public void Enter(string sceneName)
@@ -35,6 +40,8 @@ namespace _Project.CodeBase.Infrastructure.States
             _gameFactory.WarmUp();
 
             _sceneLoader.Load(sceneName, OnLoaded);
+            
+            _analyticsService.Send("Load MainMenu");
         }
 
         public void Exit()
@@ -55,7 +62,7 @@ namespace _Project.CodeBase.Infrastructure.States
         private void InformProgressReaders()
         {
             foreach (ISavedProgressReader progressReader in _gameFactory.ProgressReaders)
-                progressReader.LoadProgress(_progressService.Progress);
+                progressReader.LoadProgress(_progressService.PlayerProgress);
         }
         
         private async Task InitMainMenu() => 

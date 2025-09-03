@@ -8,12 +8,14 @@ using _Project.CodeBase.Hero;
 using _Project.CodeBase.Infrastructure.Factory;
 using _Project.CodeBase.Logic;
 using _Project.CodeBase.Logic.Curtain;
+using _Project.CodeBase.Services.Analytics;
 using _Project.CodeBase.Services.Audio;
 using _Project.CodeBase.Services.PersistentProgress;
 using _Project.CodeBase.Services.StaticData;
 using _Project.CodeBase.StaticData;
 using _Project.CodeBase.UI.Elements;
 using _Project.CodeBase.UI.Services.Factory;
+using Io.AppMetrica;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -30,6 +32,7 @@ namespace _Project.CodeBase.Infrastructure.States
     private readonly IStaticDataService _staticData;
     private readonly IUIFactory _uiFactory;
     private readonly IAudioService _audioService;
+    private readonly IAnalyticsService _analyticsService;
 
     public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain, DiContainer diContainer)
     {
@@ -41,6 +44,7 @@ namespace _Project.CodeBase.Infrastructure.States
       _staticData = diContainer.Resolve<IStaticDataService>();
       _uiFactory = diContainer.Resolve<IUIFactory>();
       _audioService = diContainer.Resolve<IAudioService>();
+      _analyticsService = diContainer.Resolve<IAnalyticsService>();
     }
 
     public void Enter(string sceneName)
@@ -49,14 +53,22 @@ namespace _Project.CodeBase.Infrastructure.States
       _gameFactory.Cleanup();
       _gameFactory.WarmUp();
 
-      _sceneLoader.Load(sceneName, OnLoaded);
+      if (sceneName == "GameEnd")
+      {
+        _sceneLoader.Load(sceneName, GameEnd);
+      }
+      else
+      {
+        _sceneLoader.Load(sceneName, OnLoaded);
+      }
+      
       Debug.Log($"<color=yellow> Load {sceneName} scene</color>");
+      _analyticsService.Send($"Load {sceneName} scene");
     }
 
     public void Exit()
     {
       _loadingCurtain.Hide();
-      
     }
 
     private async void OnLoaded()
@@ -71,13 +83,18 @@ namespace _Project.CodeBase.Infrastructure.States
       _stateMachine.Enter<GameLoopState>();
     }
 
+    private void GameEnd()
+    {
+      _stateMachine.Enter<GameLoopState>();
+    }
+
     private async Task InitUIRoot() => 
       await _uiFactory.CreateUIRoot();
 
     private void InformProgressReaders()
     {
       foreach (ISavedProgressReader progressReader in _gameFactory.ProgressReaders)
-        progressReader.LoadProgress(_progressService.Progress);
+        progressReader.LoadProgress(_progressService.PlayerProgress);
     }
 
     private async Task InitGameWorld()
@@ -109,7 +126,7 @@ namespace _Project.CodeBase.Infrastructure.States
 
     private async Task InitLootPieces()
     {
-      foreach (KeyValuePair<string, LootPieceData> item in _progressService.Progress.WorldData.LootData.LootPiecesOnScene.Dictionary)
+      foreach (KeyValuePair<string, LootPieceData> item in _progressService.PlayerProgress.WorldData.LootData.LootPiecesOnScene.Dictionary)
       {
         LootPiece lootPiece = await _gameFactory.CreateLoot();
         lootPiece.GetComponent<UniqueId>().Id = item.Key;

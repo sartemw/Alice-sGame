@@ -1,6 +1,7 @@
 ﻿using _Project.CodeBase.Events;
 using _Project.CodeBase.Infrastructure.AssetManagement;
 using _Project.CodeBase.Infrastructure.Factory;
+using _Project.CodeBase.Services.Analytics;
 using _Project.CodeBase.Services.Input;
 using _Project.CodeBase.Services.PersistentProgress;
 using _Project.CodeBase.Services.Randomizer;
@@ -54,6 +55,7 @@ namespace _Project.CodeBase.Infrastructure.States
         _diContainer.Resolve<IRandomService>(),
         _diContainer.Resolve<IPersistentProgressService>(),
         _diContainer.Resolve<IWindowService>(),
+        _diContainer.Resolve<IAnalyticsService>(),
         _stateMachine,
         _diContainer);
 

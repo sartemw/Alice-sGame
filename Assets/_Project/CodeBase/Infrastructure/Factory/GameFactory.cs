@@ -9,6 +9,7 @@ using _Project.CodeBase.Infrastructure.States;
 using _Project.CodeBase.Logic;
 using _Project.CodeBase.Logic.Door;
 using _Project.CodeBase.Logic.EnemySpawners;
+using _Project.CodeBase.Services.Analytics;
 using _Project.CodeBase.Services.Input;
 using _Project.CodeBase.Services.PersistentProgress;
 using _Project.CodeBase.Services.Randomizer;
@@ -37,6 +38,7 @@ namespace _Project.CodeBase.Infrastructure.Factory
     private readonly IPersistentProgressService _persistentProgressService;
     private GameObject _heroGameObject;
     private readonly IWindowService _windowService;
+    private readonly IAnalyticsService _analyticsService;
     private readonly IGameStateMachine _stateMachine;
     private readonly DiContainer _diContainer;
 
@@ -49,6 +51,7 @@ namespace _Project.CodeBase.Infrastructure.Factory
       IRandomService randomService, 
       IPersistentProgressService persistentProgressService, 
       IWindowService windowService, 
+      IAnalyticsService analyticsService,
       IGameStateMachine stateMachine,
       DiContainer diContainer)
     {
@@ -59,6 +62,7 @@ namespace _Project.CodeBase.Infrastructure.Factory
       _randomService = randomService;
       _persistentProgressService = persistentProgressService;
       _windowService = windowService;
+      _analyticsService = analyticsService;
       _stateMachine = stateMachine;
     }
     
@@ -93,7 +97,7 @@ namespace _Project.CodeBase.Infrastructure.Factory
       LevelStaticData levelStaticData = _staticData.ForLevel(SceneManager.GetActiveScene().name);
 
       levelTransfer.TransferTo = levelStaticData.LevelTransfer.TransferTo;
-      levelTransfer.Construct(_stateMachine, _persistentProgressService,  _diContainer.Resolve<ISaveLoadService>());
+      levelTransfer.Construct(_stateMachine,  _diContainer.Resolve<ISaveLoadService>());
       levelTransfer.GetComponent<BoxCollider2D>().enabled = false;
 
       doorOpener.Construct(_diContainer.Resolve<IPaintingService>());
@@ -104,10 +108,10 @@ namespace _Project.CodeBase.Infrastructure.Factory
       GameObject hud = await InstantiateRegisteredAsync(AssetAddress.HudPath);
       
       hud.GetComponentInChildren<LootCounter>()
-        .Construct(_persistentProgressService.Progress.WorldData);
+        .Construct(_persistentProgressService.PlayerProgress.WorldData);
 
       foreach (OpenWindowButton openWindowButton in hud.GetComponentsInChildren<OpenWindowButton>())
-        openWindowButton.Init(_windowService);
+        openWindowButton.Init(_windowService, _analyticsService);
 
       return hud;
     }
@@ -118,7 +122,7 @@ namespace _Project.CodeBase.Infrastructure.Factory
       LootPiece lootPiece = InstantiateRegistered(prefab)
         .GetComponent<LootPiece>();
       
-      lootPiece.Construct(_persistentProgressService.Progress.WorldData);
+      lootPiece.Construct(_persistentProgressService.PlayerProgress.WorldData);
 
       return lootPiece;
     }

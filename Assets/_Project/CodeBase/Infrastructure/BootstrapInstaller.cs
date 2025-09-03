@@ -2,6 +2,7 @@
 using _Project.CodeBase.Infrastructure.States;
 using _Project.CodeBase.Logic.Curtain;
 using _Project.CodeBase.Services.Ads;
+using _Project.CodeBase.Services.Analytics;
 using _Project.CodeBase.Services.Audio;
 using _Project.CodeBase.Services.Input;
 using _Project.CodeBase.Services.PersistentProgress;
@@ -35,11 +36,14 @@ namespace _Project.CodeBase.Infrastructure
         private IPaintingService _paintingService;
         private IFishDataService _fishData;
         private IAudioService _audioService;
+        private IAnalyticsService _analyticsService;
 
         public override void InstallBindings()
         {
             BindBootstrapInstaller();
             BindStaticDataService();
+
+            BindAnalyticsService();
             //BindAdsService();
             BindAssetProvider();
             BindInputService();
@@ -55,6 +59,17 @@ namespace _Project.CodeBase.Infrastructure
         }
 
         #region Binding
+
+        private void BindAnalyticsService()
+        {
+            _analyticsService = new AnalyticsService();
+            Container
+                .Bind<IAnalyticsService>()
+                .FromInstance(_analyticsService)
+                .AsSingle();
+            
+            _analyticsService.Init();
+        }
 
         private void BindFishDataService()
         {

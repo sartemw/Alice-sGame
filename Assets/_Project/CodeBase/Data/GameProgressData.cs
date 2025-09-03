@@ -1,16 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace _Project.CodeBase.Data
 {
+    [Serializable]
     public class GameProgressData
     {
-        public int LevelsCompleted = 1;
+        public List<string> CompletedLevels = new List<string>(); 
+        public int CurrentLevel = 1;
         
         public Action Changed;
         
-        public void LevelCompleted()
+        public void FirstTimeComplete()
         {
-            LevelsCompleted ++;
+            CurrentLevel ++;
             Changed?.Invoke();
         }
     }

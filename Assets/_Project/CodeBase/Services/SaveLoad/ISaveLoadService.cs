@@ -6,7 +6,5 @@ namespace _Project.CodeBase.Services.SaveLoad
   {
     void SaveProgress();
     PlayerProgress LoadProgress();
-    void SaveLevelCompleted();
-    int LoadLevelCompleted();
   }
 }

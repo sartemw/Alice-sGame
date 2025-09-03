@@ -37,7 +37,7 @@ namespace _Project.CodeBase.UI.Windows.LevelsProgress
 
         private void RefreshLevelsContainer()
         {
-            int levelsCompleted = Progress.GameProgressData.LevelsCompleted;
+            int levelsCompleted = Progress.GameProgressData.CurrentLevel;
             for (int j = 0; j < 1; j++)
             {
                 for (int i = 1; i < 11; i++)

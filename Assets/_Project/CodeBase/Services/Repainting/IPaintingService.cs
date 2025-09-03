@@ -13,6 +13,7 @@ namespace _Project.CodeBase.Services.Repainting
 
         public void StartLevel();
         public void SetColorless(Paintable paintable);
-        public void CheckLevelCompleted();
+        public void CheckLevelCompletedOnStart();
+        public void IsStart(bool value);
     }
 }

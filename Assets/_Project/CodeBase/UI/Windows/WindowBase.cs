@@ -12,7 +12,7 @@ namespace _Project.CodeBase.UI.Windows
     [SerializeField] protected Button CloseButton;
     
     protected IPersistentProgressService ProgressService;
-    protected PlayerProgress Progress => ProgressService.Progress;
+    protected PlayerProgress Progress => ProgressService.PlayerProgress;
 
     public void Construct(IPersistentProgressService progressService)
     {

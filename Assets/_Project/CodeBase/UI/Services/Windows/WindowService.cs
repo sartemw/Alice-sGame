@@ -1,4 +1,5 @@
 ﻿using System;
+using _Project.CodeBase.Services.Analytics;
 using _Project.CodeBase.UI.Services.Factory;
 
 namespace _Project.CodeBase.UI.Services.Windows

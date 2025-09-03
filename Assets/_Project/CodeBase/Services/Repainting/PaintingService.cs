@@ -18,6 +18,7 @@ namespace _Project.CodeBase.Services.Repainting
         private BaseOnEvent<FishPickupSignal>  _onFishPickup  = new BaseOnEvent<FishPickupSignal>();
         private BaseOnEvent<BootstrapFinishedSignal>  _onBootstrapFinished  = new BaseOnEvent<BootstrapFinishedSignal>();
         private BaseOnEvent<PaintingCompletedSignal>  _onPaintingCompleted  = new BaseOnEvent<PaintingCompletedSignal>();
+        private bool _isStart = true;
         public Material Colorless {get;}
         public Material Colored {get;}
 
@@ -53,11 +54,14 @@ namespace _Project.CodeBase.Services.Repainting
             }
         }
 
-        public void CheckLevelCompleted()
+        public void CheckLevelCompletedOnStart()
         {
-            if (ColoredObjs.Count == 0) 
+            if (ColoredObjs.Count == 0 && _isStart) 
                 EventBus.Invoke(new LevelCompletedSignals());
         }
+
+        public void IsStart(bool value) => 
+            _isStart = value;
 
         public void SetColorless(Paintable paintable) => 
             ColorlessObjs.Add(paintable);
@@ -113,6 +117,7 @@ namespace _Project.CodeBase.Services.Repainting
         {
             ColorlessObjs = new List<Paintable>();
             ColoredObjs = new List<Paintable>();
+            _isStart = true;
         }
 
         private void IsLevelCompleted(PaintingCompletedSignal signal)
