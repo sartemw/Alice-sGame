@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using _Project.CodeBase.Enemy;
 using _Project.CodeBase.Fish;
@@ -20,6 +22,7 @@ using _Project.CodeBase.StaticData;
 using _Project.CodeBase.UI.Elements;
 using _Project.CodeBase.UI.Services.Windows;
 using UnityEngine;
+using UnityEngine.Pool;
 using UnityEngine.SceneManagement;
 using Zenject;
 using Object = UnityEngine.Object;
@@ -41,9 +44,11 @@ namespace _Project.CodeBase.Infrastructure.Factory
     private readonly IAnalyticsService _analyticsService;
     private readonly IGameStateMachine _stateMachine;
     private readonly DiContainer _diContainer;
+    private readonly ICoroutineRunner _coroutineRunner;
 
-    //private int _countInk;
-    
+    private Queue<PoolInk> _poolInk = new Queue<PoolInk>();
+    private bool _canCreateInk = true;
+
     public GameFactory(
       IInputService inputService,
       IAssetProvider assets, 
@@ -64,6 +69,7 @@ namespace _Project.CodeBase.Infrastructure.Factory
       _windowService = windowService;
       _analyticsService = analyticsService;
       _stateMachine = stateMachine;
+      _coroutineRunner = diContainer.Resolve<ICoroutineRunner>();
     }
     
     public async Task WarmUp()
@@ -127,18 +133,27 @@ namespace _Project.CodeBase.Infrastructure.Factory
       return lootPiece;
     }
     
-    public async Task<Ink> CreateInk(Vector2 at, Vector2 moveTo, Paintable coloredObj, IPaintingService paintingService)
+    private struct PoolInk
     {
-      /*_countInk++;
-      if (_countInk > 4) 
-        return null;*/
+      public Vector2 StartPosition;
+      public Vector2 MoveTo;
+      public Paintable ColoredObj;
+      public IPaintingService PaintingService;
+    }
+    public async Task CreateInk(Vector2 at, Vector2 moveTo, Paintable coloredObj, IPaintingService paintingService)
+    {
+      _poolInk.Enqueue(new PoolInk()
+      {
+        StartPosition = at,
+        MoveTo = moveTo,
+        ColoredObj = coloredObj,
+        PaintingService = paintingService
+      });
       
       GameObject prefab = await _assets.Load<GameObject>(AssetAddress.Ink);
-      Ink ink = InstantiateRegistered(prefab, at)
-        .GetComponent<Ink>();
-      ink.Construct(moveTo, coloredObj, paintingService, _staticData.ForConfig());
       
-      return ink;
+      if (_canCreateInk)
+        _coroutineRunner.StartCoroutine(PoolingInk(prefab));
     }
 
     // public void CanCreateInk() => 
@@ -182,7 +197,7 @@ namespace _Project.CodeBase.Infrastructure.Factory
       spawner.MonsterTypeId = monsterTypeId;
       spawner.Id = spawnerId;
     }
-    
+
     public async Task CreateFishSpawner(string spawnerId, ColorType color, FishBehaviourEnum behaviour, Vector2 at)
     {
       GameObject prefab = await _assets.Load<GameObject>(AssetAddress.FishSpawner);
@@ -246,6 +261,23 @@ namespace _Project.CodeBase.Infrastructure.Factory
     {
       foreach (ISavedProgressReader progressReader in gameObject.GetComponentsInChildren<ISavedProgressReader>())
         Register(progressReader);
+    }
+
+
+    private IEnumerator PoolingInk(GameObject prefab)
+    {
+      _canCreateInk = false;
+      while (_poolInk.Count != 0)
+      {
+        PoolInk inkTemp = _poolInk.Dequeue();
+        Ink ink = InstantiateRegistered(prefab, inkTemp.StartPosition)
+          .GetComponent<Ink>();
+        ink.Construct(inkTemp.MoveTo, inkTemp.ColoredObj, inkTemp.PaintingService, _staticData.ForConfig());
+        
+        yield return new WaitForSeconds(0.5f);
+      }
+
+      _canCreateInk = true;
     }
   }
 }

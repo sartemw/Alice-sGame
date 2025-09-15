@@ -19,6 +19,7 @@ namespace _Project.CodeBase.Services.Repainting
         private BaseOnEvent<BootstrapFinishedSignal>  _onBootstrapFinished  = new BaseOnEvent<BootstrapFinishedSignal>();
         private BaseOnEvent<PaintingCompletedSignal>  _onPaintingCompleted  = new BaseOnEvent<PaintingCompletedSignal>();
         private bool _isStart = true;
+        private bool _completedLevelFlag = false;
         public Material Colorless {get;}
         public Material Colored {get;}
 
@@ -66,7 +67,7 @@ namespace _Project.CodeBase.Services.Repainting
         public void SetColorless(Paintable paintable) => 
             ColorlessObjs.Add(paintable);
 
-        public void Painting(FishPickupSignal fishSignal)
+        public async void Painting(FishPickupSignal fishSignal)
         {
             ColoredFish fish = fishSignal.ColoredFish;
             Debug.Log($"<color={fish.ColorType}> Picked {fish.ColorType} fish</color>");
@@ -90,7 +91,7 @@ namespace _Project.CodeBase.Services.Repainting
                         for (int i = 0; i < 3; i++)
                             _gameFactory.CreateInk(fish.Position, CreatePointInk(coloredObj), coloredObj, this);*/
 
-                    _gameFactory.CreateInk(fish.Position, CreatePointInk(coloredObj), coloredObj, this);
+                    await _gameFactory.CreateInk(fish.Position, CreatePointInk(coloredObj), coloredObj, this);
 
                     ColoredObjs.Remove(coloredObj);
                 }
@@ -106,8 +107,8 @@ namespace _Project.CodeBase.Services.Repainting
             if (paintable is TilemapPaintable)
             {
                 var boundTile =paintable.GetComponent<TilemapRenderer>().bounds;
-                positionInk = new Vector2(Random.Range(boundTile.center.x - boundTile.size.x, boundTile.center.x + boundTile.size.x)/2,
-                    Random.Range(boundTile.center.y - boundTile.size.y,boundTile.center.y + boundTile.size.y)/2);
+                positionInk = new Vector2(Random.Range(boundTile.center.x - boundTile.size.x, boundTile.center.x + boundTile.size.x)/3,
+                    Random.Range(boundTile.center.y - boundTile.size.y,boundTile.center.y + boundTile.size.y)/3);
             }
 
             return positionInk;
@@ -118,12 +119,16 @@ namespace _Project.CodeBase.Services.Repainting
             ColorlessObjs = new List<Paintable>();
             ColoredObjs = new List<Paintable>();
             _isStart = true;
+            _completedLevelFlag = false;
         }
 
         private void IsLevelCompleted(PaintingCompletedSignal signal)
         {
-            if (ColorlessObjs.Count == 0 && ColoredObjs.Count == 0)
+            if (ColorlessObjs.Count == 0 && ColoredObjs.Count == 0 && !_completedLevelFlag)
+            {
+                _completedLevelFlag = true;
                 EventBus.Invoke(new LevelCompletedSignals());
+            }
         }
     }
 }

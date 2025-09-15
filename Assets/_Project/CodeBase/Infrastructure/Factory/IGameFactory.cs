@@ -19,8 +19,8 @@ namespace _Project.CodeBase.Infrastructure.Factory
     Task<GameObject> CreateHud();
     Task<GameObject> CreateMonster(MonsterTypeId typeId, Transform parent);
     Task<LootPiece> CreateLoot();
+    Task CreateInk(Vector2 at, Vector2 moveTo, Paintable coloredObj, IPaintingService paintingService);
     Task CreateEnemySpawner(string spawnerId, Vector3 at, MonsterTypeId monsterTypeId);
-    Task<Ink> CreateInk(Vector2 at, Vector2 moveTo, Paintable coloredObj, IPaintingService paintingService);
     void Cleanup();
     Task WarmUp();
     Task CreateLevelTransfer(Vector3 at);
