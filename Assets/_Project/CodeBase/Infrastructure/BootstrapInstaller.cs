@@ -70,13 +70,11 @@ namespace _Project.CodeBase.Infrastructure
             
             _analyticsService.Init();
         }
-
         private void BindFishDataService()
         {
             _fishData = new FishDataService(_staticData);
             Container.Bind<IFishDataService>().FromInstance(_fishData).AsSingle();
         }
-
         private void BindWindowService()
         {
             _windowService = new WindowService(_uiFactory);
@@ -85,7 +83,6 @@ namespace _Project.CodeBase.Infrastructure
                 .FromInstance(_windowService)
                 .AsSingle();
         }
-
         private void BindUIFactory()
         {
             _uiFactory = new UIFactory(_assetProvider, _staticData, _persistentProgress, _adsService, Container);
@@ -94,7 +91,6 @@ namespace _Project.CodeBase.Infrastructure
                 .FromInstance(_uiFactory)
                 .AsSingle();
         }
-
         private void BindPersistentProgressService()
         {
             _persistentProgress = new PersistentProgressService();
@@ -103,7 +99,6 @@ namespace _Project.CodeBase.Infrastructure
                 .FromInstance(_persistentProgress)
                 .AsSingle();
         }
-
         private void BindRandomService()
         {
             _randomService = new RandomService();
@@ -112,7 +107,6 @@ namespace _Project.CodeBase.Infrastructure
                 .FromInstance(_randomService)
                 .AsSingle();
         }
-
         // private void BindAdsService()
 
         // {
@@ -130,7 +124,6 @@ namespace _Project.CodeBase.Infrastructure
         //         .AsSingle();
 
         // }
-
         private void BindBootstrapInstaller()
         {
             Container
@@ -138,7 +131,6 @@ namespace _Project.CodeBase.Infrastructure
                 .FromInstance(this)
                 .AsSingle();
         }
-
         private void BindStaticDataService()
         {
             _staticData = new StaticDataService();
@@ -149,7 +141,6 @@ namespace _Project.CodeBase.Infrastructure
 
             _staticData.Load();
         }
-
         private void BindAssetProvider()
         {
             _assetProvider = new AssetProvider();
@@ -160,7 +151,6 @@ namespace _Project.CodeBase.Infrastructure
 
             _assetProvider.Initialize();
         }
-
         private void BindInputService()
         {
             //_inputService = ChangeInputService();
@@ -179,8 +169,6 @@ namespace _Project.CodeBase.Infrastructure
                 .FromInstance(_paintingService)
                 .AsSingle();
         }
-
-        
         private void BindAudioService()
         {
             _audioService = new AudioService(_staticData.ForConfig(), _staticData);
@@ -190,7 +178,6 @@ namespace _Project.CodeBase.Infrastructure
                 .AsSingle();
             _audioService.Init();
         }
-
         private static IInputService ChangeInputService() =>
             Application.isEditor
                 ? (IInputService) new StandaloneInputService()

@@ -92,6 +92,9 @@ namespace _Project.CodeBase.Infrastructure.Factory
       HeroAttack heroAttack = _heroGameObject.GetComponent<HeroAttack>();
       heroAttack.Construct(_inputService);
       heroAttack.AttackDistance = heroStaticData.EffectiveDistance;
+
+      HeroHealth heroHealth = _heroGameObject.GetComponent<HeroHealth>();
+      heroHealth.Construct(_stateMachine);
       
       return _heroGameObject;
     }

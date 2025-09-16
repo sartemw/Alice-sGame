@@ -51,7 +51,7 @@ namespace _Project.CodeBase.Services.Audio
             PlayMusic(_currentSoundId);
         }
 
-        private void OnLevelLoad(LoadLevelSignals obj) =>
+        private void OnLevelLoad(LoadLevelSignals obj) => 
             PlayMusic(_staticData.ForAudio().Game1);
 
         private void OnEnterMainMenu(EnterMainMenuSignal obj) => 

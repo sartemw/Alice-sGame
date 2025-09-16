@@ -35,18 +35,21 @@ namespace _Project.CodeBase.Infrastructure.States
 
       private void RegisterServices()
     {
-      _diContainer
-        .Bind<IGameStateMachine>()
-        .FromInstance(_stateMachine)
-        .AsSingle();
-
+      BindStateMachine();
       BindGameFactory();
       BindSaveLoadService();
       
       EventBus.Invoke(new BootstrapFinishedSignal());
     }
 
-    private void BindGameFactory()
+      private void BindStateMachine()
+      {
+        _diContainer
+          .Bind<IGameStateMachine>()
+          .FromInstance(_stateMachine)
+          .AsSingle();
+      }
+      private void BindGameFactory()
     {
       IGameFactory gameFactory = new GameFactory
       (_diContainer.Resolve<IInputService>(),
@@ -64,8 +67,7 @@ namespace _Project.CodeBase.Infrastructure.States
         .FromInstance(gameFactory)
         .AsSingle();
     }
-
-    private void BindSaveLoadService()
+      private void BindSaveLoadService()
     {
       ISaveLoadService saveLoadService = new SaveLoadService(
         _diContainer.Resolve<IPersistentProgressService>(),

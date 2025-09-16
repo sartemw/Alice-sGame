@@ -22,6 +22,7 @@ MonoBehaviour:
     - AudioClipAssetReference:
         m_AssetGUID: 
         m_SubObjectName: 
+        m_SubObjectGUID: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       AudioClip: {fileID: 8300000, guid: 5682e6c68e7d3cd4481b95fba308c0ad, type: 3}
@@ -56,6 +57,7 @@ MonoBehaviour:
     - AudioClipAssetReference:
         m_AssetGUID: 
         m_SubObjectName: 
+        m_SubObjectGUID: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
       AudioClip: {fileID: 8300000, guid: 3005d15d5b0e5aa4483e6cbd5c168f9e, type: 3}
@@ -67,7 +69,7 @@ MonoBehaviour:
       FadeOut: 0
       Weight: 0
     <MasterVolume>k__BackingField: 1
-    <Loop>k__BackingField: 0
+    <Loop>k__BackingField: 1
     <SeamlessLoop>k__BackingField: 0
     <TransitionTime>k__BackingField: 0
     <SpatialSetting>k__BackingField: {fileID: 0}
