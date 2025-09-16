@@ -125,6 +125,9 @@ VFXRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_StaticBatchInfo:
@@ -159,5 +162,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddf75414e0634472857eeffde3571b13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 4
+  _speed: 2
   _sparks: {fileID: 2001879186814004445, guid: 41cdc82f3c8d5d64d82d0638783ad755, type: 3}

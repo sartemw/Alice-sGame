@@ -1,5 +1,6 @@
 ﻿using _Project.CodeBase.Events;
 using _Project.CodeBase.Services.Analytics;
+using _Project.CodeBase.Services.Audio;
 using _Project.CodeBase.UI.Services.Windows;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,9 +13,11 @@ namespace _Project.CodeBase.UI.Elements
     public WindowId WindowId;
     private IWindowService _windowService;
     private IAnalyticsService _analyticsService;
+    private IAudioService _audioService;
 
-    public void Init(IWindowService windowService, IAnalyticsService analyticsService)
+    public void Init(IWindowService windowService, IAnalyticsService analyticsService, IAudioService audioService)
     {
+      _audioService = audioService;
       _windowService = windowService;
       _analyticsService = analyticsService;
     }
@@ -25,7 +28,8 @@ namespace _Project.CodeBase.UI.Elements
     private void Open()
     {
       _analyticsService.SendWindow($"Open window \"{WindowId.ToString()}\"");
-
+      _audioService.PlayOpenWindow();
+      
       EventBus.Invoke(new ChangeLevelsButtonClickSignal());
       _windowService.Open(WindowId);
     }

@@ -15,7 +15,7 @@ namespace _Project.CodeBase.Logic.Curtain
 
     public void Show()
     {
-      gameObject.SetActive(true);
+      //gameObject.SetActive(true);
       Curtain.alpha = 1;
       EventBus.Invoke(new ShowCurtainSignal());
     }
@@ -31,7 +31,7 @@ namespace _Project.CodeBase.Logic.Curtain
         yield return new WaitForSeconds(0.03f);
       }
       
-      gameObject.SetActive(false);
+      //gameObject.SetActive(false);
     }
   }
 }

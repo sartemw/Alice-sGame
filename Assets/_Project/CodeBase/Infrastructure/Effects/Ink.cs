@@ -3,6 +3,7 @@ using System.Data;
 using _Project.CodeBase.Data;
 using _Project.CodeBase.Events;
 using _Project.CodeBase.Fish;
+using _Project.CodeBase.Services.Audio;
 using _Project.CodeBase.Services.Repainting;
 using _Project.CodeBase.StaticData;
 using DG.Tweening;
@@ -16,7 +17,7 @@ namespace _Project.CodeBase.Infrastructure.Effects
         private const string BaseGradient = "BaseGradient";
         private const string BaseVelocity = "BaseVelocity";
         private InkData _data;
-        private IPaintingService _paintingService;
+        private IAudioService _audioService;
         private VisualEffect _effect;
         private ParticleSystem _particle;
 
@@ -25,7 +26,7 @@ namespace _Project.CodeBase.Infrastructure.Effects
         private ConfigStaticData _config;
 
 
-        public void Construct(Vector2 moveTo, Paintable coloredObj, IPaintingService paintingService, ConfigStaticData config)
+        public void Construct(Vector2 moveTo, Paintable coloredObj, ConfigStaticData config, IAudioService audioService)
         {
             _data = new InkData
             {
@@ -33,14 +34,12 @@ namespace _Project.CodeBase.Infrastructure.Effects
                 MoveTo = moveTo
             };
             CreateSparks();
-            _paintingService = paintingService;
             _config = config;
-            //_effect = GetComponent<VisualEffect>();
+            _audioService = audioService;
             _particle = GetComponent<ParticleSystem>();
 
             SetColorOverLifeTime(coloredObj);
             GetComponent<SpriteRenderer>().color = coloredObj.ColorType.SwitchColor();
-            //_effect.SetGradient(BaseGradient, SetGradient(coloredObj.ColorType));
 
             RotateTo(moveTo);
             //StartCoroutine(MoveEffect());
@@ -73,6 +72,7 @@ namespace _Project.CodeBase.Infrastructure.Effects
         {
             EventBus.Invoke(new StartPaintingSignal {Target = _data.Target});
 
+            _audioService.PlayBlobs();
             CreateSparks();
             Destroy(gameObject);
         }

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using _Project.CodeBase.Enemy;
 using _Project.CodeBase.Fish;
@@ -12,6 +11,7 @@ using _Project.CodeBase.Logic;
 using _Project.CodeBase.Logic.Door;
 using _Project.CodeBase.Logic.EnemySpawners;
 using _Project.CodeBase.Services.Analytics;
+using _Project.CodeBase.Services.Audio;
 using _Project.CodeBase.Services.Input;
 using _Project.CodeBase.Services.PersistentProgress;
 using _Project.CodeBase.Services.Randomizer;
@@ -22,7 +22,6 @@ using _Project.CodeBase.StaticData;
 using _Project.CodeBase.UI.Elements;
 using _Project.CodeBase.UI.Services.Windows;
 using UnityEngine;
-using UnityEngine.Pool;
 using UnityEngine.SceneManagement;
 using Zenject;
 using Object = UnityEngine.Object;
@@ -45,6 +44,7 @@ namespace _Project.CodeBase.Infrastructure.Factory
     private readonly IGameStateMachine _stateMachine;
     private readonly DiContainer _diContainer;
     private readonly ICoroutineRunner _coroutineRunner;
+    private readonly IAudioService _audioService;
 
     private Queue<PoolInk> _poolInk = new Queue<PoolInk>();
     private bool _canCreateInk = true;
@@ -69,7 +69,8 @@ namespace _Project.CodeBase.Infrastructure.Factory
       _windowService = windowService;
       _analyticsService = analyticsService;
       _stateMachine = stateMachine;
-      _coroutineRunner = diContainer.Resolve<ICoroutineRunner>();
+      _audioService = diContainer.Resolve<IAudioService>();
+      //_coroutineRunner = diContainer.Resolve<ICoroutineRunner>();
     }
     
     public async Task WarmUp()
@@ -91,6 +92,9 @@ namespace _Project.CodeBase.Infrastructure.Factory
       HeroAttack heroAttack = _heroGameObject.GetComponent<HeroAttack>();
       heroAttack.Construct(_inputService);
       heroAttack.AttackDistance = heroStaticData.EffectiveDistance;
+
+      HeroHealth heroHealth = _heroGameObject.GetComponent<HeroHealth>();
+      heroHealth.Construct(_stateMachine);
       
       return _heroGameObject;
     }
@@ -117,7 +121,7 @@ namespace _Project.CodeBase.Infrastructure.Factory
         .Construct(_persistentProgressService.PlayerProgress.WorldData);
 
       foreach (OpenWindowButton openWindowButton in hud.GetComponentsInChildren<OpenWindowButton>())
-        openWindowButton.Init(_windowService, _analyticsService);
+        openWindowButton.Init(_windowService, _analyticsService, _audioService);
 
       return hud;
     }
@@ -155,9 +159,6 @@ namespace _Project.CodeBase.Infrastructure.Factory
       if (_canCreateInk)
         _coroutineRunner.StartCoroutine(PoolingInk(prefab));
     }
-
-    // public void CanCreateInk() => 
-    //   _countInk = 0;
 
     public async Task<GameObject> CreateMonster(MonsterTypeId typeId, Transform parent)
     {
@@ -272,7 +273,7 @@ namespace _Project.CodeBase.Infrastructure.Factory
         PoolInk inkTemp = _poolInk.Dequeue();
         Ink ink = InstantiateRegistered(prefab, inkTemp.StartPosition)
           .GetComponent<Ink>();
-        ink.Construct(inkTemp.MoveTo, inkTemp.ColoredObj, inkTemp.PaintingService, _staticData.ForConfig());
+        ink.Construct(inkTemp.MoveTo, inkTemp.ColoredObj, _staticData.ForConfig(), _audioService);
         
         yield return new WaitForSeconds(0.5f);
       }
