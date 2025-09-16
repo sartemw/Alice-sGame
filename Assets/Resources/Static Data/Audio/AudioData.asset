@@ -20,3 +20,11 @@ MonoBehaviour:
     ID: 268435457
     _sourceAsset: {fileID: 11400000, guid: 433a5f6f001766f4c831c27b59aa8496, type: 2}
     <DebugObject>k__BackingField: {fileID: 0}
+  Blobs:
+    ID: 805306370
+    _sourceAsset: {fileID: 11400000, guid: 058a167e120fc374daffb65b7ae107d6, type: 2}
+    <DebugObject>k__BackingField: {fileID: 0}
+  OpenWindow:
+    ID: 536870912
+    _sourceAsset: {fileID: 11400000, guid: c66afa8de26c8ac4aa52662131e31ef1, type: 2}
+    <DebugObject>k__BackingField: {fileID: 0}

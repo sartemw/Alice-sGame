@@ -3,6 +3,7 @@ using System.Data;
 using _Project.CodeBase.Data;
 using _Project.CodeBase.Events;
 using _Project.CodeBase.Fish;
+using _Project.CodeBase.Services.Audio;
 using _Project.CodeBase.Services.Repainting;
 using _Project.CodeBase.StaticData;
 using DG.Tweening;
@@ -23,10 +24,13 @@ namespace _Project.CodeBase.Infrastructure.Effects
         [SerializeField] private float _speed;
         [SerializeField] private GameObject _sparks;
         private ConfigStaticData _config;
+        private IAudioService _audioService;
 
 
-        public void Construct(Vector2 moveTo, Paintable coloredObj, IPaintingService paintingService, ConfigStaticData config)
+        public void Construct(Vector2 moveTo, Paintable coloredObj, IPaintingService paintingService,
+            ConfigStaticData config, IAudioService audioService)
         {
+            _audioService = audioService;
             _data = new InkData
             {
                 Target = coloredObj,
@@ -73,6 +77,7 @@ namespace _Project.CodeBase.Infrastructure.Effects
         {
             EventBus.Invoke(new StartPaintingSignal {Target = _data.Target});
 
+            _audioService.PlayBlobs();
             CreateSparks();
             Destroy(gameObject);
         }

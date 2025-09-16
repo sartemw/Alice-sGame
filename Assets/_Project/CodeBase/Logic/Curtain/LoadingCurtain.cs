@@ -26,7 +26,6 @@ namespace _Project.CodeBase.Logic.Curtain
     {
       while (Curtain.alpha > 0)
       {
-        EventBus.Invoke(new ShowCurtainSignal());
         Curtain.alpha -= Constants.CurtainAlphaFade;
         yield return new WaitForSeconds(0.03f);
       }

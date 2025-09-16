@@ -59,6 +59,9 @@ namespace _Project.CodeBase.Services.Audio
 
         private void PlayMusic(SoundID music)
         {
+            if (music == _currentSoundId)
+                return;
+            
             _currentSoundId = music;
             BroAudio.Stop(_currentSoundId);
             
@@ -66,6 +69,20 @@ namespace _Project.CodeBase.Services.Audio
                 return;
             
             BroAudio.Play(_currentSoundId);
+        }
+        
+        public void PlayBlobs()
+        {
+            SoundID music = _staticData.ForAudio().Blobs;
+            
+            BroAudio.Play(music);
+        }
+
+        public void PlayOpenWindow()
+        {
+            SoundID music = _staticData.ForAudio().OpenWindow;
+            
+            BroAudio.Play(music);
         }
     }
 }

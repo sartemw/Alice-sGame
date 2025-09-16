@@ -3,5 +3,7 @@
     public interface IAudioService: IService
     {
         void Init();
+        void PlayBlobs();
+        void PlayOpenWindow();
     }
 }

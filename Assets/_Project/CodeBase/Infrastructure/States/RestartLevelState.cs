@@ -21,6 +21,7 @@ namespace _Project.CodeBase.Infrastructure.States
 
         public void Enter(string sceneName)
         {
+            _loadingCurtain.Show();
             _currentLevel = sceneName;
             _sceneLoader.Load(RestartSceneName, OnLoaded);
         }

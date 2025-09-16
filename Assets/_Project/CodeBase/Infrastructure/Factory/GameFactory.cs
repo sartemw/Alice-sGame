@@ -12,6 +12,7 @@ using _Project.CodeBase.Logic;
 using _Project.CodeBase.Logic.Door;
 using _Project.CodeBase.Logic.EnemySpawners;
 using _Project.CodeBase.Services.Analytics;
+using _Project.CodeBase.Services.Audio;
 using _Project.CodeBase.Services.Input;
 using _Project.CodeBase.Services.PersistentProgress;
 using _Project.CodeBase.Services.Randomizer;
@@ -117,7 +118,7 @@ namespace _Project.CodeBase.Infrastructure.Factory
         .Construct(_persistentProgressService.PlayerProgress.WorldData);
 
       foreach (OpenWindowButton openWindowButton in hud.GetComponentsInChildren<OpenWindowButton>())
-        openWindowButton.Init(_windowService, _analyticsService);
+        openWindowButton.Init(_windowService, _analyticsService, _diContainer.Resolve<IAudioService>());
 
       return hud;
     }
@@ -272,7 +273,7 @@ namespace _Project.CodeBase.Infrastructure.Factory
         PoolInk inkTemp = _poolInk.Dequeue();
         Ink ink = InstantiateRegistered(prefab, inkTemp.StartPosition)
           .GetComponent<Ink>();
-        ink.Construct(inkTemp.MoveTo, inkTemp.ColoredObj, inkTemp.PaintingService, _staticData.ForConfig());
+        ink.Construct(inkTemp.MoveTo, inkTemp.ColoredObj, inkTemp.PaintingService, _staticData.ForConfig(), _diContainer.Resolve<IAudioService>());
         
         yield return new WaitForSeconds(0.5f);
       }

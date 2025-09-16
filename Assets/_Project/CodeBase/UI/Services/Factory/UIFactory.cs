@@ -4,6 +4,7 @@ using _Project.CodeBase.Infrastructure.AssetManagement;
 using _Project.CodeBase.Infrastructure.States;
 using _Project.CodeBase.Services.Ads;
 using _Project.CodeBase.Services.Analytics;
+using _Project.CodeBase.Services.Audio;
 using _Project.CodeBase.Services.PersistentProgress;
 using _Project.CodeBase.Services.StaticData;
 using _Project.CodeBase.StaticData.Windows;
@@ -54,7 +55,7 @@ namespace _Project.CodeBase.UI.Services.Factory
       window.Construct(_progressService, _container.Resolve<Game>().StateMachine, _staticData.ForConfig());
       
       foreach (OpenWindowButton openWindowButton in window.GetComponentsInChildren<OpenWindowButton>())
-        openWindowButton.Init(_container.Resolve<IWindowService>(), _container.Resolve<IAnalyticsService>());
+        openWindowButton.Init(_container.Resolve<IWindowService>(), _container.Resolve<IAnalyticsService>(), _container.Resolve<IAudioService>());
       return Task.CompletedTask;
     }
 

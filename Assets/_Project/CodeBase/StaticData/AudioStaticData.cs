@@ -8,5 +8,7 @@ namespace _Project.CodeBase.StaticData
     {
         public SoundID MainMenu;
         public SoundID Game1;
+        public SoundID Blobs;
+        public SoundID OpenWindow;
     }
 }
