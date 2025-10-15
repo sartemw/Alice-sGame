@@ -17,7 +17,11 @@ namespace _Project.CodeBase.Events
         public Paintable Target;
     }
 
-    public class PaintingCompletedSignal : IEventSignal { }
+    public class StartFadeSignal : IEventSignal {}
+    public class FadeMaterialSignal : IEventSignal 
+    {
+        public Paintable Target;
+    }
 
-    public class FadeMaterialSignal : IEventSignal {}
+    public class PaintingCompletedSignal : IEventSignal { }
 }

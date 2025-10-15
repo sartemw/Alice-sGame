@@ -37,11 +37,38 @@ namespace _Project.CodeBase.Services.Repainting
 
         protected override void Fade(FadeMaterialSignal obj)
         {
-            Material material = GetComponent<SpriteRenderer>().material;
-            if (material.name == ColoredMaterial) 
-                StartCoroutine(FadeMaterial(material));
+            if (obj.Target == this)
+            {
+                StartCoroutine(FadeSprite(DeltaAlpha));
+                StartCoroutine(UpAlphaSprite(DeltaFade));
+            }
         }
-        
+
+        private IEnumerator UpAlphaSprite(float deltaFade)
+        {
+            SpriteRenderer alpha = ColorlessObject.GetComponent<SpriteRenderer>();
+
+            while (alpha.color.a < 1)
+            {
+                yield return new WaitForFixedUpdate();
+                Color fadeColor = new Color(alpha.color.r, alpha.color.g, alpha.color.b, alpha.color.a + deltaFade);
+                alpha.color = fadeColor;
+            }
+        }
+
+        private IEnumerator FadeSprite(float deltaAlpha)
+        {
+            Material colored = _renderer.material;
+            float fade = colored.GetFloat(FadeValue);
+            while (fade > 0)
+            {
+                yield return new WaitForFixedUpdate();
+                colored.SetFloat(FadeValue, fade -= deltaAlpha);
+            }
+            
+            EventBus.Invoke(new PaintingCompletedSignal());
+        }
+
         private IEnumerator FadeAlphaSprite(float delta)
         {
             SpriteRenderer alpha = ColorlessObject.GetComponent<SpriteRenderer>();

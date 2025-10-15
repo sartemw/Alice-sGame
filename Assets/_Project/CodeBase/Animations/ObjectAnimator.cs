@@ -14,7 +14,7 @@ namespace _Project.CodeBase.Animations
             EventBus.Invoke(new AllLevelColoringSignal());
 
         public void FadeMaterial() => 
-            EventBus.Invoke(new FadeMaterialSignal());
+            EventBus.Invoke(new StartFadeSignal());
 
         public void TranslateTo()
         {

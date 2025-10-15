@@ -19,6 +19,7 @@ namespace _Project.CodeBase.Services.Repainting
         private BaseOnEvent<BootstrapFinishedSignal>  _onBootstrapFinished  = new BaseOnEvent<BootstrapFinishedSignal>();
         private BaseOnEvent<PaintingCompletedSignal>  _onPaintingCompleted  = new BaseOnEvent<PaintingCompletedSignal>();
         private BaseOnEvent<AllLevelColoringSignal>  _onLevelLoad  = new BaseOnEvent<AllLevelColoringSignal>();
+        private BaseOnEvent<StartFadeSignal>  _onFadeMaterialSignal  = new BaseOnEvent<StartFadeSignal>();
         private bool _isStart = true;
         private bool _completedLevelFlag = false;
         public Material ColorlessMaterial {get;}
@@ -37,6 +38,7 @@ namespace _Project.CodeBase.Services.Repainting
             EventBus.Subscribe(_onBootstrapFinished.SetOnInvoke(ConstructBootstrap));
             EventBus.Subscribe(_onPaintingCompleted.SetOnInvoke(IsLevelCompleted));
             EventBus.Subscribe(_onLevelLoad.SetOnInvoke(AllLevelColored));
+            EventBus.Subscribe(_onFadeMaterialSignal.SetOnInvoke(Fade));
         }
 
         private void ConstructBootstrap(BootstrapFinishedSignal obj) => 
@@ -130,6 +132,14 @@ namespace _Project.CodeBase.Services.Repainting
             {
                 _completedLevelFlag = true;
                 EventBus.Invoke(new LevelCompletedSignals());
+            }
+        }
+
+        private void Fade(StartFadeSignal obj)
+        {
+            foreach (Paintable coloredObj in ColoredObjs)
+            {
+                EventBus.Invoke(new FadeMaterialSignal {Target = coloredObj});
             }
         }
 
