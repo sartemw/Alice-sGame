@@ -15,7 +15,6 @@ using _Project.CodeBase.Services.StaticData;
 using _Project.CodeBase.StaticData;
 using _Project.CodeBase.UI.Elements;
 using _Project.CodeBase.UI.Services.Factory;
-using Io.AppMetrica;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -53,6 +52,8 @@ namespace _Project.CodeBase.Infrastructure.States
       _gameFactory.Cleanup();
       _gameFactory.WarmUp();
 
+      // _sceneLoader.Load("0-5", OnLoaded);
+      // return;
       if (sceneName == "GameEnd")
       {
         _sceneLoader.Load(sceneName, GameEnd);
@@ -79,7 +80,8 @@ namespace _Project.CodeBase.Infrastructure.States
       
       InformProgressReaders();
 
-
+      
+      
       _stateMachine.Enter<GameLoopState>();
     }
 

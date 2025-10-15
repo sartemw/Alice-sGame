@@ -9,6 +9,7 @@ namespace _Project.CodeBase.Infrastructure.States
     public class LoadProgressState : IState
     {
         private const string InitialLevel = "MainMenu";
+        private const string InitialLevel2 = "Cs_1";
         
         private readonly GameStateMachine _stateMachine;
         private readonly IPersistentProgressService _progressService;
@@ -25,7 +26,8 @@ namespace _Project.CodeBase.Infrastructure.States
         {
             LoadProgressOrInitNew();
             
-            _stateMachine.Enter<LoadMainMenuState, string>(InitialLevel);
+            //_stateMachine.Enter<LoadMainMenuState, string>(InitialLevel);
+            _stateMachine.Enter<LoadCutsceneState, string>(InitialLevel2);
         }
 
         public void Exit()

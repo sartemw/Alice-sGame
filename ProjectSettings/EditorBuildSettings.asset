@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/_Project/Scenes/0-4.unity
     guid: 382213b0427538047b9c7a1e7d14c789
   - enabled: 1
+    path: Assets/_Project/Scenes/Cs_1.unity
+    guid: 13531605bbe4a5549ad25cd0e926fb6c
+  - enabled: 1
     path: Assets/_Project/Scenes/GameEnd.unity
     guid: 790fad6f4b116af4897de63a28aa8ab6
   - enabled: 1
@@ -40,3 +43,4 @@ EditorBuildSettings:
       guid: b8f181012b3a35f46ab27f3840f85f55, type: 2}
     com.unity.addressableassets: {fileID: 11400000, guid: f20fad178be332a49bb01eb887347aa4,
       type: 2}
+  m_UseUCBPForAssetBundles: 0

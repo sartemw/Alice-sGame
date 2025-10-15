@@ -23,6 +23,7 @@ MonoBehaviour:
         m_AssetGUID: 
         m_SubObjectName: 
         m_SubObjectType: 
+        m_SubObjectGUID: 
         m_EditorAssetChanged: 0
       AudioClip: {fileID: 8300000, guid: 4bdb78900577fad47814c6c1709a55c8, type: 3}
       Volume: 1
@@ -36,6 +37,7 @@ MonoBehaviour:
         m_AssetGUID: 
         m_SubObjectName: 
         m_SubObjectType: 
+        m_SubObjectGUID: 
         m_EditorAssetChanged: 0
       AudioClip: {fileID: 8300000, guid: 4959380985ec15b489007e13ef09f31c, type: 3}
       Volume: 1
@@ -60,6 +62,6 @@ MonoBehaviour:
       BPM: 0
       Beats: 0
     SnapToFullVolume: 0
-  Group: {fileID: 11400000, guid: 964a76956682d5649b3c1622707021a0, type: 2}
+  Group: {fileID: 0}
   <AssetName>k__BackingField: Curtains
   _assetGUID: 2a4553d398a5345438243d8907ac88a3

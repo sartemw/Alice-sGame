@@ -8,7 +8,7 @@ namespace _Project.CodeBase.Services.Repainting
     {
         public List<Paintable> ColorlessObjs { get; }
         public List<Paintable> ColoredObjs{ get; }
-        public Material Colorless{get;}
+        public Material ColorlessMaterial{get;}
         public Material Colored {get;}
 
         public void StartLevel();

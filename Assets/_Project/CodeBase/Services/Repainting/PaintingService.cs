@@ -18,9 +18,10 @@ namespace _Project.CodeBase.Services.Repainting
         private BaseOnEvent<FishPickupSignal>  _onFishPickup  = new BaseOnEvent<FishPickupSignal>();
         private BaseOnEvent<BootstrapFinishedSignal>  _onBootstrapFinished  = new BaseOnEvent<BootstrapFinishedSignal>();
         private BaseOnEvent<PaintingCompletedSignal>  _onPaintingCompleted  = new BaseOnEvent<PaintingCompletedSignal>();
+        private BaseOnEvent<AllLevelColoringSignal>  _onLevelLoad  = new BaseOnEvent<AllLevelColoringSignal>();
         private bool _isStart = true;
         private bool _completedLevelFlag = false;
-        public Material Colorless {get;}
+        public Material ColorlessMaterial {get;}
         public Material Colored {get;}
 
         public List<Paintable> ColorlessObjs { get; private set; }
@@ -29,12 +30,13 @@ namespace _Project.CodeBase.Services.Repainting
         public PaintingService(Material colorless, Material colored, DiContainer diContainer)
         {
             Colored = colored;
-            Colorless = colorless;
+            ColorlessMaterial = colorless;
             _diContainer = diContainer;
             
             EventBus.Subscribe(_onFishPickup.SetOnInvoke(Painting));
             EventBus.Subscribe(_onBootstrapFinished.SetOnInvoke(ConstructBootstrap));
             EventBus.Subscribe(_onPaintingCompleted.SetOnInvoke(IsLevelCompleted));
+            EventBus.Subscribe(_onLevelLoad.SetOnInvoke(AllLevelColored));
         }
 
         private void ConstructBootstrap(BootstrapFinishedSignal obj) => 
@@ -128,6 +130,14 @@ namespace _Project.CodeBase.Services.Repainting
             {
                 _completedLevelFlag = true;
                 EventBus.Invoke(new LevelCompletedSignals());
+            }
+        }
+
+        private void AllLevelColored(AllLevelColoringSignal signal)
+        {
+            foreach (Paintable coloredObj in ColoredObjs)
+            {
+                EventBus.Invoke(new StartPaintingInstantlySignal {Target = coloredObj});
             }
         }
     }

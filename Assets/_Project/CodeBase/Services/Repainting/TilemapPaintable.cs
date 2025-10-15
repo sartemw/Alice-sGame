@@ -23,31 +23,47 @@ namespace _Project.CodeBase.Services.Repainting
         {
             if (obj.Target == this)
             {
-                StartCoroutine(BrighteningTilemap());
-                StartCoroutine(FadeTilemap());
+                StartCoroutine(BrighteningTilemap(DeltaFade));
+                StartCoroutine(FadeAlphaTilemap(DeltaAlpha));
             }
         }
 
-        private IEnumerator FadeTilemap()
+        protected override void BrighteningInstantly(StartPaintingInstantlySignal obj)
         {
-            Tilemap alpha = Colorless.GetComponent<Tilemap>();
+            if (obj.Target == this)
+            {
+                StartCoroutine(BrighteningTilemap(1));
+                StartCoroutine(FadeAlphaTilemap(1));
+            }
+        }
+
+        protected override void Fade(FadeMaterialSignal obj)
+        {
+            Material material = GetComponent<TilemapRenderer>().material;
+            if (material.name == ColoredMaterial) 
+                StartCoroutine(FadeMaterial(material));
+        }
+
+        private IEnumerator FadeAlphaTilemap(float delta)
+        {
+            Tilemap alpha = ColorlessObject.GetComponent<Tilemap>();
 
             while (alpha.color.a >= 0)
             {
                 yield return new WaitForFixedUpdate();
-                Color fadeColor = new Color(alpha.color.r, alpha.color.g, alpha.color.b, alpha.color.a - DeltaAlpha);
+                Color fadeColor = new Color(alpha.color.r, alpha.color.g, alpha.color.b, alpha.color.a - delta);
                 alpha.color = fadeColor;
             }
         }
-
-        private IEnumerator BrighteningTilemap()
+        
+        private IEnumerator BrighteningTilemap(float delta)
         {
             Material colored = _renderer.material;
             float fade = colored.GetFloat(FadeValue);
             while (fade <= 1)
             {
                 yield return new WaitForFixedUpdate();
-                colored.SetFloat(FadeValue, fade += DeltaFade);
+                colored.SetFloat(FadeValue, fade += delta);
             }
             
             EventBus.Invoke(new PaintingCompletedSignal());
@@ -67,15 +83,9 @@ namespace _Project.CodeBase.Services.Repainting
 
         private void ColorlessSetup()
         {
-            Colorless = Instantiate(gameObject, transform.position, transform.rotation, transform);
-            _colorlessRenderer = Colorless.GetComponent<TilemapRenderer>();
-            Paintable colorlessPaintable = Colorless.GetComponent<Paintable>();
-            
-            colorlessPaintable.SetColorless(Colorless);
-            PaintingService.SetColorless(colorlessPaintable);
-            
-            _colorlessRenderer.material = PaintingService.Colorless;
-            _colorlessRenderer.material.color = Color.grey;
+            ColorlessObject = Instantiate(gameObject, transform.position, transform.rotation, transform);
+            _colorlessRenderer = ColorlessObject.GetComponent<TilemapRenderer>();
+            SwitchMaterialAndColor(_colorlessRenderer, ColorlessObject);
         }
     }
 }

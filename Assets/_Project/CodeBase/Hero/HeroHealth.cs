@@ -64,7 +64,7 @@ namespace _Project.CodeBase.Hero
        Animator.PlayHit();
      }
 
-     void OnBecameInvisible() => 
+     public void OutOfBorders() => 
        _stateMachine.Enter<RestartLevelState, string>(SceneManager.GetActiveScene().name);
   }
 }

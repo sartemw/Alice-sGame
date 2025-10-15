@@ -19,6 +19,8 @@ namespace _Project.CodeBase.Infrastructure.States
         
         [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadingCurtain, diContainer),
         
+        [typeof(LoadCutsceneState)] = new LoadCutsceneState(this, sceneLoader, loadingCurtain, diContainer),
+        
         [typeof(LoadProgressState)] = new LoadProgressState(this, diContainer),
         
         [typeof(LoadMainMenuState)] = new LoadMainMenuState(this, sceneLoader, loadingCurtain, diContainer),

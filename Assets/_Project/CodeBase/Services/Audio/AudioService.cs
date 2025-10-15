@@ -44,6 +44,12 @@ namespace _Project.CodeBase.Services.Audio
             EventBus.Subscribe(_onLevelLoad.SetOnInvoke(OnLevelLoad));
         }
 
+        public void PlayBlobs() => 
+            BroAudio.Play(_staticData.ForAudio().Blobs);
+
+        public void PlayOpenWindow() => 
+            BroAudio.Play(_staticData.ForAudio().OpenWindow);
+
         private void OnSoundButtonClick(SoundButtonClickSignal obj)
         {
             CanPlay = !CanPlay;
@@ -69,20 +75,6 @@ namespace _Project.CodeBase.Services.Audio
                 return;
             
             BroAudio.Play(_currentSoundId);
-        }
-        
-        public void PlayBlobs()
-        {
-            SoundID music = _staticData.ForAudio().Blobs;
-            
-            BroAudio.Play(music);
-        }
-
-        public void PlayOpenWindow()
-        {
-            SoundID music = _staticData.ForAudio().OpenWindow;
-            
-            BroAudio.Play(music);
         }
     }
 }

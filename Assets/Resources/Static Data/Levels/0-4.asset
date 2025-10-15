@@ -32,3 +32,4 @@ MonoBehaviour:
     TransferTo: GameEnd
     Position: {x: -3.03, y: 8, z: 12.38}
   Music: 
+  IsCompleted: 0

@@ -7,7 +7,6 @@ namespace _Project.CodeBase.Services.Repainting
     [RequireComponent(typeof(SpriteRenderer))]
     public class SpritePaintable: Paintable
     {
-        private const string FadeValue = "_Fade";
         private SpriteRenderer _renderer;
         
         private SpriteRenderer _colorlessRenderer;
@@ -22,31 +21,47 @@ namespace _Project.CodeBase.Services.Repainting
         {
             if (obj.Target == this)
             {
-                StartCoroutine(BrighteningSprite());
-                StartCoroutine(FadeSprite());                
+                StartCoroutine(BrighteningSprite(DeltaAlpha));
+                StartCoroutine(FadeAlphaSprite(DeltaFade));                
             }
         }
 
-        private IEnumerator FadeSprite()
+        protected override void BrighteningInstantly(StartPaintingInstantlySignal obj)
         {
-            SpriteRenderer alpha = Colorless.GetComponent<SpriteRenderer>();
+            if (obj.Target == this)
+            {
+                StartCoroutine(BrighteningSprite(1));
+                StartCoroutine(FadeAlphaSprite(1));
+            }
+        }
+
+        protected override void Fade(FadeMaterialSignal obj)
+        {
+            Material material = GetComponent<SpriteRenderer>().material;
+            if (material.name == ColoredMaterial) 
+                StartCoroutine(FadeMaterial(material));
+        }
+        
+        private IEnumerator FadeAlphaSprite(float delta)
+        {
+            SpriteRenderer alpha = ColorlessObject.GetComponent<SpriteRenderer>();
 
             while (alpha.color.a >= 0)
             {
                 yield return new WaitForFixedUpdate();
-                Color fadeColor = new Color(alpha.color.r, alpha.color.g, alpha.color.b, alpha.color.a - DeltaAlpha);
+                Color fadeColor = new Color(alpha.color.r, alpha.color.g, alpha.color.b, alpha.color.a - delta);
                 alpha.color = fadeColor;
             }
         }
 
-        private IEnumerator BrighteningSprite()
+        private IEnumerator BrighteningSprite(float delta)
         {
             Material colored = _renderer.material;
             float fade = colored.GetFloat(FadeValue);
             while (fade <= 1)
             {
                 yield return new WaitForFixedUpdate();
-                colored.SetFloat(FadeValue, fade += DeltaFade);
+                colored.SetFloat(FadeValue, fade += delta);
             }
             
             EventBus.Invoke(new PaintingCompletedSignal());
@@ -66,15 +81,13 @@ namespace _Project.CodeBase.Services.Repainting
 
         private void ColorlessSetup()
         {
-            Colorless = Instantiate(gameObject, transform.position, transform.rotation, transform);
-            _colorlessRenderer = Colorless.GetComponent<SpriteRenderer>();
-            Paintable colorlessPaintable = Colorless.GetComponent<Paintable>();
+            ColorlessObject = Instantiate(gameObject, transform.position, transform.rotation, transform);
+            _colorlessRenderer = ColorlessObject.GetComponent<SpriteRenderer>();
             
-            colorlessPaintable.SetColorless(Colorless);
-            PaintingService.SetColorless(colorlessPaintable);
-            
-            _colorlessRenderer.material = PaintingService.Colorless;
-            _colorlessRenderer.color = Color.gray;
+            SwitchMaterialAndColor(_colorlessRenderer, ColorlessObject);
+
+            // foreach (SpriteRenderer spriteRenderer in GetComponentsInChildren<SpriteRenderer>())
+            //     SwitchMaterialAndColor(spriteRenderer, spriteRenderer.gameObject);
         }
     }
 }

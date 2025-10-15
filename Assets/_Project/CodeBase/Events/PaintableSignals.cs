@@ -1,4 +1,5 @@
 ﻿using _Project.CodeBase.Fish;
+using _Project.CodeBase.Services.Repainting;
 
 namespace _Project.CodeBase.Events
 {
@@ -6,6 +7,17 @@ namespace _Project.CodeBase.Events
     {
         public ColoredFish ColoredFish;
     }
-    
+
+    public class StartPaintingSignal : IEventSignal
+    {
+        public Paintable Target;
+    }
+    public class StartPaintingInstantlySignal : IEventSignal
+    {
+        public Paintable Target;
+    }
+
     public class PaintingCompletedSignal : IEventSignal { }
+
+    public class FadeMaterialSignal : IEventSignal {}
 }

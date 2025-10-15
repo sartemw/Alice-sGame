@@ -24,3 +24,4 @@ MonoBehaviour:
     TransferTo: 0-4
     Position: {x: 7.21, y: -2.12, z: 12.38}
   Music: 
+  IsCompleted: 0
