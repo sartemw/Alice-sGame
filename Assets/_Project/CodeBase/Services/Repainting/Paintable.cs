@@ -25,8 +25,10 @@ namespace _Project.CodeBase.Services.Repainting
         protected IPaintingService PaintingService;
         protected GameObject ColorlessObject;
 
-        protected float DeltaFade = Constants.PaintableDeltaFade;
-        protected float DeltaAlpha = Constants.PaintableDeltaAlpha;
+        protected float DeltaFadeToBright = Constants.PaintableDeltaFadeToPaint;
+        protected float DeltaAlphaToBright = Constants.PaintableDeltaAlphaToPaint;
+        protected float DeltaFadeToFade = Constants.PaintableDeltaFadeToFade;
+        protected float DeltaAlphaToFade = Constants.PaintableDeltaAlphaToFade;
         
         [Inject]
         public void Construct(IPaintingService paintingService)
@@ -45,20 +47,6 @@ namespace _Project.CodeBase.Services.Repainting
 
         public void SetColorless(GameObject colorless) => 
             ColorlessObject = colorless;
-
-        protected IEnumerator FadeMaterial(Material material)
-        {
-            Debug.Log("HERE2");
-
-            float fade = material.GetFloat(FadeValue);
-            while (fade > 0)
-            {
-                Debug.Log("HERE3");
-
-                yield return new WaitForFixedUpdate();
-                material.SetFloat(FadeValue, fade -= DeltaFade);
-            }
-        }
         
         protected void SwitchMaterialAndColor(Renderer colorlessRenderer, GameObject colorlessObject)
         {

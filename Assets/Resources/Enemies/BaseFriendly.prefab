@@ -439,7 +439,7 @@ GameObject:
   - component: {fileID: 5814337457046694964}
   - component: {fileID: 3613647780951755611}
   m_Layer: 17
-  m_Name: FriendlyEnemy
+  m_Name: BaseFriendly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

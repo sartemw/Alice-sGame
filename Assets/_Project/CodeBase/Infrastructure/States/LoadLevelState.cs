@@ -120,7 +120,7 @@ namespace _Project.CodeBase.Infrastructure.States
     private async Task InitSpawners(LevelStaticData levelStaticData)
     {
       foreach (EnemySpawnerStaticData spawnerData in levelStaticData.EnemySpawners)
-        await _gameFactory.CreateEnemySpawner(spawnerData.Id, spawnerData.Position, spawnerData.MonsterTypeId);
+        await _gameFactory.CreateEnemySpawner(spawnerData.Id, spawnerData.Position, spawnerData.MonsterTypeId, levelStaticData.Cutscene);
       
       foreach (FishSpawnerStaticData spawnerData in levelStaticData.FishSpawners)
         await _gameFactory.CreateFishSpawner(spawnerData.Id, spawnerData.FishColor, spawnerData.FishBehaviour, spawnerData.Position);

@@ -10,7 +10,10 @@ namespace _Project.CodeBase
     //Game constants
     public const float
       CurtainAlphaFade = 0.03f,
-      PaintableDeltaFade = 0.003f,
-      PaintableDeltaAlpha = 0.005f;
+      PaintableDeltaFadeToPaint = 0.003f,
+      PaintableDeltaAlphaToPaint = 0.005f,
+      
+      PaintableDeltaFadeToFade = 0.007f,
+      PaintableDeltaAlphaToFade = 0.008f;
   }
 }

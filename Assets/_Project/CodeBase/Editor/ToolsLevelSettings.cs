@@ -164,8 +164,8 @@ namespace CodeBase.Editor
         _colorTypesObjects.Clear();
         _colorTypesFishs.Clear();
 
-        _outlineObjects = GameObject.FindObjectsOfType<Paintable>();
-        _fishSpawnersToOutline = GameObject.FindObjectsOfType<FishSpawnMarker>();
+        _outlineObjects = GameObject.FindObjectsByType<Paintable>(FindObjectsSortMode.None);
+        _fishSpawnersToOutline = GameObject.FindObjectsByType<FishSpawnMarker>(FindObjectsSortMode.None);
 
         foreach (Paintable repaintable in _outlineObjects)
           CountingRepaintable(repaintable);
@@ -233,11 +233,11 @@ namespace CodeBase.Editor
 
       private static Vector3 CollectLevelData()
       {
-        _enemySpawners = FindObjectsOfType<SpawnMarker>()
+        _enemySpawners =  FindObjectsByType<SpawnMarker>(FindObjectsSortMode.None)
           .Select(x => new EnemySpawnerStaticData(x.GetComponent<UniqueId>().Id, x.MonsterTypeId, x.transform.position))
           .ToList();
         
-        _fishSpawners = FindObjectsOfType<FishSpawnMarker>()
+        _fishSpawners = FindObjectsByType<FishSpawnMarker>(FindObjectsSortMode.None)
           .Select(x =>
             new FishSpawnerStaticData(x.GetComponent<UniqueId>().Id, x.ColorType, x.FishBehaviour, x.transform.position))
           .ToList();

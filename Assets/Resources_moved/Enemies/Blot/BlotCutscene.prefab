@@ -1,50 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &285939907922209278
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7186837886303903701}
-  - component: {fileID: 6510778528213576831}
-  m_Layer: 0
-  m_Name: LootSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7186837886303903701
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 285939907922209278}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3585347175616835796}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6510778528213576831
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 285939907922209278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 224b4c7b36bd432aad2b73b40d2402e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EnemyDeath: {fileID: 5657426703775931193}
 --- !u!1 &645728953778980200
 GameObject:
   m_ObjectHideFlags: 0
@@ -854,17 +809,10 @@ GameObject:
   - component: {fileID: 3420034609528793475}
   - component: {fileID: 7571424881318630912}
   - component: {fileID: 5246327391679937258}
-  - component: {fileID: 3638315278055699575}
-  - component: {fileID: 2973914893900439054}
-  - component: {fileID: 3904261575551820489}
-  - component: {fileID: 7276849402054575814}
-  - component: {fileID: 5465337230174823626}
-  - component: {fileID: 5657426703775931193}
-  - component: {fileID: 5814337457046694964}
-  - component: {fileID: 3613647780951755611}
   - component: {fileID: 5928408747409202437}
+  - component: {fileID: 3079978012085162049}
   m_Layer: 17
-  m_Name: Blot
+  m_Name: BlotCutscene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -885,7 +833,6 @@ Transform:
   m_Children:
   - {fileID: 8137083587307488277}
   - {fileID: 4046818919443825622}
-  - {fileID: 7186837886303903701}
   - {fileID: 523015402234012515}
   - {fileID: 1418991569199069495}
   m_Father: {fileID: 0}
@@ -1000,125 +947,6 @@ MonoBehaviour:
     m_Extent: {x: 1.1600001, y: 1.4480014, z: 0}
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
---- !u!114 &3638315278055699575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5799534303835598737}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbdf6fee082049c7a4c62e27214b9200, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2973914893900439054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5799534303835598737}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c61d6fd7f24425993242e26423f9199, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Velocity: 0
-  Speed: 5
-  Rigidbody2D: {fileID: 7571424881318630912}
-  MinimalDistance: 6
-  IsPlatformer: 1
---- !u!114 &3904261575551820489
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5799534303835598737}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83d0e10d52a243d5aed6e592165a76e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Agent: {fileID: 2973914893900439054}
-  Animator: {fileID: 3638315278055699575}
---- !u!114 &7276849402054575814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5799534303835598737}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b875a25f50449119ceb2fc83734fe91, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Animator: {fileID: 3638315278055699575}
-  AttackCooldown: 3
-  Cleavage: 0.5
-  EffectiveDistance: 0.5
-  Damage: 10
---- !u!114 &5465337230174823626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5799534303835598737}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 470004e1e67a4bc281abeeb42ba94d9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Animator: {fileID: 3638315278055699575}
-  _max: 2
---- !u!114 &5657426703775931193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5799534303835598737}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcf83ffccec841f8b4c6027b522222dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Health: {fileID: 5465337230174823626}
-  Animator: {fileID: 3638315278055699575}
-  DeathFx: {fileID: 100004, guid: 7867af58a6ec48846ae807eb4022fbaa, type: 3}
---- !u!114 &5814337457046694964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5799534303835598737}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da4a5086f0c84b0dbcfb49a9b9bcd190, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HpBar: {fileID: 3073878896694522309}
-  StarsBar: {fileID: 0}
---- !u!114 &3613647780951755611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5799534303835598737}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7c867116f094c72a9c99e52a74d49c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Rigidbody2D: {fileID: 7571424881318630912}
-  Follow: {fileID: 2973914893900439054}
-  IsPlatformer: 1
-  MinimalDistance: 1
 --- !u!95 &5928408747409202437
 Animator:
   serializedVersion: 7
@@ -1141,6 +969,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3079978012085162049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5799534303835598737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d301ab37462e46f5bf48fd6de37ba281, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.CodeBase.Animations.CutsceneAnimator
+  MovementPoints: []
+  BlotTransform: {fileID: 0}
 --- !u!1 &6733378366219161108
 GameObject:
   m_ObjectHideFlags: 0

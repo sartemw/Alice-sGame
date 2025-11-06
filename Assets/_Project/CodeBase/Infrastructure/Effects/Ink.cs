@@ -77,12 +77,17 @@ namespace _Project.CodeBase.Infrastructure.Effects
         {
             EventBus.Invoke(new StartPaintingSignal {Target = _data.Target});
 
+            Death();
+        }
+
+        private void Death()
+        {
             _audioService.PlayBlobs();
             CreateSparks();
             Destroy(gameObject);
         }
 
-        private void CreateSparks() => 
+        public void CreateSparks() => 
             Instantiate(_sparks, transform.position, transform.rotation);
 
         private Gradient SetGradient(ColorType colorType)

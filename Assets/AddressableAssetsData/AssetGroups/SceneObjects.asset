@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: SceneObjects
   m_EditorClassIdentifier: 
   m_GroupName: SceneObjects
-  m_Data:
-    m_SerializedData: []
   m_GUID: dddb23ed2eeaf774cba34211a936b236
   m_SerializeEntries:
   - m_GUID: 0006666f10481ac41ac44257d798e24f
@@ -39,6 +37,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2cc16712d3bad1e48bd58710840da914
     m_Address: Ink3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 44f3ff9b4d1c68845957425db1fc1f11
+    m_Address: BlotCutscene
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

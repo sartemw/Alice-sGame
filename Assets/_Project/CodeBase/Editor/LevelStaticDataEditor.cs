@@ -6,7 +6,6 @@ using _Project.CodeBase.StaticData;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace CodeBase.Editor
 {
@@ -24,19 +23,26 @@ namespace CodeBase.Editor
 
       if (GUILayout.Button("Collect"))
       {
-        levelData.EnemySpawners = FindObjectsOfType<SpawnMarker>()
+        levelData.EnemySpawners = FindObjectsByType<SpawnMarker>(FindObjectsSortMode.None)
           .Select(x => new EnemySpawnerStaticData(x.GetComponent<UniqueId>().Id, x.MonsterTypeId, x.transform.position))
           .ToList();
         
-        levelData.FishSpawners = FindObjectsOfType<FishSpawnMarker>()
+        levelData.FishSpawners = FindObjectsByType<FishSpawnMarker>(FindObjectsSortMode.None)
           .Select(x => new FishSpawnerStaticData(x.GetComponent<UniqueId>().Id, x.ColorType, x.FishBehaviour, x.transform.position))
           .ToList();
         
         levelData.LevelKey = SceneManager.GetActiveScene().name;
+
         
-        levelData.InitialHeroPosition =  GameObject.FindWithTag(InitialPointTag).transform.position;
-        
-        levelData.LevelTransfer.Position = GameObject.FindWithTag(LevelTransferInitialPointTag).transform.position;
+        if (GameObject.FindWithTag(InitialPointTag) != null)
+          levelData.InitialHeroPosition =  GameObject.FindWithTag(InitialPointTag).transform.position;
+        else
+          levelData.InitialHeroPosition = Vector3.zero;
+
+        if (GameObject.FindWithTag(LevelTransferInitialPointTag) != null)
+          levelData.LevelTransfer.Position = GameObject.FindWithTag(LevelTransferInitialPointTag).transform.position;
+        else
+          levelData.LevelTransfer.Position = Vector3.zero;
       }
       
       EditorUtility.SetDirty(target);

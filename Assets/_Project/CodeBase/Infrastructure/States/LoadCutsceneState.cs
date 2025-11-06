@@ -1,4 +1,5 @@
-﻿using _Project.CodeBase.Events;
+﻿using System.Threading.Tasks;
+using _Project.CodeBase.Events;
 using _Project.CodeBase.Infrastructure.Factory;
 using _Project.CodeBase.Logic.Curtain;
 using _Project.CodeBase.Services.PersistentProgress;
@@ -35,12 +36,20 @@ namespace _Project.CodeBase.Infrastructure.States
         public void Enter(string sceneName)
         {
             _loadingCurtain.Show();
+            
+            _gameFactory.Cleanup();
+            _gameFactory.WarmUp();
+            
             _sceneLoader.Load(sceneName, OnLoaded);
         }
 
-        private void OnLoaded()
+        private async void OnLoaded()
         {
-            // InformProgressReaders();
+            LevelStaticData levelData = LevelStaticData();
+            
+            await InitSpawners(levelData);
+            InformProgressReaders();
+            
             // LevelStaticData levelData = LevelStaticData();
             //
             // EventBus.Invoke(new LoadLevelSignals
@@ -64,5 +73,11 @@ namespace _Project.CodeBase.Infrastructure.States
         
         private LevelStaticData LevelStaticData() => 
             _staticData.ForLevel(SceneManager.GetActiveScene().name);
+        
+        private async Task InitSpawners(LevelStaticData levelStaticData)
+        {
+            foreach (EnemySpawnerStaticData spawnerData in levelStaticData.EnemySpawners)
+                await _gameFactory.CreateEnemySpawner(spawnerData.Id, spawnerData.Position, spawnerData.MonsterTypeId, levelStaticData.Cutscene);
+        }
     }
 }

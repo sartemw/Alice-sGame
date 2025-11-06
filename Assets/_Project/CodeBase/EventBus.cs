@@ -48,7 +48,7 @@ namespace _Project.CodeBase
             onInvoke = setInvoke;
             return this;
         }
-
+        
         public void Invoke(object signal)
         {
             if(onInvoke != null)

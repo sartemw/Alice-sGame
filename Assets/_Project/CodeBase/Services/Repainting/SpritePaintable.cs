@@ -21,8 +21,8 @@ namespace _Project.CodeBase.Services.Repainting
         {
             if (obj.Target == this)
             {
-                StartCoroutine(BrighteningSprite(DeltaAlpha));
-                StartCoroutine(FadeAlphaSprite(DeltaFade));                
+                StartCoroutine(BrighteningSprite(DeltaAlphaToBright));
+                StartCoroutine(FadeAlphaSprite(DeltaFadeToBright));                
             }
         }
 
@@ -39,8 +39,11 @@ namespace _Project.CodeBase.Services.Repainting
         {
             if (obj.Target == this)
             {
-                StartCoroutine(FadeSprite(DeltaAlpha));
-                StartCoroutine(UpAlphaSprite(DeltaFade));
+                StopCoroutine(BrighteningSprite(1));
+                StopCoroutine(FadeAlphaSprite(1));
+                
+                StartCoroutine(FadeSprite(DeltaAlphaToFade));
+                StartCoroutine(UpAlphaSprite(DeltaFadeToFade));
             }
         }
 

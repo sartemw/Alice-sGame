@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using _Project.CodeBase.Enemy;
 using _Project.CodeBase.Fish;
@@ -23,7 +22,6 @@ using _Project.CodeBase.StaticData;
 using _Project.CodeBase.UI.Elements;
 using _Project.CodeBase.UI.Services.Windows;
 using UnityEngine;
-using UnityEngine.Pool;
 using UnityEngine.SceneManagement;
 using Zenject;
 using Object = UnityEngine.Object;
@@ -44,6 +42,7 @@ namespace _Project.CodeBase.Infrastructure.Factory
     private readonly IWindowService _windowService;
     private readonly IAnalyticsService _analyticsService;
     private readonly IGameStateMachine _stateMachine;
+    private readonly IPaintingService _paintingService;
     private readonly DiContainer _diContainer;
     private readonly ICoroutineRunner _coroutineRunner;
 
@@ -70,6 +69,7 @@ namespace _Project.CodeBase.Infrastructure.Factory
       _windowService = windowService;
       _analyticsService = analyticsService;
       _stateMachine = stateMachine;
+      _paintingService = diContainer.Resolve<IPaintingService>();
       _coroutineRunner = diContainer.Resolve<ICoroutineRunner>();
     }
     
@@ -144,6 +144,22 @@ namespace _Project.CodeBase.Infrastructure.Factory
       public Paintable ColoredObj;
       public IPaintingService PaintingService;
     }
+
+    public async Task CreateInkToBlot(Vector2 at, Vector2 to)
+    {
+      _poolInk.Enqueue(new PoolInk()
+      {
+        StartPosition = at,
+        MoveTo = to,
+        PaintingService = _paintingService
+      });
+      
+      GameObject prefab = await _assets.Load<GameObject>(AssetAddress.Ink);
+      
+      if (_canCreateInk)
+        _coroutineRunner.StartCoroutine(PoolingInk(prefab));
+    }
+
     public async Task CreateInk(Vector2 at, Vector2 moveTo, Paintable coloredObj, IPaintingService paintingService)
     {
       _poolInk.Enqueue(new PoolInk()
@@ -190,14 +206,23 @@ namespace _Project.CodeBase.Infrastructure.Factory
 
       return monster;
     }
+    
+    public async Task<GameObject> CreateCutsceneMonster(MonsterTypeId typeId, Transform parent)
+    {
+      MonsterStaticData monsterData = _staticData.ForMonster(typeId);
 
-    public async Task CreateEnemySpawner(string spawnerId, Vector3 at, MonsterTypeId monsterTypeId)
+      GameObject prefab = await _assets.Load<GameObject>(monsterData.PrefabReference);
+      GameObject monster = Object.Instantiate(prefab, parent.position, Quaternion.identity, parent);
+      
+      return monster;
+    }
+
+    public async Task CreateEnemySpawner(string spawnerId, Vector3 at, MonsterTypeId monsterTypeId, bool isCutscene = false)
     {
       GameObject prefab = await _assets.Load<GameObject>(AssetAddress.EnemySpawner);
       
       EnemySpawnPoint spawner = InstantiateRegistered(prefab, at).GetComponent<EnemySpawnPoint>();
-      
-      spawner.Construct(this);
+      spawner.Construct(this, isCutscene);
       spawner.MonsterTypeId = monsterTypeId;
       spawner.Id = spawnerId;
     }

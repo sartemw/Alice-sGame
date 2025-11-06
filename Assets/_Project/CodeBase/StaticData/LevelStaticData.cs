@@ -6,6 +6,7 @@ namespace _Project.CodeBase.StaticData
   [CreateAssetMenu(fileName = "LevelData", menuName = "Static Data/Level")]
   public class LevelStaticData : ScriptableObject
   {
+    public bool Cutscene = false;
     public string LevelKey;
     public List<EnemySpawnerStaticData> EnemySpawners;
     public List<FishSpawnerStaticData> FishSpawners;

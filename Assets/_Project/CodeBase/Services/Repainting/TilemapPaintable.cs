@@ -23,8 +23,8 @@ namespace _Project.CodeBase.Services.Repainting
         {
             if (obj.Target == this)
             {
-                StartCoroutine(BrighteningTilemap(DeltaFade));
-                StartCoroutine(FadeAlphaTilemap(DeltaAlpha));
+                StartCoroutine(BrighteningTilemap(DeltaFadeToBright));
+                StartCoroutine(FadeAlphaTilemap(DeltaAlphaToBright));
             }
         }
 
@@ -41,8 +41,8 @@ namespace _Project.CodeBase.Services.Repainting
         {
             if (obj.Target == this)
             {
-                StartCoroutine(FadeTilemap(DeltaAlpha));
-                StartCoroutine(UpAlphaTilemap(DeltaFade));
+                StartCoroutine(FadeTilemap(DeltaAlphaToFade));
+                StartCoroutine(UpAlphaTilemap(DeltaFadeToFade));
             }
         }
 
