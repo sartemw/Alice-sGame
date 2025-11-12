@@ -15,16 +15,15 @@ namespace _Project.CodeBase.Animations
         public Transform[] ActiveObjects;
 
         public GameObject Ink;
+
+        public string NextSceneName;
         private int _iterator = 0;
 
-        private void Update()
-        {
-            if (Input.GetMouseButtonDown(0))
+        public void NextScene() => 
+            EventBus.Invoke(new NextSceneSignal()
             {
-                InkSpawnPoint();
-            }
-        }
-        
+                Scene = NextSceneName
+            });
         public void AllLevelColoring() =>
             EventBus.Invoke(new AllLevelColoringSignal());
 
@@ -45,15 +44,6 @@ namespace _Project.CodeBase.Animations
             
             ink.transform.DOMove(to, 1).OnComplete(() => DestroyInk(ink));
         }
-
-        private void DestroyInk(GameObject ink)
-        {
-            ink.GetComponent<Ink>().CreateSparks();
-            Destroy(ink, 0.5f);
-        }
-
-
-        //EventBus.Invoke(new SandInkToBlotSignals(){At = CreateInkSpawnPoint(), To = BlotTransform});
 
         public void TranslateTo(Transform activeObject)
         {
@@ -93,6 +83,12 @@ namespace _Project.CodeBase.Animations
             Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, -angle-180));
             
             return targetRotation;
+        }
+
+        private void DestroyInk(GameObject ink)
+        {
+            ink.GetComponent<Ink>().CreateSparks();
+            Destroy(ink, 0.5f);
         }
     }
 }

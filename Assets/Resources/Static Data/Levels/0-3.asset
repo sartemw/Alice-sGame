@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26a28a6feec1484aa1c04daa3a58b39d, type: 3}
   m_Name: 0-3
   m_EditorClassIdentifier: 
+  Cutscene: 0
   LevelKey: 0-3
   EnemySpawners: []
   FishSpawners:

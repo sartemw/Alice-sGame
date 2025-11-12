@@ -13,6 +13,7 @@ namespace _Project.CodeBase.UI.Windows
         public Button ShowAdButton;
         public Button RestartLevelButton;
         public Button MainMenuButton;
+        public Button CheatsButton;
 
         private IGameStateMachine _stateMachine;
 
@@ -27,6 +28,12 @@ namespace _Project.CodeBase.UI.Windows
             ShowAdButton.onClick.AddListener(OnShowAdClicked);
             RestartLevelButton.onClick.AddListener(OnRestartLevelClicked);
             MainMenuButton.onClick.AddListener(OnLoadMainMenuClicked);
+            CheatsButton.onClick.AddListener(OnCheatsClicked);
+        }
+
+        private void OnCheatsClicked()
+        {
+            
         }
 
         private void OnLoadMainMenuClicked() => 

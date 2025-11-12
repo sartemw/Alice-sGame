@@ -7,4 +7,9 @@ namespace _Project.CodeBase.Events
         public Vector2 At;
         public Transform To;
     }
+
+    public class NextSceneSignal : IEventSignal
+    {
+        public string Scene;
+    }
 }

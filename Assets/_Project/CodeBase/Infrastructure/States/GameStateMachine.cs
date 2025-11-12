@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using _Project.CodeBase.Events;
 using _Project.CodeBase.Logic.Curtain;
 using Zenject;
 
@@ -29,7 +30,16 @@ namespace _Project.CodeBase.Infrastructure.States
 
         [typeof(GameLoopState)] = new GameLoopState(this),
       };
+      
+      EventBus.Subscribe(_onNextSceneSignal.SetOnInvoke(NextSceneLoad));
     }
+
+    private void NextSceneLoad(NextSceneSignal obj)
+    {
+      Enter<LoadLevelState, string>(obj.Scene);
+    }
+
+    private BaseOnEvent<NextSceneSignal>  _onNextSceneSignal  = new BaseOnEvent<NextSceneSignal>();
     
     public void Enter<TState>() where TState : class, IState
     {
