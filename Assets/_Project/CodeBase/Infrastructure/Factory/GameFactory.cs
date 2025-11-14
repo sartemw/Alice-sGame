@@ -96,6 +96,8 @@ namespace _Project.CodeBase.Infrastructure.Factory
       HeroHealth heroHealth = _heroGameObject.GetComponent<HeroHealth>();
       heroHealth.Construct(_stateMachine);
       
+      _inputService.Initialize(_heroGameObject.transform);
+      
       return _heroGameObject;
     }
 

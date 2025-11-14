@@ -26,8 +26,8 @@ namespace _Project.CodeBase.Infrastructure.States
         {
             LoadProgressOrInitNew();
             
-            //_stateMachine.Enter<LoadMainMenuState, string>(InitialLevel);
-            _stateMachine.Enter<LoadCutsceneState, string>(InitialLevel2);
+            _stateMachine.Enter<LoadMainMenuState, string>(InitialLevel);
+            //_stateMachine.Enter<LoadCutsceneState, string>(InitialLevel2);
         }
 
         public void Exit()

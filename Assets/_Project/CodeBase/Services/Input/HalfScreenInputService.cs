@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace _Project.CodeBase.Services.Input
 {
@@ -19,9 +18,7 @@ namespace _Project.CodeBase.Services.Input
             if (clickPosition == Vector2.zero)
                 return _axis = Vector2.zero;
             
-            Vector2 axis = new Vector2(clickPosition.x/ Screen.width, clickPosition.y / Screen.height);
-
-            if (axis.x < 0.5f && axis != Vector2.zero)
+            if (clickPosition.x < _heroPosition.position.x)
             {
                 if (_axis.x > -1)
                     _axis.x -= 0.01f;

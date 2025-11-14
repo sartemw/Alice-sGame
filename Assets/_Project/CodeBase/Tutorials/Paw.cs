@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 using UnityEngine.U2D.Animation;
 
 namespace _Project.CodeBase.Tutorials
@@ -9,8 +10,10 @@ namespace _Project.CodeBase.Tutorials
         public Transform ClickTransform;
         
         private const string ClickAnimation = "Click";
+        private const string HideAnimation = "Paw_hide";
         private Animator _animator;
         private SpriteSkin _spriteSkin;
+        private int _iterator = 0;
 
         private void Start()
         {
@@ -21,12 +24,25 @@ namespace _Project.CodeBase.Tutorials
         public void Click() => 
             _animator.Play(ClickAnimation);
         
-
         public void CreateRing()
         {
-            GameObject ring = Instantiate(Ring, ClickTransform.position, ClickTransform.rotation, gameObject.transform);
+            _iterator++;
+            GameObject ring = Instantiate(Ring, ClickTransform.position, ClickTransform.rotation);
 
             Destroy(ring, 2f);
+
+            if (_iterator > 5)
+                Stop();
         }
+
+        private void Stop()
+        {
+            _animator.enabled = false;
+            
+            PawHide();
+        }
+
+        private void PawHide() =>
+            gameObject.transform.DOMoveY(gameObject.transform.position.y + 10, 5);
     }
 }

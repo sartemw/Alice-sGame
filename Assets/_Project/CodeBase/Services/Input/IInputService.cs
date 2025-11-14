@@ -7,5 +7,8 @@ namespace _Project.CodeBase.Services.Input
     Vector2 Axis { get; }
 
     bool IsAttackButtonUp();
+    
+    public void Initialize(Transform hero);
+
   }
 }

@@ -142,8 +142,7 @@ namespace SimpleInputNamespace
 		public void OnPointerDown( PointerEventData eventData )
 		{
 			joystickHeld = true;
-			
-			SimpleInput.GetClickPosition = eventData.position;
+			SimpleInput.GetClickPosition = Camera.main.ScreenPointToRay(eventData.position).origin;
 
 			if( isDynamicJoystick )
 			{
@@ -159,7 +158,8 @@ namespace SimpleInputNamespace
 
 		public void OnDrag( PointerEventData eventData )
 		{
-			SimpleInput.GetClickPosition = eventData.position;
+			SimpleInput.GetClickPosition = Camera.main.ScreenPointToRay(eventData.position).origin;
+			
 			Vector2 pointerPos;
 			RectTransformUtility.ScreenPointToLocalPointInRectangle( joystickTR, eventData.position, eventData.pressEventCamera, out pointerPos );
 

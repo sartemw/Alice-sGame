@@ -19,6 +19,8 @@ namespace _Project.CodeBase.Logic.Jumper
 
         public float JumpForce;
         public bool FlagCanJumpB;
+        
+        public Hopper Hopper;
 
         private Collider2D _jumpObject;
         private float _gravityScale;
@@ -35,7 +37,10 @@ namespace _Project.CodeBase.Logic.Jumper
 
             ButtonA.TriggeredClick += JumpA;
             ButtonB.TriggeredClick += JumpB;
+
+            Hopper.HopperInstantiate(PointA.transform.position, PointB.transform.position, JumpForce);
         }
+        
 
         private void Jump(Vector2 end)
         {
