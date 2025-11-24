@@ -14,6 +14,9 @@ namespace _Project.CodeBase
       PaintableDeltaAlphaToPaint = 0.005f,
       
       PaintableDeltaFadeToFade = 0.007f,
-      PaintableDeltaAlphaToFade = 0.008f;
+      PaintableDeltaAlphaToFade = 0.008f,
+    
+      HeightHopper = 0.27f,
+      HeightHero = 0.98f;
   }
 }

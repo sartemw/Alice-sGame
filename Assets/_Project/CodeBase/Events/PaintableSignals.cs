@@ -24,4 +24,6 @@ namespace _Project.CodeBase.Events
     }
 
     public class PaintingCompletedSignal : IEventSignal { }
+    
+    public class AllLevelColoringSignal : IEventSignal {}
 }

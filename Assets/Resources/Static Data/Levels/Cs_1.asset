@@ -21,7 +21,7 @@ MonoBehaviour:
   FishSpawners: []
   InitialHeroPosition: {x: 0, y: 0, z: 0}
   LevelTransfer:
-    TransferTo: 0-1
+    TransferTo: 0-2
     Position: {x: 0, y: 0, z: 0}
   Music: 
   IsCompleted: 0

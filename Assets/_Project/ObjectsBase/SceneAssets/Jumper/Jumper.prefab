@@ -220,9 +220,10 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7d504517c5476c14383e765e9d58ac62, type: 3}
+  m_Sprite: {fileID: 8188338880402499897, guid: 95ad5e58a2648404796adc233ad33a37,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.6, y: 0.6}
@@ -243,6 +244,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d282d78a3eaf4da2b52804e8e5d3eda7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_Project.CodeBase.Logic.Jumper.Hopper
+  PointA: {x: 0, y: 0}
+  PointB: {x: 0, y: 0}
 --- !u!1 &3130500189034502016
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,7 +274,7 @@ Transform:
   m_GameObject: {fileID: 3130500189034502016}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.52, y: -0.88, z: 0}
+  m_LocalPosition: {x: -3.15, y: -0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -381,7 +384,7 @@ Transform:
   m_GameObject: {fileID: 5591525646624783116}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.64, y: 3, z: 0}
+  m_LocalPosition: {x: 4.26, y: -0.54, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

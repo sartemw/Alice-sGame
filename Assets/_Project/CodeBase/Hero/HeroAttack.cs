@@ -48,8 +48,8 @@ namespace _Project.CodeBase.Hero
       }
     }
 
-    private int Hit() => 
-      Physics2D.OverlapCircleNonAlloc(StartPoint() + (transform.right * AttackDistance) , _stats.DamageRadius, _hits, _layerMask);
+    private int Hit() =>
+      Physics2D.OverlapCircleAll(StartPoint() + (transform.right * AttackDistance) , _stats.DamageRadius, _layerMask).Length;
 
     private Vector3 StartPoint() =>
       new Vector3(GetCenter(HeroCollider).x,transform.position.y, transform.position.z);

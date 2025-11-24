@@ -69,7 +69,7 @@ namespace _Project.CodeBase.Enemy
 
     private bool Hit(out Collider2D hit)
     {
-      int hitAmount = Physics2D.OverlapCircleNonAlloc(StartPoint(), Cleavage, _hits, _layerMask);
+      int hitAmount = Physics2D.OverlapCircleAll(StartPoint(), Cleavage, _layerMask).Length;
 
       hit = _hits.FirstOrDefault();
       return hitAmount > 0;

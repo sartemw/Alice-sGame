@@ -3,5 +3,5 @@
     public class ShowCurtainSignal : IEventSignal {}
     public class ClipFinishSignal : IEventSignal {}
     public class BootstrapFinishedSignal : IEventSignal {}
-    public class AllLevelColoringSignal : IEventSignal {}
+    public class ClickCollectStaticDataSignal : IEventSignal {}
 }

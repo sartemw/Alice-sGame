@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26a28a6feec1484aa1c04daa3a58b39d, type: 3}
   m_Name: 0-3
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.CodeBase.StaticData.LevelStaticData
   Cutscene: 0
   LevelKey: 0-3
   EnemySpawners: []

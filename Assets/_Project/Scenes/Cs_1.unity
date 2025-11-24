@@ -1049,7 +1049,7 @@ MonoBehaviour:
   MovementPoints: []
   ActiveObjects: []
   Ink: {fileID: 3600436525875038069, guid: 2cc16712d3bad1e48bd58710840da914, type: 3}
-  NextSceneName: 0-1
+  NextSceneName: 0-2
 --- !u!4 &1687030873
 Transform:
   m_ObjectHideFlags: 0

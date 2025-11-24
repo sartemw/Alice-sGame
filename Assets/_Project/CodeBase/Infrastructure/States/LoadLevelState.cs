@@ -58,6 +58,10 @@ namespace _Project.CodeBase.Infrastructure.States
       {
         _sceneLoader.Load(sceneName, GameEnd);
       }
+      else if (sceneName[0] == 'C')
+      {
+        _stateMachine.Enter<LoadCutsceneState, string>(sceneName);
+      }
       else
       {
         _sceneLoader.Load(sceneName, OnLoaded);

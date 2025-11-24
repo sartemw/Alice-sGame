@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using _Project.CodeBase;
 using _Project.CodeBase.Data;
+using _Project.CodeBase.Events;
 using _Project.CodeBase.Fish;
 using _Project.CodeBase.Logic;
 using _Project.CodeBase.Logic.EnemySpawners;
@@ -251,6 +253,8 @@ namespace CodeBase.Editor
 
       private static void SaveLevel()
       {
+        EventBus.Invoke(new ClickCollectStaticDataSignal());
+        
         LevelStaticData level = ScriptableObject.CreateInstance<LevelStaticData>();
 
         level.EnemySpawners = _enemySpawners;

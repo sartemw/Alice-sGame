@@ -10,15 +10,13 @@ namespace _Project.CodeBase.Tutorials
         public Transform ClickTransform;
         
         private const string ClickAnimation = "Click";
-        private const string HideAnimation = "Paw_hide";
         private Animator _animator;
-        private SpriteSkin _spriteSkin;
         private int _iterator = 0;
 
         private void Start()
         {
             _animator = GetComponent<Animator>();
-            _spriteSkin = GetComponent<SpriteSkin>();
+            GetComponent<SpriteSkin>();
         }
 
         public void Click() => 

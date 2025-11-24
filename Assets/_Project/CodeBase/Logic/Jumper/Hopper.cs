@@ -6,45 +6,19 @@ namespace _Project.CodeBase.Logic.Jumper
     public class Hopper : MonoBehaviour
     {
         private SpriteRenderer _sprite;
-        private Vector2 _pointA, _pointB, _pointChanged;
+        public Vector2 PointA;
+        public Vector2 PointB;
         private float _jumpForce;
         private bool _jumpFlag;
         public void HopperInstantiate(Vector2 pointA, Vector2 pointB, float jumpForce)
         {
-            _pointA = pointA;
-            _pointB = pointB;
+            gameObject.transform.position = pointA;
+            PointA = pointA;
+            PointB = pointB;
             _jumpForce = jumpForce;
 
             _sprite = GetComponent<SpriteRenderer>();
-
             Flip();
-        }
-
-        private void HopperJump()
-        {
-            transform
-                .DOJump(ChangePoint(), _jumpForce, 1, 2)
-                .SetEase(Ease.OutExpo)
-                .OnComplete(Flip);
-        }
-
-        private Vector3 ChangePoint()
-        {
-            _jumpFlag = !_jumpFlag;
-
-            switch (_jumpFlag)
-            {
-                
-                case true:
-                    _pointChanged = _pointB;
-                    break;
-
-                case false:
-                    _pointChanged = _pointA;
-                    break;
-            }
-            
-            return _pointChanged;
         }
 
         private void Flip()
@@ -64,6 +38,34 @@ namespace _Project.CodeBase.Logic.Jumper
             transform
                 .DOMoveY(transform.position.y - 0.5f, 0.7f)
                 .OnComplete(HopperJump);
+        }
+
+        private void HopperJump()
+        {
+            transform
+                .DOJump(ChangePoint(), _jumpForce, 1, 1.5f)
+                .SetEase(Ease.InSine)
+                .OnComplete(Flip);
+        }
+
+        private Vector3 ChangePoint()
+        {
+            _jumpFlag = !_jumpFlag;
+            Vector2 point;
+
+            switch (_jumpFlag)
+            {
+                
+                case true:
+                    point = PointB;
+                    break;
+
+                case false:
+                    point = PointA;
+                    break;
+            }
+            
+            return point;
         }
     }
 }

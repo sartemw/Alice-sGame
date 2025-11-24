@@ -1,22 +1,23 @@
-﻿using System.Collections;
-using _Project.CodeBase.Enemy;
+﻿using _Project.CodeBase.Enemy;
 using _Project.CodeBase.Hero;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace _Project.CodeBase.Logic.Jumper
 {
     public class Jumper : MonoBehaviour
     {
-        [Header("+0.27 to Y coordinate")]
-
         public TriggerObserver PointA;
         public TriggerObserver PointB;
 
         public ClickTrigger ButtonA;
         public ClickTrigger ButtonB;
 
+        public Vector2 PositionPointA;
+        public Vector2 PositionPointB;
+        public Vector2 HopperPointA;
+        public Vector2 HopperPointB;
+        
         public float JumpForce;
         public bool FlagCanJumpB;
         
@@ -38,9 +39,10 @@ namespace _Project.CodeBase.Logic.Jumper
             ButtonA.TriggeredClick += JumpA;
             ButtonB.TriggeredClick += JumpB;
 
-            Hopper.HopperInstantiate(PointA.transform.position, PointB.transform.position, JumpForce);
+            PointA.transform.position = PositionPointA;
+            PointB.transform.position = PositionPointB;
+            Hopper.HopperInstantiate(HopperPointA, HopperPointB, JumpForce);
         }
-        
 
         private void Jump(Vector2 end)
         {
