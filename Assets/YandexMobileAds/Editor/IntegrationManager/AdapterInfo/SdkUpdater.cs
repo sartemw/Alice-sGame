@@ -8,37 +8,6 @@ namespace YandexAdsEditor
 {
     public static class SdkUpdater
     {
-        private const string GitHubApiUrl = "https://api.github.com/repos/yandexmobile/yandex-ads-unity-plugin/contents/mobileads-unity-plugin";
-        private const string ChangelogUrl = "https://raw.githubusercontent.com/yandexmobile/yandex-ads-unity-plugin/master/CHANGELOG.md";
-        private const string SdkBaseUrl = "https://raw.githubusercontent.com/yandexmobile/yandex-ads-unity-plugin/master/mobileads-unity-plugin/";
-
-        public static async Task UpdateSdkAsync()
-        {
-            string latestVersionFile = await GetLatestVersionFileAsync(GitHubApiUrl, "yandex-mobileads-lite");
-            if (string.IsNullOrEmpty(latestVersionFile))
-            {
-                Debug.LogError("Failed to determine the latest SDK version.");
-                return;
-            }
-
-            string downloadUrl = $"{SdkBaseUrl}{latestVersionFile}";
-            string downloadPath = Path.Combine(Application.dataPath, latestVersionFile);
-
-            Debug.Log("Starting SDK update...");
-            bool success = await DownloadFileAsync(downloadUrl, downloadPath);
-
-            if (success)
-            {
-                Debug.Log("SDK successfully updated!");
-                AssetDatabase.ImportPackage(downloadPath, true);
-            }
-            else
-            {
-                Debug.LogError("Failed to update SDK.");
-            }
-        }
-
-
         public static async Task<string> GetLatestSdkVersionFromChangelogAsync()
         {
             const string changelogUrl = "https://raw.githubusercontent.com/yandexmobile/yandex-ads-unity-plugin/master/CHANGELOG.md";

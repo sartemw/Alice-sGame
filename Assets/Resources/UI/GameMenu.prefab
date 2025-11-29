@@ -958,6 +958,7 @@ MonoBehaviour:
   ShowAdButton: {fileID: 48713636958193094}
   RestartLevelButton: {fileID: 8545433897280027792}
   MainMenuButton: {fileID: 8265878061335221672}
+  CheatsButton: {fileID: 6837680751695389453}
 --- !u!1 &5208047444372000527
 GameObject:
   m_ObjectHideFlags: 0

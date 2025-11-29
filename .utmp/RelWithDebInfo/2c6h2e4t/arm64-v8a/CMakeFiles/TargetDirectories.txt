@@ -1,0 +1,5 @@
+C:/Unity/IsAliceGame/.utmp/RelWithDebInfo/2c6h2e4t/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Unity/IsAliceGame/.utmp/RelWithDebInfo/2c6h2e4t/arm64-v8a/CMakeFiles/rebuild_cache.dir
+C:/Unity/IsAliceGame/.utmp/RelWithDebInfo/2c6h2e4t/arm64-v8a/FramePacing/CMakeFiles/swappywrapper.dir
+C:/Unity/IsAliceGame/.utmp/RelWithDebInfo/2c6h2e4t/arm64-v8a/FramePacing/CMakeFiles/edit_cache.dir
+C:/Unity/IsAliceGame/.utmp/RelWithDebInfo/2c6h2e4t/arm64-v8a/FramePacing/CMakeFiles/rebuild_cache.dir
