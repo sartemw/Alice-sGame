@@ -50,6 +50,7 @@ namespace _Project.CodeBase.Infrastructure.States
             await InitSpawners(levelData);
             InformProgressReaders();
             
+            
             // LevelStaticData levelData = LevelStaticData();
             //
             // EventBus.Invoke(new LoadLevelSignals

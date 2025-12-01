@@ -44,7 +44,7 @@ namespace _Project.CodeBase.UI.Windows.LevelsProgress
                 {
                     GameObject level = Instantiate(LevelIcon, LevelsContainer);
                     level.GetComponentInChildren<TMP_Text>().text = i.ToString();
-                    if (i > levelsCompleted)
+                    if (i >= levelsCompleted)
                     {
                         level.GetComponentInChildren<TMP_Text>().text = "X";
                         level.GetComponent<Button>().interactable = false;

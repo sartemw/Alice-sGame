@@ -10,27 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26a28a6feec1484aa1c04daa3a58b39d, type: 3}
-  m_Name: 0-4
+  m_Name: 0-7
   m_EditorClassIdentifier: Assembly-CSharp::_Project.CodeBase.StaticData.LevelStaticData
   Cutscene: 0
-  LevelKey: 0-4
+  LevelKey: 0-7
   EnemySpawners: []
   FishSpawners:
   - Id: Main_9197e9ca-e993-403f-91a7-658d2f42f495
     FishColor: 5
     FishBehaviour: 0
-    Position: {x: 3.76, y: 1.84}
-  - Id: 1-3_df10c33f-0f09-4ee8-82fa-055cde9ad424
-    FishColor: 1
-    FishBehaviour: 0
-    Position: {x: 12.02, y: -2.05}
+    Position: {x: 11.1, y: -0.87}
   - Id: 1-3_401b79c8-0557-4761-8736-a56a0b9b7ca5
     FishColor: 2
     FishBehaviour: 0
-    Position: {x: -7.03, y: 3.84}
-  InitialHeroPosition: {x: -6.65, y: -1.41, z: -18.6}
+    Position: {x: -3.04, y: -0.31}
+  - Id: 0-6_84572ec0-634e-4a43-8521-72d17885cc7d
+    FishColor: 1
+    FishBehaviour: 0
+    Position: {x: 2.08, y: 1.89}
+  InitialHeroPosition: {x: -6.83, y: 5.05, z: -18.6}
   LevelTransfer:
-    TransferTo: 0-5
-    Position: {x: 15.9, y: 5.08, z: 12.38}
+    TransferTo: 0-8
+    Position: {x: -7.08, y: -2, z: 12.38}
   Music: 
   IsCompleted: 0

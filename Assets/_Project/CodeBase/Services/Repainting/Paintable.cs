@@ -50,6 +50,7 @@ namespace _Project.CodeBase.Services.Repainting
         
         protected void SwitchMaterialAndColor(Renderer colorlessRenderer, GameObject colorlessObject)
         {
+            colorlessRenderer.sortingOrder += 1;
             Paintable colorlessPaintable = colorlessObject.GetComponent<Paintable>();
 
             colorlessPaintable.SetColorless(colorlessObject);

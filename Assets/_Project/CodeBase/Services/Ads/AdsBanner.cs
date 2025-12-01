@@ -8,6 +8,8 @@ namespace _Project.CodeBase.Services.Ads
 {
     public class AdsBanner: MonoBehaviour
     {
+        private const string ADUnitId = "R-M-15937807-1";
+        private const string TestAdUnitId = "demo-banner-yandex";
         private Banner _banner;
 
         private void Awake()
@@ -17,7 +19,7 @@ namespace _Project.CodeBase.Services.Ads
 
         private void RequestInlineBanner()
         {   
-            string adUnitId = "demo-banner-yandex"; // замените на "R-M-XXXXXX-Y"
+            string adUnitId = TestAdUnitId; // замените на "R-M-XXXXXX-Y"
             BannerAdSize bannerMaxSize = BannerAdSize.InlineSize(GetScreenWidthDp(), GetScreenWidthDp() / 20);
             _banner = new Banner(adUnitId, bannerMaxSize, AdPosition.TopCenter);
             
