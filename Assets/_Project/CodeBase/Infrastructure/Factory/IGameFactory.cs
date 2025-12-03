@@ -14,7 +14,7 @@ namespace _Project.CodeBase.Infrastructure.Factory
   public interface IGameFactory : IService
   {
     List<ISavedProgressReader> ProgressReaders { get; }
-    List<ISavedProgress> ProgressWriters { get; }
+    List<ISavedProgress> ProgressWriters { get; set; }
     Task<GameObject> CreateHero(Vector3 at);
     Task<GameObject> CreateHud();
     Task<GameObject> CreateMonster(MonsterTypeId typeId, Transform parent);

@@ -1,10 +1,83 @@
-﻿// using System;
-// using UnityEditor;
-// using UnityEngine;
-// using UnityEngine.Advertisements;
-//
-// namespace CodeBase.Services.Ads
-// {
+﻿using System;
+using _Project.CodeBase;
+using _Project.CodeBase.Events;
+using _Project.CodeBase.Events.Example;
+using _Project.CodeBase.Services.Ads;
+using _Project.CodeBase.Services.Analytics;
+using UnityEngine;
+
+namespace CodeBase.Services.Ads
+{
+    public class AdsService : IAdsService
+    {
+        private const string ADRewardedId = "R-M-15937807-2";
+        private const string TestADRewardedId = "demo-rewarded-yandex";
+        
+        private const string ADBannerId = "R-M-15937807-1";
+        private const string TestADBannerId = "demo-banner-yandex";
+            
+        private BaseOnEvent<LoadLevelSignals>  _onLoadLevelSignals  = new BaseOnEvent<LoadLevelSignals>();
+        private BaseOnEvent<ClickShowRewardedSignal>  _onClickShowRewardedSignal  = new BaseOnEvent<ClickShowRewardedSignal>();
+
+        private AdsRewarded _adRewarded;
+        private AdsBanner _adBanner;
+        
+        private IAnalyticsService _analytics;
+        private string _idBanner;
+        private string _idRewarded;
+        private int _iterator = 0;
+
+        public event Action RewardedVideoReady;
+
+        public AdsService(IAnalyticsService analytics, bool isDebug)
+        {
+            _analytics = analytics;
+
+            if (isDebug)
+            {
+                _idBanner = TestADBannerId;
+                _idRewarded = TestADRewardedId;
+            }
+            else
+            {
+                _idBanner = ADBannerId;
+                _idRewarded = ADRewardedId;
+            }
+        }
+        
+        public bool IsRewardedVideoReady { get; }
+        public int Reward { get; }
+        public void Initialize()
+        {
+            _adBanner = new AdsBanner(_analytics, _idBanner);
+            _adBanner.Initialized();
+            
+            _adRewarded = new AdsRewarded(_analytics, _idRewarded);
+            _adRewarded.Initialized();
+            
+            EventBus.Subscribe(_onLoadLevelSignals.SetOnInvoke(ShowRewardedVideo));
+            EventBus.Subscribe(_onClickShowRewardedSignal.SetOnInvoke(ShowRewardedVideo));
+        }
+
+        private void ShowRewardedVideo(ClickShowRewardedSignal obj) =>
+            _adRewarded.ShowRewardedAd();
+        
+        public void ShowRewardedVideo(LoadLevelSignals obj)
+        {
+            _iterator++;
+
+            if (_iterator > 4)
+            {
+                _iterator = 0;
+                _adRewarded.ShowRewardedAd();
+            }
+        }
+
+        public void LoadAd()
+        {
+        }
+    }
+}
 //   public class AdsService : IAdsService, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
 //   {
 //     private const string AndroidGameId = "5109329";

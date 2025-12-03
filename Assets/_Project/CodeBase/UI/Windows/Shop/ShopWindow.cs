@@ -7,30 +7,30 @@ namespace _Project.CodeBase.UI.Windows.Shop
   public class ShopWindow : WindowBase
   {
     public TextMeshProUGUI SkullText;
-    public RewardedAdItem AdItem;
+    //public RewardedAdItem AdItem;
 
     public void Construct(IAdsService adsService, IPersistentProgressService progressService)
     {
       base.Construct(progressService);
-      AdItem.Construct(adsService, progressService);
+     // AdItem.Construct(adsService, progressService);
     }
     
     protected override void Initialize()
     {
-      AdItem.Initialize();
+      //AdItem.Initialize();
       RefreshSkullText();
     }
 
     protected override void SubscribeUpdates()
     {
-      AdItem.Subscribe();
+     // AdItem.Subscribe();
       Progress.WorldData.LootData.Changed += RefreshSkullText;
     }
 
     protected override void Cleanup()
     {
       base.Cleanup();
-      AdItem.Cleanup();
+     // AdItem.Cleanup();
       Progress.WorldData.LootData.Changed -= RefreshSkullText;
     }
 

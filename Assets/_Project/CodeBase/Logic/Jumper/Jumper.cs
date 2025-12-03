@@ -1,4 +1,5 @@
-﻿using _Project.CodeBase.Enemy;
+﻿using System.Collections;
+using _Project.CodeBase.Enemy;
 using _Project.CodeBase.Hero;
 using DG.Tweening;
 using UnityEngine;
@@ -53,11 +54,19 @@ namespace _Project.CodeBase.Logic.Jumper
             _heroMove.FlipHero(new Vector2(end.x - _jumpObject.transform.position.x  , 0).normalized);
             _heroMove.enabled = false;
             _rigidbody2D.gravityScale = 0;
-
+            
+            StartCoroutine(ActiveHeroCor());
+            
             _jumpObject.transform
                 .DOJump(end, JumpForce, 1, 2)
                 .SetEase(Ease.OutExpo)
                 .OnComplete(ActiveHero);
+        }
+
+        private IEnumerator ActiveHeroCor()
+        {
+            yield return new WaitForSeconds(3);
+            _rigidbody2D.gravityScale = 15;
         }
 
         private void JumpA() => 
@@ -69,7 +78,7 @@ namespace _Project.CodeBase.Logic.Jumper
         private void ActiveHero()
         {
             _heroMove.enabled = true;
-            _rigidbody2D.gravityScale = _gravityScale;
+            _rigidbody2D.gravityScale = 15;
         }
 
         private void PrepareJumpA(Collider2D obj)

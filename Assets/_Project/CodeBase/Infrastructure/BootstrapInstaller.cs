@@ -12,6 +12,7 @@ using _Project.CodeBase.Services.StaticData;
 using _Project.CodeBase.UI.Services.Factory;
 using _Project.CodeBase.UI.Services.Windows;
 using Ami.BroAudio;
+using CodeBase.Services.Ads;
 using UnityEngine;
 using Zenject;
 
@@ -24,19 +25,20 @@ namespace _Project.CodeBase.Infrastructure
         public Material Colored;
         public Material Colorless;
 
-        private Game _game;
+        public Game _game;
+        public IPersistentProgressService _persistentProgress;
+        public IAnalyticsService _analyticsService;
+        
         private IAssetProvider _assetProvider;
         private IStaticDataService _staticData;
         private IInputService _inputService;
         private IAdsService _adsService;
         private IRandomService _randomService;
-        private IPersistentProgressService _persistentProgress;
         private IUIFactory _uiFactory;
         private IWindowService _windowService;
         private IPaintingService _paintingService;
         private IFishDataService _fishData;
         private IAudioService _audioService;
-        private IAnalyticsService _analyticsService;
 
         public override void InstallBindings()
         {
@@ -44,7 +46,7 @@ namespace _Project.CodeBase.Infrastructure
             BindStaticDataService();
 
             BindAnalyticsService();
-            //BindAdsService();
+            BindAdsService();
             BindAssetProvider();
             BindInputService();
             BindRandomService();
@@ -107,23 +109,18 @@ namespace _Project.CodeBase.Infrastructure
                 .FromInstance(_randomService)
                 .AsSingle();
         }
-        // private void BindAdsService()
+        private void BindAdsService()
 
-        // {
+        {
+            _adsService = new AdsService(_analyticsService, _staticData.ForConfig());
 
-        //     _adsService = new AdsService();
+            _adsService.Initialize();
 
-        //     _adsService.Initialize();
-
-        //     Container
-
-        //         .Bind<IAdsService>()
-
-        //         .FromInstance(_adsService)
-
-        //         .AsSingle();
-
-        // }
+            Container
+                .Bind<IAdsService>()
+                .FromInstance(_adsService)
+                .AsSingle();
+        }
         private void BindBootstrapInstaller()
         {
             Container

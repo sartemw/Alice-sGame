@@ -29,6 +29,8 @@ namespace _Project.CodeBase.Services.Repainting
         protected float DeltaAlphaToBright = Constants.PaintableDeltaAlphaToPaint;
         protected float DeltaFadeToFade = Constants.PaintableDeltaFadeToFade;
         protected float DeltaAlphaToFade = Constants.PaintableDeltaAlphaToFade;
+
+        public bool IsColorless = true;
         
         [Inject]
         public void Construct(IPaintingService paintingService)
@@ -53,6 +55,7 @@ namespace _Project.CodeBase.Services.Repainting
             colorlessRenderer.sortingOrder += 1;
             Paintable colorlessPaintable = colorlessObject.GetComponent<Paintable>();
 
+            colorlessPaintable.IsColorless = false;
             colorlessPaintable.SetColorless(colorlessObject);
             PaintingService.SetColorless(colorlessPaintable);
 

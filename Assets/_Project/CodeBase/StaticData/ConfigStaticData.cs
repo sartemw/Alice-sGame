@@ -5,6 +5,7 @@ namespace _Project.CodeBase.StaticData
     [CreateAssetMenu(fileName = "ConfigData", menuName = "Static Data/Config")]
     public class ConfigStaticData : ScriptableObject
     {
+        public bool IsDebug = true;
         public bool Sound = true;
         
         public Gradient Rainbow;

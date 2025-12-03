@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Data;
-using _Project.CodeBase.Data;
+﻿using _Project.CodeBase.Data;
 using _Project.CodeBase.Events;
 using _Project.CodeBase.Fish;
 using _Project.CodeBase.Services.Audio;
@@ -14,10 +12,7 @@ namespace _Project.CodeBase.Infrastructure.Effects
 {
     public class Ink : MonoBehaviour
     {
-        private const string BaseGradient = "BaseGradient";
-        private const string BaseVelocity = "BaseVelocity";
         private InkData _data;
-        private IPaintingService _paintingService;
         private VisualEffect _effect;
         private ParticleSystem _particle;
 
@@ -27,7 +22,7 @@ namespace _Project.CodeBase.Infrastructure.Effects
         private IAudioService _audioService;
 
 
-        public void Construct(Vector2 moveTo, Paintable coloredObj, IPaintingService paintingService,
+        public void Construct(Vector2 moveTo, Paintable coloredObj,
             ConfigStaticData config, IAudioService audioService)
         {
             _audioService = audioService;
@@ -37,17 +32,13 @@ namespace _Project.CodeBase.Infrastructure.Effects
                 MoveTo = moveTo
             };
             CreateSparks();
-            _paintingService = paintingService;
             _config = config;
-            //_effect = GetComponent<VisualEffect>();
             _particle = GetComponent<ParticleSystem>();
 
             SetColorOverLifeTime(coloredObj);
             GetComponent<SpriteRenderer>().color = coloredObj.ColorType.SwitchColor();
-            //_effect.SetGradient(BaseGradient, SetGradient(coloredObj.ColorType));
 
             RotateTo(moveTo);
-            //StartCoroutine(MoveEffect());
             
             MoveTo(moveTo);
         }
@@ -123,18 +114,5 @@ namespace _Project.CodeBase.Infrastructure.Effects
 
             return gradient;
         }
-
-        private IEnumerator MoveEffect()
-        {
-            while (true)
-            {
-                _effect.SetVector2(BaseVelocity, _effect.GetVector2(BaseVelocity) + _data.MoveTo.normalized/10);
-
-                yield return new WaitForSeconds(0.5f);
-            }
-        }
-
-        private void CreateInkEffect() => 
-            Instantiate(_sparks, transform.position, transform.rotation);
     }
 }

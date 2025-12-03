@@ -68,7 +68,7 @@ namespace _Project.CodeBase.Services.Repainting
                 colored.SetFloat(FadeValue, fade -= deltaAlpha);
             }
             
-            EventBus.Invoke(new PaintingCompletedSignal());
+            EventBus.Invoke(new PaintingCompletedSignal(){Target = this});
         }
 
         private IEnumerator FadeAlphaTilemap(float delta)
@@ -93,7 +93,7 @@ namespace _Project.CodeBase.Services.Repainting
                 colored.SetFloat(FadeValue, fade += delta);
             }
             
-            EventBus.Invoke(new PaintingCompletedSignal());
+            EventBus.Invoke(new PaintingCompletedSignal(){Target = this});
         }
 
         private void ColoredSetup()

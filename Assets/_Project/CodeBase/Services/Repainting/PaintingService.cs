@@ -20,13 +20,20 @@ namespace _Project.CodeBase.Services.Repainting
         private BaseOnEvent<PaintingCompletedSignal>  _onPaintingCompleted  = new BaseOnEvent<PaintingCompletedSignal>();
         private BaseOnEvent<AllLevelColoringSignal>  _onLevelLoad  = new BaseOnEvent<AllLevelColoringSignal>();
         private BaseOnEvent<StartFadeSignal>  _onFadeMaterialSignal  = new BaseOnEvent<StartFadeSignal>();
-        private bool _isStart = true;
-        private bool _completedLevelFlag = false;
+        
+        private BaseOnEvent<StartPaintingSignal>  _onStartPaintingSignal  = new BaseOnEvent<StartPaintingSignal>();
+        private BaseOnEvent<StartPaintingInstantlySignal>  _StartPaintingInstantlySignal  = new BaseOnEvent<StartPaintingInstantlySignal>();
+
         public Material ColorlessMaterial {get;}
         public Material Colored {get;}
 
         public List<Paintable> ColorlessObjs { get; private set; }
         public List<Paintable> ColoredObjs { get; private set;}
+        
+        private bool _isStart = true;
+        private bool _completedLevelFlag = false;
+        private List<Paintable> _removeList = new List<Paintable>();
+        private int _startSignalCount, _completeSignalCount;
 
         public PaintingService(Material colorless, Material colored, DiContainer diContainer)
         {
@@ -39,7 +46,15 @@ namespace _Project.CodeBase.Services.Repainting
             EventBus.Subscribe(_onPaintingCompleted.SetOnInvoke(IsLevelCompleted));
             EventBus.Subscribe(_onLevelLoad.SetOnInvoke(AllLevelColored));
             EventBus.Subscribe(_onFadeMaterialSignal.SetOnInvoke(Fade));
+            EventBus.Subscribe(_onStartPaintingSignal.SetOnInvoke(TickStart));
+            EventBus.Subscribe(_StartPaintingInstantlySignal.SetOnInvoke(TickStart));
         }
+
+        private void TickStart(StartPaintingInstantlySignal obj) => 
+            _startSignalCount++;
+
+        private void TickStart(StartPaintingSignal obj) => 
+            _startSignalCount++;
 
         private void ConstructBootstrap(BootstrapFinishedSignal obj) => 
             _gameFactory = _diContainer.Resolve<IGameFactory>();
@@ -50,8 +65,6 @@ namespace _Project.CodeBase.Services.Repainting
             
             Paintable[] paintables = GameObject.FindObjectsOfType<Paintable>();
             
-            //на сцене только требующие раскраску объекты,
-            //затемненные создаются и добавляются из Paintable
             foreach (Paintable paintable in paintables)
             {
                 ColoredObjs.Add(paintable);
@@ -75,29 +88,24 @@ namespace _Project.CodeBase.Services.Repainting
         {
             ColoredFish fish = fishSignal.ColoredFish;
             Debug.Log($"<color={fish.ColorType}> Picked {fish.ColorType} fish</color>");
-            //_gameFactory.CanCreateInk();
 
             foreach (Paintable colorlessObj in ColorlessObjs.ToList())
             {
                 if (fish.ColorType == colorlessObj.ColorType
                     || fish.ColorType == ColorType.Rainbow)
                 {
-                    ColorlessObjs.Remove(colorlessObj);
+                    _removeList.Add(colorlessObj);
                 }
             }
-
+            
             foreach (Paintable coloredObj in ColoredObjs.ToList())
             {
                 if (fish.ColorType == coloredObj.ColorType
                     || fish.ColorType == ColorType.Rainbow)
                 {
-                    /*if (coloredObj is TilemapPaintable)
-                        for (int i = 0; i < 3; i++)
-                            _gameFactory.CreateInk(fish.Position, CreatePointInk(coloredObj), coloredObj, this);*/
-
                     await _gameFactory.CreateInk(fish.Position, CreatePointInk(coloredObj), coloredObj, this);
 
-                    ColoredObjs.Remove(coloredObj);
+                    _removeList.Add(coloredObj);
                 }
             }
             
@@ -122,13 +130,27 @@ namespace _Project.CodeBase.Services.Repainting
         {
             ColorlessObjs = new List<Paintable>();
             ColoredObjs = new List<Paintable>();
+            _removeList = new List<Paintable>();
             _isStart = true;
             _completedLevelFlag = false;
+            _completeSignalCount = 0;
+            _startSignalCount = 0;
         }
 
         private void IsLevelCompleted(PaintingCompletedSignal signal)
         {
-            if (ColorlessObjs.Count == 0 && ColoredObjs.Count == 0 && !_completedLevelFlag)
+            _completeSignalCount++;
+            
+            foreach (Paintable paintable in _removeList)
+            {
+                ColoredObjs.Remove(paintable);
+                ColorlessObjs.Remove(paintable);
+            }
+            
+            if (ColorlessObjs.Count == 0 
+                && ColoredObjs.Count == 0 
+                && !_completedLevelFlag 
+                && _completeSignalCount == _startSignalCount)
             {
                 _completedLevelFlag = true;
                 EventBus.Invoke(new LevelCompletedSignals());

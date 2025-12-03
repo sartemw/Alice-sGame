@@ -14,6 +14,16 @@ namespace _Project.CodeBase.Data
         public void FirstTimeComplete()
         {
             CurrentLevel ++;
+            if (CurrentLevel > 8)
+                CurrentLevel = 8;
+            
+            Changed?.Invoke();
+        }
+
+        public void RestartGame()
+        {
+            CurrentLevel = 1;
+            CompletedLevels.Clear();
             Changed?.Invoke();
         }
     }

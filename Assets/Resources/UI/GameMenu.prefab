@@ -1634,8 +1634,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5208047445539596014}
-  - component: {fileID: 7841237280906206643}
-  - component: {fileID: 8327051291770685305}
+  - component: {fileID: 2466519016730912269}
   m_Layer: 5
   m_Name: AdsItem_container
   m_TagString: Untagged
@@ -1664,7 +1663,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 450, y: 550}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &7841237280906206643
+--- !u!114 &2466519016730912269
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1673,27 +1672,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5208047445539596013}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7793c58bf6445f8b586d724de2c7d28, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d287f2cec5140409db94897bf9d55bb, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  ShowAdButton: {fileID: 0}
-  AdActiveObjects:
-  - {fileID: 5208047444372000527}
-  - {fileID: 5208047445512037713}
-  AdInactiveObjects:
-  - {fileID: 0}
---- !u!114 &8327051291770685305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5208047445539596013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2c4d975a95a4f4f93a61c3f2da46173, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::_Project.CodeBase.Services.Ads.AdsRewarded
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.CodeBase.Services.Ads.RewardedButton
   ShowAdButton: {fileID: 48713636958193094}
 --- !u!1 &5208047445562605072
 GameObject:
@@ -2408,7 +2389,7 @@ PrefabInstance:
     - target: {fileID: 5545204507759701481, guid: e246975883fa540b7b1fcd98e3c01d08,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 15
+      value: -75
       objectReference: {fileID: 0}
     - target: {fileID: 5545204508169352786, guid: e246975883fa540b7b1fcd98e3c01d08,
         type: 3}

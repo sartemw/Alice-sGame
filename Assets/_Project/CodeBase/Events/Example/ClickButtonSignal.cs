@@ -1,7 +1,9 @@
-﻿namespace _Project.CodeBase.Events.Example
+﻿using YandexMobileAds.Base;
+
+namespace _Project.CodeBase.Events.Example
 {
-    public class ClickButtonSignal
+    public class ClickShowRewardedSignal : IEventSignal
     {
-        
+        public Reward Reward;
     }
 }

@@ -31,20 +31,19 @@ namespace _Project.CodeBase.Infrastructure.Factory
   public class GameFactory : IGameFactory
   {
     public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
-    public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
+    public List<ISavedProgress> ProgressWriters { get; set; } = new List<ISavedProgress>();
 
     private readonly IInputService _inputService;
     private readonly IAssetProvider _assets;
     private readonly IStaticDataService _staticData;
     private readonly IRandomService _randomService;
     private readonly IPersistentProgressService _persistentProgressService;
-    private GameObject _heroGameObject;
     private readonly IWindowService _windowService;
     private readonly IAnalyticsService _analyticsService;
     private readonly IGameStateMachine _stateMachine;
-    private readonly IPaintingService _paintingService;
     private readonly DiContainer _diContainer;
     private readonly ICoroutineRunner _coroutineRunner;
+    private GameObject _heroGameObject;
 
     private Queue<PoolInk> _poolInk = new Queue<PoolInk>();
     private bool _canCreateInk = true;
@@ -69,7 +68,6 @@ namespace _Project.CodeBase.Infrastructure.Factory
       _windowService = windowService;
       _analyticsService = analyticsService;
       _stateMachine = stateMachine;
-      _paintingService = diContainer.Resolve<IPaintingService>();
       _coroutineRunner = diContainer.Resolve<ICoroutineRunner>();
     }
     
@@ -88,7 +86,9 @@ namespace _Project.CodeBase.Infrastructure.Factory
       HeroMove heroMove = _heroGameObject.GetComponent<HeroMove>();
       heroMove.Construct(_inputService);
       heroMove._movementSpeed = heroStaticData.MoveSpeed;
-
+      if (_staticData.ForConfig().IsDebug)
+        heroMove._movementSpeed += 5;
+      
       HeroAttack heroAttack = _heroGameObject.GetComponent<HeroAttack>();
       heroAttack.Construct(_inputService);
       heroAttack.AttackDistance = heroStaticData.EffectiveDistance;
@@ -144,7 +144,6 @@ namespace _Project.CodeBase.Infrastructure.Factory
       public Vector2 StartPosition;
       public Vector2 MoveTo;
       public Paintable ColoredObj;
-      public IPaintingService PaintingService;
     }
 
     public async Task CreateInkToBlot(Vector2 at, Vector2 to)
@@ -152,8 +151,7 @@ namespace _Project.CodeBase.Infrastructure.Factory
       _poolInk.Enqueue(new PoolInk()
       {
         StartPosition = at,
-        MoveTo = to,
-        PaintingService = _paintingService
+        MoveTo = to
       });
       
       GameObject prefab = await _assets.Load<GameObject>(AssetAddress.Ink);
@@ -168,8 +166,7 @@ namespace _Project.CodeBase.Infrastructure.Factory
       {
         StartPosition = at,
         MoveTo = moveTo,
-        ColoredObj = coloredObj,
-        PaintingService = paintingService
+        ColoredObj = coloredObj
       });
       
       GameObject prefab = await _assets.Load<GameObject>(AssetAddress.Ink);
@@ -177,9 +174,6 @@ namespace _Project.CodeBase.Infrastructure.Factory
       if (_canCreateInk)
         _coroutineRunner.StartCoroutine(PoolingInk(prefab));
     }
-
-    // public void CanCreateInk() => 
-    //   _countInk = 0;
 
     public async Task<GameObject> CreateMonster(MonsterTypeId typeId, Transform parent)
     {
@@ -240,6 +234,22 @@ namespace _Project.CodeBase.Infrastructure.Factory
       spawner.FishBehaviour = behaviour;
     }
 
+    private IEnumerator PoolingInk(GameObject prefab)
+    {
+      _canCreateInk = false;
+      while (_poolInk.Count != 0)
+      {
+        PoolInk inkTemp = _poolInk.Dequeue();
+        Ink ink = InstantiateRegistered(prefab, inkTemp.StartPosition)
+          .GetComponent<Ink>();
+        ink.Construct(inkTemp.MoveTo, inkTemp.ColoredObj, _staticData.ForConfig(), _diContainer.Resolve<IAudioService>());
+        
+        yield return new WaitForSeconds(0.5f);
+      }
+
+      _canCreateInk = true;
+    }
+
     private void Register(ISavedProgressReader progressReader)
     {
       if (progressReader is ISavedProgress progressWriter)
@@ -248,14 +258,6 @@ namespace _Project.CodeBase.Infrastructure.Factory
       ProgressReaders.Add(progressReader);
     }
 
-    public void Cleanup()
-    {
-      ProgressReaders.Clear();
-      ProgressWriters.Clear();
-      
-      _assets.Cleanup();
-    }
-    
     private GameObject InstantiateRegistered(GameObject prefab, Vector2 at)
     {
       GameObject gameObject = _diContainer.InstantiatePrefab(prefab, at, Quaternion.identity, null);
@@ -263,7 +265,7 @@ namespace _Project.CodeBase.Infrastructure.Factory
 
       return gameObject;
     }
-    
+
     private GameObject InstantiateRegistered(GameObject prefab)
     {
       GameObject gameObject = _diContainer.InstantiatePrefab(prefab);
@@ -294,21 +296,12 @@ namespace _Project.CodeBase.Infrastructure.Factory
         Register(progressReader);
     }
 
-
-    private IEnumerator PoolingInk(GameObject prefab)
+    public void Cleanup()
     {
-      _canCreateInk = false;
-      while (_poolInk.Count != 0)
-      {
-        PoolInk inkTemp = _poolInk.Dequeue();
-        Ink ink = InstantiateRegistered(prefab, inkTemp.StartPosition)
-          .GetComponent<Ink>();
-        ink.Construct(inkTemp.MoveTo, inkTemp.ColoredObj, inkTemp.PaintingService, _staticData.ForConfig(), _diContainer.Resolve<IAudioService>());
-        
-        yield return new WaitForSeconds(0.5f);
-      }
-
-      _canCreateInk = true;
+      ProgressReaders.Clear();
+      ProgressWriters.Clear();
+      
+      _assets.Cleanup();
     }
   }
 }

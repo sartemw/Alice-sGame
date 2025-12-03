@@ -1,25 +1,30 @@
 ﻿using System;
-using UnityEditor;
+using _Project.CodeBase.Services.Analytics;
 using UnityEngine;
 using YandexMobileAds;
 using YandexMobileAds.Base;
 
 namespace _Project.CodeBase.Services.Ads
 {
-    public class AdsBanner: MonoBehaviour
+    public class AdsBanner
     {
-        private const string ADUnitId = "R-M-15937807-1";
-        private const string TestAdUnitId = "demo-banner-yandex";
+        private readonly string _id;
+        
         private Banner _banner;
+        private IAnalyticsService _analyticsService;
 
-        private void Awake()
+        public AdsBanner(IAnalyticsService analyticsService, string id)
         {
-            RequestInlineBanner();
+            _analyticsService = analyticsService;
+            _id = id;
         }
+
+        public void Initialized() => 
+            RequestInlineBanner();
 
         private void RequestInlineBanner()
         {   
-            string adUnitId = TestAdUnitId; // замените на "R-M-XXXXXX-Y"
+            string adUnitId = _id; // замените на "R-M-XXXXXX-Y"
             BannerAdSize bannerMaxSize = BannerAdSize.InlineSize(GetScreenWidthDp(), GetScreenWidthDp() / 20);
             _banner = new Banner(adUnitId, bannerMaxSize, AdPosition.TopCenter);
             
@@ -76,6 +81,7 @@ namespace _Project.CodeBase.Services.Ads
         private void HandleAdClicked(object sender, EventArgs args)
         {
             Debug.Log("AdClicked event received");
+            _analyticsService.Send("AdClicked banner");
         }
 
         private void HandleImpression(object sender, ImpressionData impressionData)

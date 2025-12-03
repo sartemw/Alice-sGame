@@ -2,10 +2,10 @@
 using _Project.CodeBase.Infrastructure.States;
 using _Project.CodeBase.Services.PersistentProgress;
 using _Project.CodeBase.StaticData;
-using _Project.CodeBase.UI.Elements;
 using _Project.CodeBase.UI.Windows;
 using UnityEngine;
 using UnityEngine.UI;
+using Application = UnityEngine.Application;
 
 namespace _Project.CodeBase.UI
 {
@@ -57,7 +57,7 @@ namespace _Project.CodeBase.UI
 
         private void Exit()
         {
-            Cleanup();
+            //Cleanup();
             Application.Quit();
         }
         

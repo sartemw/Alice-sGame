@@ -23,7 +23,10 @@ namespace _Project.CodeBase.Events
         public Paintable Target;
     }
 
-    public class PaintingCompletedSignal : IEventSignal { }
+    public class PaintingCompletedSignal : IEventSignal
+    {
+        public Paintable Target;
+    }
     
     public class AllLevelColoringSignal : IEventSignal {}
 }

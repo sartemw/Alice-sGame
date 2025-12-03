@@ -1,31 +1,35 @@
 ﻿using System;
+using _Project.CodeBase.Services.Analytics;
 using UnityEngine;
-using UnityEngine.UI;
 using YandexMobileAds;
 using YandexMobileAds.Base;
 
 namespace _Project.CodeBase.Services.Ads
 {
-    public class AdsRewarded : MonoBehaviour
+    public class AdsRewarded
     {
-        private const string DemoRewardedYandex = "demo-rewarded-yandex";
-        
-        public Button ShowAdButton;
-        
+        private readonly string _id;
+
+        private IAnalyticsService _analyticsService;
+
         private RewardedAdLoader rewardedAdLoader;
         private RewardedAd rewardedAd;
+        
+        public AdsRewarded(IAnalyticsService analyticsService, string id)
+        {
+            _analyticsService = analyticsService;
+            _id = id;
+        }
 
-        private void Awake()
+        public void Initialized()
         {
             SetupLoader();
             RequestRewardedAd();
-            DontDestroyOnLoad(gameObject);
-            ShowAdButton.onClick.AddListener(ShowRewardedAd);
         }
 
         private void RequestRewardedAd()
         {
-            string adUnitId = DemoRewardedYandex; // замените на "R-M-XXXXXX-Y"
+            string adUnitId = _id; // замените на "R-M-XXXXXX-Y"
             AdRequestConfiguration adRequestConfiguration = new AdRequestConfiguration.Builder(adUnitId).Build();
             rewardedAdLoader.LoadAd(adRequestConfiguration);
         }
@@ -37,8 +41,7 @@ namespace _Project.CodeBase.Services.Ads
             rewardedAdLoader.OnAdFailedToLoad += HandleAdFailedToLoad;
             // ...
         }
-
-        private void ShowRewardedAd()
+        public void ShowRewardedAd()
         {
             if (rewardedAd != null)
             {
@@ -103,6 +106,7 @@ namespace _Project.CodeBase.Services.Ads
         public void HandleRewarded(object sender, Reward args)
         {
             // Called when the user can be rewarded with {args.type} and {args.amount}.
+            _analyticsService.Send("AdClicked Rewarded");
         }
     }
 }
