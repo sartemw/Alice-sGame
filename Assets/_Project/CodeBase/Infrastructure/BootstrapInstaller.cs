@@ -112,7 +112,7 @@ namespace _Project.CodeBase.Infrastructure
         private void BindAdsService()
 
         {
-            _adsService = new AdsService(_analyticsService, _staticData.ForConfig());
+            _adsService = new AdsService(_analyticsService, _staticData.ForConfig().IsDebug);
 
             _adsService.Initialize();
 

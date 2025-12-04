@@ -25,7 +25,7 @@ namespace _Project.CodeBase.Services.Ads
         private void RequestInlineBanner()
         {   
             string adUnitId = _id; // замените на "R-M-XXXXXX-Y"
-            BannerAdSize bannerMaxSize = BannerAdSize.InlineSize(GetScreenWidthDp(), GetScreenWidthDp() / 20);
+            BannerAdSize bannerMaxSize = BannerAdSize.InlineSize(GetScreenWidthDp() / 2, GetScreenWidthDp() / 20);
             _banner = new Banner(adUnitId, bannerMaxSize, AdPosition.TopCenter);
             
             AdRequest request = new AdRequest.Builder().Build();

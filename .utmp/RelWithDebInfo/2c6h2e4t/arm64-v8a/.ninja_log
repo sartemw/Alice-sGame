@@ -1,5 +1,5 @@
 # ninja log v5
-6	501	7863477395269199	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	bc5e08a0b096b0fc
-502	701	7863477397237705	C:/Unity/IsAliceGame/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/2c6h2e4t/obj/arm64-v8a/libswappywrapper.so	a5e377ad10e81a8b
-7	1192	7864370490494684	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	bc5e08a0b096b0fc
-1202	1920	7864370497914940	C:/Unity/IsAliceGame/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/2c6h2e4t/obj/arm64-v8a/libswappywrapper.so	a5e377ad10e81a8b
+7	623	7865204476043301	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	bc5e08a0b096b0fc
+624	937	7865204479080569	C:/Unity/IsAliceGame/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/2c6h2e4t/obj/arm64-v8a/libswappywrapper.so	a5e377ad10e81a8b
+11	336	7865207169754946	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	bc5e08a0b096b0fc
+337	526	7865207171491744	C:/Unity/IsAliceGame/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/2c6h2e4t/obj/arm64-v8a/libswappywrapper.so	a5e377ad10e81a8b
