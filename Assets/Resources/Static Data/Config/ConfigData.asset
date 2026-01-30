@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61d13536a9e548e4ba2ce961235b310b, type: 3}
   m_Name: ConfigData
   m_EditorClassIdentifier: 
-  IsDebug: 0
+  IsDebug: 1
   Sound: 1
   Rainbow:
     serializedVersion: 2

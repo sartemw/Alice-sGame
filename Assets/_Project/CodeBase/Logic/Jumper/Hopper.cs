@@ -1,10 +1,13 @@
-﻿using DG.Tweening;
+﻿using _Project.CodeBase.Events;
+using DG.Tweening;
 using UnityEngine;
 
 namespace _Project.CodeBase.Logic.Jumper
 {
     public class Hopper : MonoBehaviour
     {
+        private BaseOnEvent<LevelTransferTriggerEnter>  _onLevelTransferTriggerEnter  = new BaseOnEvent<LevelTransferTriggerEnter>();
+
         private SpriteRenderer _sprite;
         public Vector2 PointA;
         public Vector2 PointB;
@@ -19,6 +22,13 @@ namespace _Project.CodeBase.Logic.Jumper
 
             _sprite = GetComponent<SpriteRenderer>();
             Flip();
+            
+            EventBus.Subscribe(_onLevelTransferTriggerEnter.SetOnInvoke(Stop));
+        }
+
+        private void Stop(LevelTransferTriggerEnter obj)
+        {
+            transform.DOKill();
         }
 
         private void Flip()

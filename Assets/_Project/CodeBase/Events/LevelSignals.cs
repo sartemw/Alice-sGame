@@ -7,10 +7,15 @@ namespace _Project.CodeBase.Events
     {
         public string Music;
     }
-
+   
     public class LevelCompletedSignals  : IEventSignal 
     {
         public LevelCompletedSignals() => 
             Debug.Log($"<color=green> Level Completed {SceneManager.GetActiveScene().name}</color>");
+    }
+
+    public class LevelTransferTriggerEnter : IEventSignal
+    {
+        
     }
 }

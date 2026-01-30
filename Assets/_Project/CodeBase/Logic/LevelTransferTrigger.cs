@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using _Project.CodeBase.Data;
+using _Project.CodeBase.Events;
 using _Project.CodeBase.Infrastructure.States;
 using _Project.CodeBase.Services.PersistentProgress;
 using _Project.CodeBase.Services.SaveLoad;
@@ -24,12 +26,13 @@ namespace _Project.CodeBase.Logic
       _stateMachine = stateMachine;
       _saveLoadService = saveLoadService;
     }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
       if(_triggered)
         return;
 
+      EventBus.Invoke(new LevelTransferTriggerEnter());
+      
       if (other.CompareTag(PlayerTag))
       {
         _saveLoadService.SaveProgress();
