@@ -262,6 +262,8 @@ namespace _Project.CodeBase.Infrastructure.Factory
     {
       GameObject gameObject = _diContainer.InstantiatePrefab(prefab, at, Quaternion.identity, null);
       RegisterProgressWatchers(gameObject);
+      
+      gameObject.transform.parent = Camera.main.transform;
 
       return gameObject;
     }
@@ -300,6 +302,8 @@ namespace _Project.CodeBase.Infrastructure.Factory
     {
       ProgressReaders.Clear();
       ProgressWriters.Clear();
+
+      _poolInk.Clear();
       
       _assets.Cleanup();
     }
