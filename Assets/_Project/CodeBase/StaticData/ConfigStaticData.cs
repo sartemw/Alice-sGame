@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.Localization.Settings;
+﻿using UnityEngine;
 
 namespace _Project.CodeBase.StaticData
 {
@@ -9,6 +7,7 @@ namespace _Project.CodeBase.StaticData
     {
         public bool IsDebug = true;
         public bool Sound = true;
+        public string Language;
 
         public Gradient Rainbow;
         public Gradient Red;
