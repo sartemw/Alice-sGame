@@ -10,5 +10,10 @@ namespace _Project.CodeBase.StaticData
         public SoundID Game1;
         public SoundID Blobs;
         public SoundID OpenWindow;
+        public SoundID GameMenuOpen;
+        public SoundID CatJump;
+        public SoundID PickupFish;
+        public SoundID LoseLevel;
+        public SoundID OpenDoor;
     }
 }
