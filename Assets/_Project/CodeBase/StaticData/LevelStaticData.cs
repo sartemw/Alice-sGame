@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using _Project.CodeBase.Logic.Door;
 using UnityEngine;
 
 namespace _Project.CodeBase.StaticData
@@ -14,5 +15,6 @@ namespace _Project.CodeBase.StaticData
     public LevelTransferStaticData LevelTransfer;
     public string Music;
     public bool IsCompleted;
+    public DoorStyles DoorStyles;
   }
 }
