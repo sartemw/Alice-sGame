@@ -27,7 +27,7 @@ namespace CodeBase.Services.Ads
         private string _idRewarded;
         private int _iterator = 0;
 
-        public event Action RewardedVideoReady;
+        //public event Action RewardedVideoReady;
 
         public AdsService(IAnalyticsService analytics, bool isDebug)
         {

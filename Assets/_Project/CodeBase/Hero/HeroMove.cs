@@ -3,6 +3,7 @@ using _Project.CodeBase.Services.Input;
 using _Project.CodeBase.Services.PersistentProgress;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace _Project.CodeBase.Hero
 {
@@ -13,7 +14,7 @@ namespace _Project.CodeBase.Hero
     public Vector2 MovementVector => _movementVector;
     [SerializeField] public Rigidbody2D Rigidbody2D;
     [SerializeField] private BoxCollider2D _collider;
-    public float _movementSpeed;
+    public float MovementSpeed;
 
 
     private Vector2 _movementVector;
@@ -32,7 +33,7 @@ namespace _Project.CodeBase.Hero
       _collider = GetComponent<BoxCollider2D>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
       if(_inputService == null)
         return;
@@ -48,7 +49,7 @@ namespace _Project.CodeBase.Hero
         FlipHero();
       }
       
-      Rigidbody2D.MovePosition(_movementSpeed * _movementVector * Time.deltaTime  + Rigidbody2D.position);
+      Rigidbody2D.MovePosition(MovementSpeed * _movementVector * Time.deltaTime  + Rigidbody2D.position);
     }
   
     public void UpdateProgress(PlayerProgress progress)

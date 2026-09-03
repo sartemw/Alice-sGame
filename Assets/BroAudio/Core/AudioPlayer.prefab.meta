@@ -5,3 +5,10 @@ PrefabImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 257362
+  packageName: Bro Audio
+  packageVersion: 2.0.2
+  assetPath: Assets/BroAudio/Core/AudioPlayer.prefab
+  uploadId: 737049

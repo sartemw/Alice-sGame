@@ -409,6 +409,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1334082154}
   - component: {fileID: 1334082153}
+  - component: {fileID: 1334082155}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -429,7 +430,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
-  _monoInstallers: []
+  _monoInstallers:
+  - {fileID: 1334082155}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -462,6 +464,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1334082155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334082152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3549c8de2b6f435b81fd7895ef3c1019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.CodeBase.Infrastructure.States.MenuInstaller
+  _levelMusic:
+    ID: 268435456
+    _sourceAsset: {fileID: 11400000, guid: 433a5f6f001766f4c831c27b59aa8496, type: 2}
+    <DebugObject>k__BackingField: {fileID: 1334082152}
 --- !u!1 &1818804249
 GameObject:
   m_ObjectHideFlags: 0

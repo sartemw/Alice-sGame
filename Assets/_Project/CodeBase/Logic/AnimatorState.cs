@@ -7,5 +7,8 @@ namespace _Project.CodeBase.Logic
     Attack,
     Walking,
     Died,
+    Prepare,
+    JumpUp,
+    JumpDown
   }
 }

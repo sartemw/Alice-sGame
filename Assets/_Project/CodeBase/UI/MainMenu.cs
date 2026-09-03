@@ -1,6 +1,7 @@
 ﻿using _Project.CodeBase.Events;
 using _Project.CodeBase.Infrastructure.States;
 using _Project.CodeBase.Services.PersistentProgress;
+using _Project.CodeBase.Services.SaveLoad;
 using _Project.CodeBase.StaticData;
 using _Project.CodeBase.UI.Windows;
 using UnityEngine;
@@ -14,14 +15,19 @@ namespace _Project.CodeBase.UI
         private const string MusicTrack = "MainMenu";
         public Button SoundButton;
         public Button StartButton;
+        public Button CheatsButton;
         private GameStateMachine _stateMachine;
         private ConfigStaticData _config;
+        private ISaveLoadService _saveLoadService;
 
-        public void Construct(IPersistentProgressService progressService, GameStateMachine stateMachine, ConfigStaticData config)
+        public void Construct(IPersistentProgressService progressService, GameStateMachine stateMachine, ConfigStaticData config, ISaveLoadService saveLoadService)
         {
             base.Construct(progressService);
             _stateMachine = stateMachine;
             _config = config;
+            _saveLoadService = saveLoadService;
+
+            CheatsButton.gameObject.SetActive(_config.IsDebug);
         }
 
         private void Start()
@@ -43,8 +49,8 @@ namespace _Project.CodeBase.UI
 
         private void SoundClick()
         {
-            _config.Sound = !_config.Sound;
             EventBus.Invoke(new SoundButtonClickSignal());
+            _saveLoadService.SaveConfig();
         }
 
         void StartClick()

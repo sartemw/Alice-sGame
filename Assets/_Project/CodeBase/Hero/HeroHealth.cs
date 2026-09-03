@@ -3,6 +3,7 @@ using System.Collections;
 using _Project.CodeBase.Data;
 using _Project.CodeBase.Infrastructure.States;
 using _Project.CodeBase.Logic;
+using _Project.CodeBase.Services.Audio;
 using _Project.CodeBase.Services.PersistentProgress;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,11 +15,13 @@ namespace _Project.CodeBase.Hero
     public HeroAnimator Animator; 
     private State _state;
     private IGameStateMachine _stateMachine;
+    private IAudioService _audioService;
 
     public event Action HealthChanged;
 
-    public void Construct(IGameStateMachine stateMachine)
+    public void Construct(IGameStateMachine stateMachine, IAudioService audioService)
     {
+      _audioService = audioService;
       _stateMachine = stateMachine;
     }
 
@@ -64,7 +67,10 @@ namespace _Project.CodeBase.Hero
        Animator.PlayHit();
      }
 
-     public void OutOfBorders() => 
+     public void OutOfBorders()
+     {
+       _audioService.PlayLoseLevel();
        _stateMachine.Enter<RestartLevelState, string>(SceneManager.GetActiveScene().name);
+     }
   }
 }

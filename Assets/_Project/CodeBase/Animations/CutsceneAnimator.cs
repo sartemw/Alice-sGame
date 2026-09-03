@@ -1,8 +1,6 @@
-﻿using _Project.CodeBase.Enemy;
+﻿using System;
 using _Project.CodeBase.Events;
 using _Project.CodeBase.Infrastructure.Effects;
-using _Project.CodeBase.Infrastructure.Factory;
-using Ami.BroAudio;
 using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -18,6 +16,10 @@ namespace _Project.CodeBase.Animations
 
         public string NextSceneName;
         private int _iterator = 0;
+        private Tween _tween;
+
+        private void OnDestroy() => 
+            _tween.Kill();
 
         public void NextScene() => 
             EventBus.Invoke(new NextSceneSignal()
@@ -28,7 +30,7 @@ namespace _Project.CodeBase.Animations
             EventBus.Invoke(new AllLevelColoringSignal());
 
         public void FadeMaterial() => 
-            EventBus.Invoke(new StartFadeSignal());
+            EventBus.Invoke(new StartFadeSignalInCutscene());
 
         public void SendInkToObject(Transform activeObject)
         {
@@ -42,7 +44,7 @@ namespace _Project.CodeBase.Animations
         {
             GameObject ink = Instantiate(Ink, from, RotateTo(from,to));
             
-            ink.transform.DOMove(to, 1).OnComplete(() => DestroyInk(ink));
+            _tween = ink.transform.DOMove(to, 1).OnComplete(() => DestroyInk(ink));
         }
 
         public void TranslateTo(Transform activeObject)
@@ -50,7 +52,7 @@ namespace _Project.CodeBase.Animations
             if (_iterator == MovementPoints.Length)
                 ToNextScene();
             
-            activeObject.transform.DOMove(MovementPoints[_iterator].position, 2);
+            _tween = activeObject.transform.DOMove(MovementPoints[_iterator].position, 2);
             _iterator++;
         }
 

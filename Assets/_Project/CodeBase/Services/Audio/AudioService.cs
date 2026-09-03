@@ -1,4 +1,5 @@
 ﻿using _Project.CodeBase.Events;
+using _Project.CodeBase.Services.PersistentConfig;
 using _Project.CodeBase.Services.StaticData;
 using _Project.CodeBase.StaticData;
 using Ami.BroAudio;
@@ -8,9 +9,8 @@ namespace _Project.CodeBase.Services.Audio
 {
     public class AudioService: IAudioService
     {
-        private BaseOnEvent<EnterMainMenuSignal>  _onEnterMainMenu  = new BaseOnEvent<EnterMainMenuSignal>();
         private BaseOnEvent<SoundButtonClickSignal>  _onSoundButtonClick  = new BaseOnEvent<SoundButtonClickSignal>();
-        private BaseOnEvent<LoadLevelSignals>  _onLevelLoad  = new BaseOnEvent<LoadLevelSignals>();
+        private BaseOnEvent<PlaySoundSignal>  _onPlaySound  = new BaseOnEvent<PlaySoundSignal>();
 
         private readonly IStaticDataService _staticData;
         private readonly ConfigStaticData _config;
@@ -22,7 +22,7 @@ namespace _Project.CodeBase.Services.Audio
             get
             {
                 if (_config.Sound)
-                    BroAudio.SetVolume(1);
+                    BroAudio.SetVolume(0.25f);
                 else
                     BroAudio.SetVolume(0);
                 
@@ -39,42 +39,65 @@ namespace _Project.CodeBase.Services.Audio
 
         public void Init()
         {
-            EventBus.Subscribe(_onEnterMainMenu.SetOnInvoke(OnEnterMainMenu));
             EventBus.Subscribe(_onSoundButtonClick.SetOnInvoke(OnSoundButtonClick));
-            EventBus.Subscribe(_onLevelLoad.SetOnInvoke(OnLevelLoad));
+            EventBus.Subscribe(_onPlaySound.SetOnInvoke(OnPlaySound));
         }
 
-        public void PlayBlobs() => 
-            BroAudio.Play(_staticData.ForAudio().Blobs);
-
-        public void PlayOpenWindow() => 
-            BroAudio.Play(_staticData.ForAudio().OpenWindow);
-
-        private void OnSoundButtonClick(SoundButtonClickSignal obj)
-        {
-            CanPlay = !CanPlay;
-            
-            PlayMusic(_currentSoundId);
-        }
-
-        private void OnLevelLoad(LoadLevelSignals obj) => 
-            PlayMusic(_staticData.ForAudio().Game1);
-
-        private void OnEnterMainMenu(EnterMainMenuSignal obj) => 
-            PlayMusic(_staticData.ForAudio().MainMenu);
-
-        private void PlayMusic(SoundID music)
+        public void PlayLevelMusic(SoundID music)
         {
             if (music == _currentSoundId)
                 return;
             
+            PlayMusic(music);
+        }
+
+        public void PlayBlobs() => 
+            PlaySound(_staticData.ForAudio().Blobs);
+        public void PlayOpenWindow() => 
+            PlaySound(_staticData.ForAudio().OpenWindow);
+        public void PlayGameMenuOpen() => 
+            PlaySound(_staticData.ForAudio().GameMenuOpen);
+        public void PlayCatJump() => 
+            PlaySound(_staticData.ForAudio().CatJump);
+        public void PlayPickupFish() => 
+            PlaySound(_staticData.ForAudio().PickupFish);
+        public void PlayLoseLevel() => 
+            PlaySound(_staticData.ForAudio().LoseLevel);
+        public void PlayOpenDoor() => 
+            PlaySound(_staticData.ForAudio().OpenDoor);
+        
+        private void OnPlaySound(PlaySoundSignal obj) =>
+            PlaySound(obj.Sound);
+
+        private void OnSoundButtonClick(SoundButtonClickSignal obj)
+        {
+            _config.Sound = !_config.Sound;
+            PlayMusic(_currentSoundId);
+        }
+
+        private void PlayMusic(SoundID music)
+        {
             _currentSoundId = music;
             BroAudio.Stop(_currentSoundId);
             
             if (!CanPlay)
                 return;
-            
+            Debug.Log($"Playing music {_currentSoundId.ToName()}");
             BroAudio.Play(_currentSoundId);
         }
+        
+        private void PlaySound(SoundID music)
+        {
+            if (!CanPlay)
+                return;
+            
+            BroAudio.Play(music);
+        }
+
+        public void LoadConfig(ConfigData config) => 
+            CanPlay = config.Sound;
+
+        public void UpdateConfig(ConfigData config) => 
+            config.Sound = CanPlay;
     }
 }

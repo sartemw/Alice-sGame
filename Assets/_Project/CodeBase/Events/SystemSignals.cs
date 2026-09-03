@@ -1,7 +1,15 @@
-﻿namespace _Project.CodeBase.Events
+﻿using Ami.BroAudio;
+
+namespace _Project.CodeBase.Events
 {
     public class ShowCurtainSignal : IEventSignal {}
     public class ClipFinishSignal : IEventSignal {}
     public class BootstrapFinishedSignal : IEventSignal {}
     public class ClickCollectStaticDataSignal : IEventSignal {}
+
+    public class PlaySoundSignal : IEventSignal
+    {
+        public SoundID Sound;
+    }
+    
 }

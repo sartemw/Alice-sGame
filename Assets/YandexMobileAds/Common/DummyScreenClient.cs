@@ -14,11 +14,11 @@ namespace YandexMobileAds.Common
 {
     public class DummyScreenClient : IScreenClient
     {
-        private const string TAG = "Dummy Screen ";
+        //private const string TAG = "Dummy Screen ";
 
         public float GetScreenScale()
         {
-            Debug.Log(TAG + MethodBase.GetCurrentMethod().Name);
+            //Debug.Log(TAG + MethodBase.GetCurrentMethod().Name);
             return 1;
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using _Project.CodeBase.Fish;
+using _Project.CodeBase.Logic.Door;
 using _Project.CodeBase.StaticData;
 using _Project.CodeBase.StaticData.Windows;
 using _Project.CodeBase.UI.Services.Windows;
@@ -18,6 +19,7 @@ namespace _Project.CodeBase.Services.StaticData
     private const string PoolObjectsDataPath = "Static Data/PoolObjects";
     private const string FishsDataPath = "Static Data/Fishs";
     private const string HeroDataPath = "Static Data/Heroes";
+    private const string DoorsDataPath = "Static Data/Doors";
 
     private ConfigStaticData _config;
     private AudioStaticData _audio;
@@ -27,6 +29,7 @@ namespace _Project.CodeBase.Services.StaticData
     private Dictionary<WindowId, WindowConfig> _windowConfigs;
     private Dictionary<PoolObjectsTypeId, PoolObjectStaticData> _poolObjects;
     private Dictionary<HeroTypeId, HeroStaticData> _hero;
+    private Dictionary<DoorStyles, DoorStaticData> _door;
 
 
     public void Load()
@@ -59,6 +62,10 @@ namespace _Project.CodeBase.Services.StaticData
       _fishs = Resources
         .LoadAll<FishStaticData>(FishsDataPath)
         .ToDictionary(x => x.FishBehaviour, x => x);
+      
+      _door = Resources
+        .LoadAll<DoorStaticData>(DoorsDataPath)
+        .ToDictionary(x => x.DoorStyle, x => x);
     }
 
     public ConfigStaticData ForConfig() =>
@@ -94,6 +101,11 @@ namespace _Project.CodeBase.Services.StaticData
 
     public PoolObjectStaticData ForPoolObjects(PoolObjectsTypeId poolObjectType) =>
       _poolObjects.TryGetValue(poolObjectType, out PoolObjectStaticData staticData)
+        ? staticData
+        : null;
+    
+    public DoorStaticData ForDoor(DoorStyles doorStyles) =>
+      _door.TryGetValue(doorStyles, out DoorStaticData staticData)
         ? staticData
         : null;
   }

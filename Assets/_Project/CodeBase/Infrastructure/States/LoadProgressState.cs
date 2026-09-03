@@ -1,7 +1,8 @@
 using _Project.CodeBase.Data;
+using _Project.CodeBase.Services.PersistentConfig;
 using _Project.CodeBase.Services.PersistentProgress;
 using _Project.CodeBase.Services.SaveLoad;
-using UnityEngine;
+using UnityEngine.Localization.Settings;
 using Zenject;
 
 namespace _Project.CodeBase.Infrastructure.States
@@ -14,12 +15,14 @@ namespace _Project.CodeBase.Infrastructure.States
         private readonly GameStateMachine _stateMachine;
         private readonly IPersistentProgressService _progressService;
         private readonly ISaveLoadService _saveLoadProgress;
-        
+        private readonly IPersistentConfigService _configService;
+
         public LoadProgressState(GameStateMachine stateMachine, DiContainer diContainer)
         {
             _stateMachine = stateMachine;
             _progressService = diContainer.Resolve<IPersistentProgressService>();
             _saveLoadProgress = diContainer.Resolve<ISaveLoadService>();
+            _configService = diContainer.Resolve<IPersistentConfigService>();
         }
 
         public void Enter()
@@ -36,9 +39,29 @@ namespace _Project.CodeBase.Infrastructure.States
 
         private void LoadProgressOrInitNew()
         {
+            _configService.ConfigData = 
+                _saveLoadProgress.LoadConfig()
+                ?? NewConfig();
+
+            InformConfigReaders();
+            
             _progressService.PlayerProgress = 
                 _saveLoadProgress.LoadProgress() 
                 ?? NewProgress();
+        }
+
+        private void InformConfigReaders()
+        {
+            foreach (ISavedConfigReader configReader in _configService.ConfigReaders)
+                configReader.LoadConfig(_configService.ConfigData);
+        }
+        
+        private ConfigData NewConfig()
+        {
+            var config = new ConfigData();
+            config.Sound = true;
+            config.Language = LocalizationSettings.SelectedLocale.Identifier.ToString();
+            return config;
         }
 
         private PlayerProgress NewProgress()

@@ -1,6 +1,4 @@
-﻿using _Project.CodeBase.Infrastructure;
-
-namespace _Project.CodeBase.Events
+﻿namespace _Project.CodeBase.Events
 {
         public class EnterMainMenuSignal : IEventSignal{ }
         public class SoundButtonClickSignal : IEventSignal { }

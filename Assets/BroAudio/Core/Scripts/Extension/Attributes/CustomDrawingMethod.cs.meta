@@ -9,3 +9,10 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 257362
+  packageName: Bro Audio
+  packageVersion: 2.0.2
+  assetPath: Assets/BroAudio/Core/Scripts/Extension/Attributes/CustomDrawingMethod.cs
+  uploadId: 737049

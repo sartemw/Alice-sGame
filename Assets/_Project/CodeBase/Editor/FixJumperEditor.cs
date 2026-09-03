@@ -1,4 +1,4 @@
-﻿using _Project.CodeBase.Logic.Jumper;
+﻿using _Project.CodeBase.Logic.Helpers.Jumper;
 using UnityEditor;
 using UnityEngine;
 

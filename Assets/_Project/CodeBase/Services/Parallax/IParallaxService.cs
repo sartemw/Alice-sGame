@@ -1,7 +1,9 @@
-﻿namespace _Project.CodeBase.Services.Parallax
+﻿using UnityEngine;
+
+namespace _Project.CodeBase.Services.Parallax
 {
     public interface IParallaxService : IService
     {
-        public void Initialize();
+        public void Initialize(Transform heroTransform);
     }
 }

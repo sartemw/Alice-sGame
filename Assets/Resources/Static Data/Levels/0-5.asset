@@ -34,3 +34,4 @@ MonoBehaviour:
     Position: {x: 8.5, y: -2.04, z: 12.38}
   Music: 
   IsCompleted: 0
+  DoorStyles: 0

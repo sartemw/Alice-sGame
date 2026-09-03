@@ -11,9 +11,12 @@ namespace _Project.CodeBase.UI.Elements
   {
     public Button Button;
     public WindowId WindowId;
+    
+    protected IAudioService _audioService;
+
     private IWindowService _windowService;
     private IAnalyticsService _analyticsService;
-    private IAudioService _audioService;
+
 
     public void Init(IWindowService windowService, IAnalyticsService analyticsService, IAudioService audioService)
     {

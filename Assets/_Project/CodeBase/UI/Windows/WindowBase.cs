@@ -1,6 +1,4 @@
 ﻿using _Project.CodeBase.Data;
-using _Project.CodeBase.Events;
-using _Project.CodeBase.Infrastructure.States;
 using _Project.CodeBase.Services.PersistentProgress;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +12,7 @@ namespace _Project.CodeBase.UI.Windows
     protected IPersistentProgressService ProgressService;
     protected PlayerProgress Progress => ProgressService.PlayerProgress;
 
-    public void Construct(IPersistentProgressService progressService)
+    protected void Construct(IPersistentProgressService progressService)
     {
       ProgressService = progressService;
     }

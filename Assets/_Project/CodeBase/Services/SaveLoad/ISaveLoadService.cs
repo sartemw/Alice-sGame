@@ -1,4 +1,5 @@
 using _Project.CodeBase.Data;
+using _Project.CodeBase.Services.PersistentConfig;
 
 namespace _Project.CodeBase.Services.SaveLoad
 {
@@ -6,5 +7,9 @@ namespace _Project.CodeBase.Services.SaveLoad
   {
     void SaveProgress();
     PlayerProgress LoadProgress();
+
+    public void SaveConfig();
+
+    public ConfigData LoadConfig();
   }
 }

@@ -17,7 +17,7 @@ namespace _Project.CodeBase.Events
         public Paintable Target;
     }
 
-    public class StartFadeSignal : IEventSignal {}
+    public class StartFadeSignalInCutscene : IEventSignal {}
     public class FadeMaterialSignal : IEventSignal 
     {
         public Paintable Target;
@@ -27,6 +27,9 @@ namespace _Project.CodeBase.Events
     {
         public Paintable Target;
     }
-    
+    public class FadingCompletedSignal : IEventSignal
+    {
+        public Paintable Target;
+    }
     public class AllLevelColoringSignal : IEventSignal {}
 }

@@ -1,5 +1,5 @@
 # ninja log v5
-1	1124	7897232613766798	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	571c1703cb42995b
-1126	3334	7897232630882962	C:/Unity/IsAliceGame/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/5k820723/obj/armeabi-v7a/libswappywrapper.so	7de89f118f00ca81
-4	273	7897258797437460	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	571c1703cb42995b
-274	630	7897258800909442	C:/Unity/IsAliceGame/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/5k820723/obj/armeabi-v7a/libswappywrapper.so	7de89f118f00ca81
+3	286	7957914200727447	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	571c1703cb42995b
+287	632	7957914203970946	C:/Unity/IsAliceGame/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/5k820723/obj/armeabi-v7a/libswappywrapper.so	7de89f118f00ca81
+4	313	7957926657094812	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	571c1703cb42995b
+314	646	7957926660188892	C:/Unity/IsAliceGame/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/5k820723/obj/armeabi-v7a/libswappywrapper.so	7de89f118f00ca81

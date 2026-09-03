@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3552e0415dd4bf081bdd591ac020abd, type: 3}
+  m_Name: MountainsDoorData
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.CodeBase.StaticData.DoorStaticData
+  DoorStyle: 0
+  OpenDoor: {fileID: 5764970515417007840, guid: 31fee0ed2d8b757428a79c648920df64,
+    type: 3}
+  ClosedDoor: {fileID: -5388725336849441492, guid: 31fee0ed2d8b757428a79c648920df64,
+    type: 3}
+  Frame: {fileID: -3120839498539683458, guid: 31fee0ed2d8b757428a79c648920df64, type: 3}

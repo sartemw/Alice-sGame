@@ -20,7 +20,7 @@ namespace _Project.CodeBase.Infrastructure.Effects
         [SerializeField] private GameObject _sparks;
         private ConfigStaticData _config;
         private IAudioService _audioService;
-
+        private Tween _tween;
 
         public void Construct(Vector2 moveTo, Paintable coloredObj,
             ConfigStaticData config, IAudioService audioService)
@@ -62,7 +62,7 @@ namespace _Project.CodeBase.Infrastructure.Effects
         }
 
         private void MoveTo(Vector2 moveTo) => 
-            transform.DOMove(moveTo, _speed).SetEase(Ease.InQuad).OnComplete(StartPainting);
+            _tween = transform.DOMove(moveTo, _speed).SetEase(Ease.InQuad).OnComplete(StartPainting);
 
         private void StartPainting()
         {
@@ -114,5 +114,8 @@ namespace _Project.CodeBase.Infrastructure.Effects
 
             return gradient;
         }
+
+        private void OnDestroy() => 
+            _tween.Kill();
     }
 }

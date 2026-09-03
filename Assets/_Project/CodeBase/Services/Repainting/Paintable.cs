@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections;
 using _Project.CodeBase.Events;
 using _Project.CodeBase.Fish;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace _Project.CodeBase.Services.Repainting
@@ -12,9 +12,14 @@ namespace _Project.CodeBase.Services.Repainting
         protected const string FadeValue = "_Fade";
         protected const string ColoredMaterial = "Colored";
 
-        private BaseOnEvent<StartPaintingSignal>  _onStartPainting  = new BaseOnEvent<StartPaintingSignal>();
-        private BaseOnEvent<StartPaintingInstantlySignal>  _onStartPaintingInstantlySignal  = new BaseOnEvent<StartPaintingInstantlySignal>();
-        private BaseOnEvent<FadeMaterialSignal>  _onFadeMaterial  = new BaseOnEvent<FadeMaterialSignal>();
+        protected readonly float DeltaFadeToBright = Constants.PaintableDeltaFadeToPaint;
+        protected readonly float DeltaAlphaToBright = Constants.PaintableDeltaAlphaToPaint;
+        protected readonly float DeltaFadeToFade = Constants.PaintableDeltaFadeToFade;
+        protected readonly float DeltaAlphaToFade = Constants.PaintableDeltaAlphaToFade;
+        
+        private readonly BaseOnEvent<StartPaintingSignal>  _onStartPainting  = new BaseOnEvent<StartPaintingSignal>();
+        private readonly BaseOnEvent<StartPaintingInstantlySignal>  _onStartPaintingInstantlySignal  = new BaseOnEvent<StartPaintingInstantlySignal>();
+        private readonly BaseOnEvent<FadeMaterialSignal>  _onFadeMaterial  = new BaseOnEvent<FadeMaterialSignal>();
 
         public ColorType ColorType;
         public abstract void Initialize();
@@ -23,28 +28,22 @@ namespace _Project.CodeBase.Services.Repainting
         protected abstract void Fade(FadeMaterialSignal obj);
 
         protected IPaintingService PaintingService;
-        protected GameObject ColorlessObject;
 
-        protected float DeltaFadeToBright = Constants.PaintableDeltaFadeToPaint;
-        protected float DeltaAlphaToBright = Constants.PaintableDeltaAlphaToPaint;
-        protected float DeltaFadeToFade = Constants.PaintableDeltaFadeToFade;
-        protected float DeltaAlphaToFade = Constants.PaintableDeltaAlphaToFade;
-
-        public bool IsColorless = true;
+        protected GameObject ColorlessObject; 
+        
+        public bool IsColored = true;
         
         [Inject]
         public void Construct(IPaintingService paintingService)
         {
             PaintingService = paintingService;
-            // EventBus.Subscribe(_onStartPainting.SetOnInvoke(Brightening));
-            // EventBus.Subscribe(_onFadeMaterial.SetOnInvoke(Fade));
         }
 
         private void Start()
         {
             EventBus.Subscribe(_onStartPainting.SetOnInvoke(Brightening));
-            EventBus.Subscribe(_onFadeMaterial.SetOnInvoke(Fade));
             EventBus.Subscribe(_onStartPaintingInstantlySignal.SetOnInvoke(BrighteningInstantly));
+            EventBus.Subscribe(_onFadeMaterial.SetOnInvoke(Fade));
         }
 
         public void SetColorless(GameObject colorless) => 
@@ -55,7 +54,7 @@ namespace _Project.CodeBase.Services.Repainting
             colorlessRenderer.sortingOrder += 1;
             Paintable colorlessPaintable = colorlessObject.GetComponent<Paintable>();
 
-            colorlessPaintable.IsColorless = false;
+            colorlessPaintable.IsColored = false;
             colorlessPaintable.SetColorless(colorlessObject);
             PaintingService.SetColorless(colorlessPaintable);
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using _Project.CodeBase.Events;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -8,11 +9,13 @@ namespace _Project.CodeBase.Services.Repainting
     [RequireComponent(typeof(TilemapRenderer))]
     public class TilemapPaintable: Paintable
     {
-        private const string FadeValue = "_Fade";
-        private TilemapRenderer _renderer;
+        public event Action StartPainting;
         
+        private TilemapRenderer _renderer;
+
         private TilemapRenderer _colorlessRenderer;
-       
+
+
         public override void Initialize()
         {
             ColoredSetup();
@@ -23,6 +26,8 @@ namespace _Project.CodeBase.Services.Repainting
         {
             if (obj.Target == this)
             {
+                StartPainting?.Invoke();
+                
                 StartCoroutine(BrighteningTilemap(DeltaFadeToBright));
                 StartCoroutine(FadeAlphaTilemap(DeltaAlphaToBright));
             }
@@ -32,6 +37,8 @@ namespace _Project.CodeBase.Services.Repainting
         {
             if (obj.Target == this)
             {
+                StartPainting?.Invoke();
+                
                 StartCoroutine(BrighteningTilemap(1));
                 StartCoroutine(FadeAlphaTilemap(1));
             }
@@ -104,7 +111,7 @@ namespace _Project.CodeBase.Services.Repainting
                 Debug.LogError("Doesn't have TilemapRenderer"); 
                 return;
             }
-            _renderer.material = PaintingService.Colored;
+            _renderer.material = PaintingService.ColoredMaterial;
             _renderer.material.SetFloat(FadeValue, 0);
         }
 

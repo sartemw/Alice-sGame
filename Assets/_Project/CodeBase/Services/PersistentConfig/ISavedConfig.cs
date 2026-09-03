@@ -2,6 +2,6 @@
 {
     public interface ISavedConfig : ISavedConfigReader
     {
-        void UpdateConfig(ConfigData progress);
+        void UpdateConfig(ConfigData config);
     }
 }

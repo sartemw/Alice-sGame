@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: String Table_en
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 7aab6c70147250844b73ee9d438b99cf, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 1501169704960
+    m_Localized: Loading...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5364236935168
+    m_Localized: GAME MENU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5442330681344
+    m_Localized: 'RESTART
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5540481589248
+    m_Localized: MAIN MENU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6464012804096
+    m_Localized: Restart ?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6504496226304
+    m_Localized: 'That''s all for now...
+
+
+      Thanks for playing.
+
+
+      Please
+      leave a review'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6526772174848
+    m_Localized: 'Concept art: Alice''s daughter'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 340846854529024
+    m_Localized: SOUND
+    m_Metadata:
+      m_Items: []
+  - m_Id: 341634695815168
+    m_Localized: ENGLISH
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

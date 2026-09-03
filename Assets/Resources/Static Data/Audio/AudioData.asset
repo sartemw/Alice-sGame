@@ -28,3 +28,23 @@ MonoBehaviour:
     ID: 536870912
     _sourceAsset: {fileID: 11400000, guid: c66afa8de26c8ac4aa52662131e31ef1, type: 2}
     <DebugObject>k__BackingField: {fileID: 0}
+  GameMenuOpen:
+    ID: 536870914
+    _sourceAsset: {fileID: 11400000, guid: c66afa8de26c8ac4aa52662131e31ef1, type: 2}
+    <DebugObject>k__BackingField: {fileID: 0}
+  CatJump:
+    ID: 805306375
+    _sourceAsset: {fileID: 11400000, guid: c66afa8de26c8ac4aa52662131e31ef1, type: 2}
+    <DebugObject>k__BackingField: {fileID: 0}
+  PickupFish:
+    ID: 805306373
+    _sourceAsset: {fileID: 11400000, guid: c66afa8de26c8ac4aa52662131e31ef1, type: 2}
+    <DebugObject>k__BackingField: {fileID: 0}
+  LoseLevel:
+    ID: 805306371
+    _sourceAsset: {fileID: 11400000, guid: c66afa8de26c8ac4aa52662131e31ef1, type: 2}
+    <DebugObject>k__BackingField: {fileID: 0}
+  OpenDoor:
+    ID: 805306374
+    _sourceAsset: {fileID: 11400000, guid: c66afa8de26c8ac4aa52662131e31ef1, type: 2}
+    <DebugObject>k__BackingField: {fileID: 0}

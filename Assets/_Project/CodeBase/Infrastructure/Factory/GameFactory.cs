@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using _Project.CodeBase.CameraLogic;
 using _Project.CodeBase.Enemy;
 using _Project.CodeBase.Fish;
 using _Project.CodeBase.Hero;
@@ -13,6 +14,7 @@ using _Project.CodeBase.Logic.EnemySpawners;
 using _Project.CodeBase.Services.Analytics;
 using _Project.CodeBase.Services.Audio;
 using _Project.CodeBase.Services.Input;
+using _Project.CodeBase.Services.Parallax;
 using _Project.CodeBase.Services.PersistentProgress;
 using _Project.CodeBase.Services.Randomizer;
 using _Project.CodeBase.Services.Repainting;
@@ -32,6 +34,7 @@ namespace _Project.CodeBase.Infrastructure.Factory
   {
     public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
     public List<ISavedProgress> ProgressWriters { get; set; } = new List<ISavedProgress>();
+    public GameObject HeroGameObject { get; set; }
 
     private readonly IInputService _inputService;
     private readonly IAssetProvider _assets;
@@ -43,7 +46,7 @@ namespace _Project.CodeBase.Infrastructure.Factory
     private readonly IGameStateMachine _stateMachine;
     private readonly DiContainer _diContainer;
     private readonly ICoroutineRunner _coroutineRunner;
-    private GameObject _heroGameObject;
+    private readonly IParallaxService _parallaxService;
 
     private Queue<PoolInk> _poolInk = new Queue<PoolInk>();
     private bool _canCreateInk = true;
@@ -69,6 +72,7 @@ namespace _Project.CodeBase.Infrastructure.Factory
       _analyticsService = analyticsService;
       _stateMachine = stateMachine;
       _coroutineRunner = diContainer.Resolve<ICoroutineRunner>();
+      _parallaxService = diContainer.Resolve<IParallaxService>();
     }
     
     public async Task WarmUp()
@@ -80,25 +84,25 @@ namespace _Project.CodeBase.Infrastructure.Factory
 
     public async Task<GameObject> CreateHero(Vector3 at)
     {
-      _heroGameObject = await InstantiateRegisteredAsync(AssetAddress.HeroPath, at);
+      HeroGameObject = await InstantiateRegisteredAsync(AssetAddress.HeroPath, at);
       HeroStaticData heroStaticData = _staticData.ForHero(HeroTypeId.Cat);
       
-      HeroMove heroMove = _heroGameObject.GetComponent<HeroMove>();
+      HeroMove heroMove = HeroGameObject.GetComponent<HeroMove>();
       heroMove.Construct(_inputService);
-      heroMove._movementSpeed = heroStaticData.MoveSpeed;
-      if (_staticData.ForConfig().IsDebug)
-        heroMove._movementSpeed += 5;
+      heroMove.MovementSpeed = heroStaticData.MoveSpeed;
       
-      HeroAttack heroAttack = _heroGameObject.GetComponent<HeroAttack>();
+      HeroAttack heroAttack = HeroGameObject.GetComponent<HeroAttack>();
       heroAttack.Construct(_inputService);
       heroAttack.AttackDistance = heroStaticData.EffectiveDistance;
 
-      HeroHealth heroHealth = _heroGameObject.GetComponent<HeroHealth>();
-      heroHealth.Construct(_stateMachine);
+      HeroHealth heroHealth = HeroGameObject.GetComponent<HeroHealth>();
+      heroHealth.Construct(_stateMachine, _diContainer.Resolve<IAudioService>());
+
+      _parallaxService.Initialize(HeroGameObject.transform);
+        
+      _inputService.Initialize(HeroGameObject.transform);
       
-      _inputService.Initialize(_heroGameObject.transform);
-      
-      return _heroGameObject;
+      return HeroGameObject;
     }
 
     public async Task CreateLevelTransfer(Vector3 at)
@@ -112,7 +116,7 @@ namespace _Project.CodeBase.Infrastructure.Factory
       levelTransfer.Construct(_stateMachine,  _diContainer.Resolve<ISaveLoadService>());
       levelTransfer.GetComponent<BoxCollider2D>().enabled = false;
 
-      doorOpener.Construct(_diContainer.Resolve<IPaintingService>());
+      doorOpener.Construct(_diContainer.Resolve<IPaintingService>(), _diContainer.Resolve<IAudioService>(), _diContainer.Resolve<IStaticDataService>());
     }
 
    public async Task<GameObject> CreateHud()
@@ -188,13 +192,13 @@ namespace _Project.CodeBase.Infrastructure.Factory
 
       monster.GetComponent<ActorUI>().Construct(health);
       Attack attack = monster.GetComponent<Attack>();
-      attack.Construct(_heroGameObject.transform);
+      attack.Construct(HeroGameObject.transform);
       attack.Damage = monsterData.Damage;
       attack.Cleavage = monsterData.Cleavage;
       attack.EffectiveDistance = monsterData.EffectiveDistance;
 
-      monster.GetComponent<AgentMoveToPlayer>()?.Construct(_heroGameObject.transform, monsterData.MoveSpeed);
-      monster.GetComponent<RotateToHero>()?.Construct(_heroGameObject.transform);
+      monster.GetComponent<AgentMoveToPlayer>()?.Construct(HeroGameObject.transform, monsterData.MoveSpeed);
+      monster.GetComponent<RotateToHero>()?.Construct(HeroGameObject.transform);
 
       LootSpawner lootSpawner = monster.GetComponentInChildren<LootSpawner>();
       lootSpawner.Construct(this, _randomService);

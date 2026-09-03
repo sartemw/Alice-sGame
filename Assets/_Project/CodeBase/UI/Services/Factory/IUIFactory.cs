@@ -10,5 +10,6 @@ namespace _Project.CodeBase.UI.Services.Factory
     void CreateLevelsProgress();
     Task CreateMainMenu();
     void CreateGameMenu();
+    void CreateCheatsMenu();
   }
 }

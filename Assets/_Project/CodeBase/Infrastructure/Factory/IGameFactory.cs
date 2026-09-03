@@ -15,6 +15,7 @@ namespace _Project.CodeBase.Infrastructure.Factory
   {
     List<ISavedProgressReader> ProgressReaders { get; }
     List<ISavedProgress> ProgressWriters { get; set; }
+    GameObject HeroGameObject { get; set; }
     Task<GameObject> CreateHero(Vector3 at);
     Task<GameObject> CreateHud();
     Task<GameObject> CreateMonster(MonsterTypeId typeId, Transform parent);

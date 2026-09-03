@@ -1,4 +1,5 @@
 ﻿using _Project.CodeBase.Fish;
+using _Project.CodeBase.Logic.Door;
 using _Project.CodeBase.StaticData;
 using _Project.CodeBase.StaticData.Windows;
 using _Project.CodeBase.UI.Services.Windows;
@@ -16,5 +17,6 @@ namespace _Project.CodeBase.Services.StaticData
     LevelStaticData ForLevel(string sceneKey);
     WindowConfig ForWindow(WindowId shop);
     PoolObjectStaticData ForPoolObjects(PoolObjectsTypeId poolObjectType);
+    DoorStaticData ForDoor(DoorStyles doorStyles);
   }
 }

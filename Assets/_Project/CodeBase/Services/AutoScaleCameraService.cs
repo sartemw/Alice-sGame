@@ -19,7 +19,7 @@ namespace _Project.CodeBase.Services
         
         private void ScaleCameraToFitLargestTilemap()
         {
-            Tilemap[] tilemaps = FindObjectsOfType<Tilemap>();
+            Tilemap[] tilemaps = FindObjectsByType<Tilemap>(FindObjectsSortMode.None);
     
             if (tilemaps.Length == 0)
             {
@@ -51,22 +51,8 @@ namespace _Project.CodeBase.Services
             // Установить размер камеры с отступом
             _camera.orthographicSize = (sizeVector.y - _padding) / 2;
     
-            // Получаем размеры камеры в мировых координатах
-            float cameraHeight = _camera.orthographicSize * 2;
-            float cameraWidth = cameraHeight * _camera.aspect;
-    
-            // Центрируем камеру с учетом границ Tilemap
-            float minX = minCorner.x + cameraWidth / 2;
-            float maxX = maxCorner.x - cameraWidth / 2;
-            float minY = minCorner.y + cameraHeight / 2;
-            float maxY = maxCorner.y - cameraHeight / 2;
-    
-            // Ограничиваем позицию камеры
-            float clampedX = Mathf.Clamp(center.x, minX, maxX);
-            float clampedY = Mathf.Clamp(center.y, minY, maxY);
-    
             // Центрируем камеру
-            transform.position = new Vector3(clampedX, clampedY, transform.position.z);
+            transform.position = new Vector3(center.x, center.y, transform.position.z);
         }
 
         

@@ -6,6 +6,7 @@
     Shop = 1,
     SelectLevels = 2,
     MainMenu = 3,
-    GameMenu = 4
+    GameMenu = 4,
+    CheatsMenu = 5
   }
 }

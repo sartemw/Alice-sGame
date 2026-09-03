@@ -1,11 +1,14 @@
 ﻿using System.Threading.Tasks;
+using _Project.CodeBase.Hero;
 using _Project.CodeBase.Infrastructure;
 using _Project.CodeBase.Infrastructure.AssetManagement;
-using _Project.CodeBase.Infrastructure.States;
+using _Project.CodeBase.Infrastructure.Factory;
 using _Project.CodeBase.Services.Ads;
 using _Project.CodeBase.Services.Analytics;
 using _Project.CodeBase.Services.Audio;
+using _Project.CodeBase.Services.Localization;
 using _Project.CodeBase.Services.PersistentProgress;
+using _Project.CodeBase.Services.SaveLoad;
 using _Project.CodeBase.Services.StaticData;
 using _Project.CodeBase.StaticData.Windows;
 using _Project.CodeBase.UI.Elements;
@@ -52,7 +55,7 @@ namespace _Project.CodeBase.UI.Services.Factory
       WindowConfig config = _staticData.ForWindow(WindowId.MainMenu);
       MainMenu window =  Object.Instantiate(config.Template, _uiRoot) as MainMenu;
       
-      window.Construct(_progressService, _container.Resolve<Game>().StateMachine, _staticData.ForConfig());
+      window.Construct(_progressService, _container.Resolve<Game>().StateMachine, _staticData.ForConfig(), _container.Resolve<ISaveLoadService>());
       
       foreach (OpenWindowButton openWindowButton in window.GetComponentsInChildren<OpenWindowButton>())
         openWindowButton.Init(_container.Resolve<IWindowService>(), _container.Resolve<IAnalyticsService>(), _container.Resolve<IAudioService>());
@@ -63,7 +66,22 @@ namespace _Project.CodeBase.UI.Services.Factory
     {
       WindowConfig config = _staticData.ForWindow(WindowId.GameMenu);
       GameMenuWindow window = Object.Instantiate(config.Template, _uiRoot) as GameMenuWindow;
-      window.Construct(_progressService,  _container.Resolve<Game>().StateMachine);
+      window.Construct(_progressService,
+        _container.Resolve<Game>().StateMachine,
+        _staticData.ForConfig(),
+        _container.Resolve<ILocalizationService>(),
+        _container.Resolve<ISaveLoadService>(),
+        _container.Resolve<IAudioService>());
+      
+      foreach (OpenWindowButton openWindowButton in window.GetComponentsInChildren<OpenWindowButton>())
+        openWindowButton.Init(_container.Resolve<IWindowService>(), _container.Resolve<IAnalyticsService>(), _container.Resolve<IAudioService>());
+    }
+
+    public void CreateCheatsMenu()
+    {
+      WindowConfig config = _staticData.ForWindow(WindowId.CheatsMenu);
+      CheatsWindow window = Object.Instantiate(config.Template, _uiRoot) as CheatsWindow;
+      window.Construct(_progressService, _staticData, _container.Resolve<IGameFactory>().HeroGameObject);
     }
 
     public void CreateShop()

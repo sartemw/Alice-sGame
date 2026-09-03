@@ -1,10 +1,14 @@
-﻿using _Project.CodeBase.Infrastructure.AssetManagement;
+﻿using System.Collections.Generic;
+using _Project.CodeBase.Infrastructure.AssetManagement;
 using _Project.CodeBase.Infrastructure.States;
 using _Project.CodeBase.Logic.Curtain;
 using _Project.CodeBase.Services.Ads;
 using _Project.CodeBase.Services.Analytics;
 using _Project.CodeBase.Services.Audio;
 using _Project.CodeBase.Services.Input;
+using _Project.CodeBase.Services.Localization;
+using _Project.CodeBase.Services.Parallax;
+using _Project.CodeBase.Services.PersistentConfig;
 using _Project.CodeBase.Services.PersistentProgress;
 using _Project.CodeBase.Services.Randomizer;
 using _Project.CodeBase.Services.Repainting;
@@ -20,6 +24,8 @@ namespace _Project.CodeBase.Infrastructure
 {
     public class BootstrapInstaller : MonoInstaller, IInitializable, ICoroutineRunner
     {
+        public List<ISavedConfigReader> ConfigReaders { get; } = new List<ISavedConfigReader>();
+        
         public LoadingCurtain CurtainPrefab;
 
         public Material Colored;
@@ -39,6 +45,9 @@ namespace _Project.CodeBase.Infrastructure
         private IPaintingService _paintingService;
         private IFishDataService _fishData;
         private IAudioService _audioService;
+        private ILocalizationService _localizationService;
+        private IPersistentConfigService _persistentConfig;
+        private IParallaxService _parallaxService;
 
         public override void InstallBindings()
         {
@@ -51,6 +60,7 @@ namespace _Project.CodeBase.Infrastructure
             BindInputService();
             BindRandomService();
             BindPersistentProgressService();
+            BindPersistentConfigService();
             BindUIFactory();
             BindWindowService();
 
@@ -58,9 +68,32 @@ namespace _Project.CodeBase.Infrastructure
             BindRepaintingService(); 
             
             BindAudioService();
+            BindLocalizationService();
+            BindParallaxService();
         }
 
         #region Binding
+
+        private void BindParallaxService()
+        {
+            _parallaxService = new ParallaxService();
+            
+            Container
+                .Bind<IParallaxService>()
+                .FromInstance(_parallaxService)
+                .AsSingle();
+        }
+
+        private void BindLocalizationService()
+        {
+            _localizationService = new LocalizationService(_staticData.ForConfig(), _analyticsService);
+            Register(_localizationService);
+            
+            Container
+                .Bind<ILocalizationService>()
+                .FromInstance(_localizationService)
+                .AsSingle();
+        }
 
         private void BindAnalyticsService()
         {
@@ -72,11 +105,13 @@ namespace _Project.CodeBase.Infrastructure
             
             _analyticsService.Init();
         }
+
         private void BindFishDataService()
         {
             _fishData = new FishDataService(_staticData);
             Container.Bind<IFishDataService>().FromInstance(_fishData).AsSingle();
         }
+
         private void BindWindowService()
         {
             _windowService = new WindowService(_uiFactory);
@@ -85,6 +120,7 @@ namespace _Project.CodeBase.Infrastructure
                 .FromInstance(_windowService)
                 .AsSingle();
         }
+
         private void BindUIFactory()
         {
             _uiFactory = new UIFactory(_assetProvider, _staticData, _persistentProgress, _adsService, Container);
@@ -93,6 +129,7 @@ namespace _Project.CodeBase.Infrastructure
                 .FromInstance(_uiFactory)
                 .AsSingle();
         }
+
         private void BindPersistentProgressService()
         {
             _persistentProgress = new PersistentProgressService();
@@ -101,6 +138,20 @@ namespace _Project.CodeBase.Infrastructure
                 .FromInstance(_persistentProgress)
                 .AsSingle();
         }
+
+        private void BindPersistentConfigService()
+        {
+            _persistentConfig = new PersistentConfigService()
+            {
+                ConfigReaders = ConfigReaders
+            };
+            
+            Container
+                .Bind<IPersistentConfigService>()
+                .FromInstance(_persistentConfig)
+                .AsSingle();
+        }
+
         private void BindRandomService()
         {
             _randomService = new RandomService();
@@ -169,6 +220,8 @@ namespace _Project.CodeBase.Infrastructure
         private void BindAudioService()
         {
             _audioService = new AudioService(_staticData.ForConfig(), _staticData);
+            Register(_audioService);
+            
             Container
                 .Bind<IAudioService>()
                 .FromInstance(_audioService)
@@ -195,5 +248,8 @@ namespace _Project.CodeBase.Infrastructure
 
             _game.StateMachine.Enter<BootstrapState>();
         }
+        
+        private void Register(ISavedConfigReader configReader) => 
+            ConfigReaders.Add(configReader);
     }
 }

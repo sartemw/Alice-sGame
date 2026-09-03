@@ -19,13 +19,13 @@ namespace _Project.CodeBase.Services.Repainting
         private BaseOnEvent<BootstrapFinishedSignal>  _onBootstrapFinished  = new BaseOnEvent<BootstrapFinishedSignal>();
         private BaseOnEvent<PaintingCompletedSignal>  _onPaintingCompleted  = new BaseOnEvent<PaintingCompletedSignal>();
         private BaseOnEvent<AllLevelColoringSignal>  _onLevelLoad  = new BaseOnEvent<AllLevelColoringSignal>();
-        private BaseOnEvent<StartFadeSignal>  _onFadeMaterialSignal  = new BaseOnEvent<StartFadeSignal>();
+        private BaseOnEvent<StartFadeSignalInCutscene>  _onFadeMaterialSignal  = new BaseOnEvent<StartFadeSignalInCutscene>();
         
         private BaseOnEvent<StartPaintingSignal>  _onStartPaintingSignal  = new BaseOnEvent<StartPaintingSignal>();
         private BaseOnEvent<StartPaintingInstantlySignal>  _StartPaintingInstantlySignal  = new BaseOnEvent<StartPaintingInstantlySignal>();
 
         public Material ColorlessMaterial {get;}
-        public Material Colored {get;}
+        public Material ColoredMaterial {get;}
 
         public List<Paintable> ColorlessObjs { get; private set; }
         public List<Paintable> ColoredObjs { get; private set;}
@@ -37,7 +37,7 @@ namespace _Project.CodeBase.Services.Repainting
 
         public PaintingService(Material colorless, Material colored, DiContainer diContainer)
         {
-            Colored = colored;
+            ColoredMaterial = colored;
             ColorlessMaterial = colorless;
             _diContainer = diContainer;
             
@@ -63,7 +63,7 @@ namespace _Project.CodeBase.Services.Repainting
         {
             CleanUp();
             
-            Paintable[] paintables = GameObject.FindObjectsOfType<Paintable>();
+            Paintable[] paintables = Object.FindObjectsByType<Paintable>(FindObjectsSortMode.None);
             
             foreach (Paintable paintable in paintables)
             {
@@ -92,7 +92,8 @@ namespace _Project.CodeBase.Services.Repainting
             foreach (Paintable colorlessObj in ColorlessObjs.ToList())
             {
                 if (fish.ColorType == colorlessObj.ColorType
-                    || fish.ColorType == ColorType.Rainbow)
+                    || fish.ColorType == ColorType.Rainbow
+                    || colorlessObj.ColorType == ColorType.Rainbow)
                 {
                     _removeList.Add(colorlessObj);
                 }
@@ -101,7 +102,8 @@ namespace _Project.CodeBase.Services.Repainting
             foreach (Paintable coloredObj in ColoredObjs.ToList())
             {
                 if (fish.ColorType == coloredObj.ColorType
-                    || fish.ColorType == ColorType.Rainbow)
+                    || fish.ColorType == ColorType.Rainbow
+                    || coloredObj.ColorType == ColorType.Rainbow)
                 {
                     await _gameFactory.CreateInk(fish.Position, CreatePointInk(coloredObj), coloredObj, this);
 
@@ -157,10 +159,13 @@ namespace _Project.CodeBase.Services.Repainting
             }
         }
 
-        private void Fade(StartFadeSignal obj)
+        private void Fade(StartFadeSignalInCutscene obj)
         {
             foreach (Paintable coloredObj in ColoredObjs)
             {
+                if (coloredObj.GetComponent<SpritePaintable>() != null)
+                    coloredObj.GetComponent<SpritePaintable>().SwitchMaterialInCutscene();
+                
                 EventBus.Invoke(new FadeMaterialSignal {Target = coloredObj});
             }
         }

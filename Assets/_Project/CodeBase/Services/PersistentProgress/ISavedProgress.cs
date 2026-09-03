@@ -6,4 +6,6 @@ namespace _Project.CodeBase.Services.PersistentProgress
   {
     void UpdateProgress(PlayerProgress progress);
   }
+  
+  
 }

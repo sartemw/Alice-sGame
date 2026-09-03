@@ -31,6 +31,9 @@ namespace _Project.CodeBase.UI.Services.Windows
         case WindowId.GameMenu:
           _uiFactory.CreateGameMenu();
           break;
+        case WindowId.CheatsMenu:
+          _uiFactory.CreateCheatsMenu();
+          break;
         default:
           throw new ArgumentOutOfRangeException(nameof(windowId), windowId, null);
       }

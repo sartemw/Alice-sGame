@@ -3,6 +3,7 @@ using _Project.CodeBase.Infrastructure.AssetManagement;
 using _Project.CodeBase.Infrastructure.Factory;
 using _Project.CodeBase.Services.Analytics;
 using _Project.CodeBase.Services.Input;
+using _Project.CodeBase.Services.PersistentConfig;
 using _Project.CodeBase.Services.PersistentProgress;
 using _Project.CodeBase.Services.Randomizer;
 using _Project.CodeBase.Services.SaveLoad;
@@ -71,7 +72,8 @@ namespace _Project.CodeBase.Infrastructure.States
     {
       ISaveLoadService saveLoadService = new SaveLoadService(
         _diContainer.Resolve<IPersistentProgressService>(),
-        _diContainer.Resolve<IGameFactory>());
+        _diContainer.Resolve<IGameFactory>(),
+        _diContainer.Resolve<IPersistentConfigService>());
 
       _diContainer
         .Bind<ISaveLoadService>()

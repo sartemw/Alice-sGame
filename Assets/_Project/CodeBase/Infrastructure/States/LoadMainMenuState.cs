@@ -4,7 +4,6 @@ using _Project.CodeBase.Logic.Curtain;
 using _Project.CodeBase.Services.Analytics;
 using _Project.CodeBase.Services.PersistentProgress;
 using _Project.CodeBase.UI.Services.Factory;
-using Io.AppMetrica;
 using Zenject;
 
 namespace _Project.CodeBase.Infrastructure.States
@@ -18,8 +17,6 @@ namespace _Project.CodeBase.Infrastructure.States
         private IGameFactory _gameFactory;
         private IPersistentProgressService _progressService;
         private IAnalyticsService _analyticsService;
-        
-
 
         public LoadMainMenuState(GameStateMachine stateMachine, SceneLoader sceneLoader,
             LoadingCurtain curtain, DiContainer diContainer)
@@ -44,10 +41,8 @@ namespace _Project.CodeBase.Infrastructure.States
             _analyticsService.Send("Load MainMenu");
         }
 
-        public void Exit()
-        {
+        public void Exit() => 
             _loadingCurtain.Hide();
-        }
 
         private async void OnLoaded()
         {
@@ -64,6 +59,7 @@ namespace _Project.CodeBase.Infrastructure.States
             foreach (ISavedProgressReader progressReader in _gameFactory.ProgressReaders)
                 progressReader.LoadProgress(_progressService.PlayerProgress);
         }
+        
         
         private async Task InitMainMenu() => 
             await _uiFactory.CreateMainMenu();
