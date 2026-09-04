@@ -10646,6 +10646,47 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flighter
       objectReference: {fileID: 0}
+    - target: {fileID: 3304057756814786133, guid: cd49430dd22a9e24d959ea66596d7e69,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 7579769695892089298, guid: 764feda452f357746a231d845e2e3d99,
+        type: 3}
+    - target: {fileID: 3427018060512365519, guid: cd49430dd22a9e24d959ea66596d7e69,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.border.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3427018060512365519, guid: cd49430dd22a9e24d959ea66596d7e69,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.border.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3427018060512365519, guid: cd49430dd22a9e24d959ea66596d7e69,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.border.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3427018060512365519, guid: cd49430dd22a9e24d959ea66596d7e69,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 2.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 3427018060512365519, guid: cd49430dd22a9e24d959ea66596d7e69,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 5721800796021033222, guid: cd49430dd22a9e24d959ea66596d7e69,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.8516915
+      objectReference: {fileID: 0}
+    - target: {fileID: 5926168643460575754, guid: cd49430dd22a9e24d959ea66596d7e69,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7180310883790125446, guid: cd49430dd22a9e24d959ea66596d7e69,
         type: 3}
       propertyPath: Duration
@@ -10661,6 +10702,47 @@ PrefabInstance:
       propertyPath: WavesCount
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7180310883790125446, guid: cd49430dd22a9e24d959ea66596d7e69,
+        type: 3}
+      propertyPath: FlagCanFlyB
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7180310883790125446, guid: cd49430dd22a9e24d959ea66596d7e69,
+        type: 3}
+      propertyPath: PositionPointA.y
+      value: -1.0200052
+      objectReference: {fileID: 0}
+    - target: {fileID: 7180310883790125446, guid: cd49430dd22a9e24d959ea66596d7e69,
+        type: 3}
+      propertyPath: PositionPointB.y
+      value: 1.9299808
+      objectReference: {fileID: 0}
+    - target: {fileID: 7180310883790125446, guid: cd49430dd22a9e24d959ea66596d7e69,
+        type: 3}
+      propertyPath: ButterflyPointA.x
+      value: 7.427086
+      objectReference: {fileID: 0}
+    - target: {fileID: 7180310883790125446, guid: cd49430dd22a9e24d959ea66596d7e69,
+        type: 3}
+      propertyPath: ButterflyPointA.y
+      value: -1.5000052
+      objectReference: {fileID: 0}
+    - target: {fileID: 7180310883790125446, guid: cd49430dd22a9e24d959ea66596d7e69,
+        type: 3}
+      propertyPath: ButterflyPointB.x
+      value: 13.587086
+      objectReference: {fileID: 0}
+    - target: {fileID: 7180310883790125446, guid: cd49430dd22a9e24d959ea66596d7e69,
+        type: 3}
+      propertyPath: ButterflyPointB.y
+      value: 1.4499807
+      objectReference: {fileID: 0}
+    - target: {fileID: 7190376201142130437, guid: cd49430dd22a9e24d959ea66596d7e69,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 7579769695892089298, guid: 764feda452f357746a231d845e2e3d99,
+        type: 3}
     - target: {fileID: 7259920222941277075, guid: cd49430dd22a9e24d959ea66596d7e69,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10709,6 +10791,16 @@ PrefabInstance:
     - target: {fileID: 7259920222941277075, guid: cd49430dd22a9e24d959ea66596d7e69,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7473696083052759742, guid: cd49430dd22a9e24d959ea66596d7e69,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0982945
+      objectReference: {fileID: 0}
+    - target: {fileID: 7803425131591520690, guid: cd49430dd22a9e24d959ea66596d7e69,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -8,18 +8,14 @@ namespace _Project.CodeBase.Logic.Helpers.Flighter
     {
         [SerializeField] private Vector2 _pointA;
         [SerializeField] private Vector2 _pointB;
-        [SerializeField] private float _duration = 2f;
-        [SerializeField] private float _waveHeight = 1f; // высота волны
-        [SerializeField] private int _wavesCount = 3; // количество волн
+        [SerializeField] private float _duration;
+        [SerializeField] private float _waveHeight; // высота волны
+        [SerializeField] private int _wavesCount; // количество волн
 
-        private SpriteRenderer _sprite;
         private bool _jumpFlag;
         private Tween _tween;
-
-        private ButterflyAnimator _butterflyAnimator;
-        
-        private float _currentHeight;
         private bool _isMoveUp;
+        
         public void ButterflyInitialize(Vector2 pointA, Vector2 pointB, Flighter flighter)
         {
             gameObject.transform.position = pointA;
@@ -28,11 +24,6 @@ namespace _Project.CodeBase.Logic.Helpers.Flighter
             _duration = flighter.Duration;
             _waveHeight = flighter.WaveHeight;
             _wavesCount = flighter.WavesCount;
-
-            _sprite = GetComponent<SpriteRenderer>();
-            _butterflyAnimator = GetComponent<ButterflyAnimator>();
-            _butterflyAnimator.Init(GetComponent<Animator>());
-            _currentHeight = transform.position.y;
 
             _tween?.Kill();
             transform.position = _pointA;

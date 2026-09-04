@@ -28,8 +28,8 @@ namespace _Project.CodeBase.Editor
             _serializedPositionPointA = _serializedFlighterScript.FindProperty("PositionPointA");
             _serializedPositionPointB = _serializedFlighterScript.FindProperty("PositionPointB");
             
-            _serializedButterflyA = _serializedFlighterScript.FindProperty("HopperPointA");
-            _serializedButterflyB = _serializedFlighterScript.FindProperty("HopperPointB");
+            _serializedButterflyA = _serializedFlighterScript.FindProperty("ButterflyPointA");
+            _serializedButterflyB = _serializedFlighterScript.FindProperty("ButterflyPointB");
         }
         
         public override void OnInspectorGUI()
@@ -57,8 +57,8 @@ namespace _Project.CodeBase.Editor
             
             EditorGUILayout.Space();
             
-            _serializedButterflyA.vector2Value = EditorGUILayout.Vector2Field(new GUIContent("Butterfly A", "Переменная типа Vector2"), _flighterScript.HopperPointA);
-            _serializedButterflyB.vector2Value = EditorGUILayout.Vector2Field(new GUIContent("Butterfly B", "Переменная типа Vector2"), _flighterScript.HopperPointB);
+            _serializedButterflyA.vector2Value = EditorGUILayout.Vector2Field(new GUIContent("Butterfly A", "Переменная типа Vector2"), _flighterScript.ButterflyPointA);
+            _serializedButterflyB.vector2Value = EditorGUILayout.Vector2Field(new GUIContent("Butterfly B", "Переменная типа Vector2"), _flighterScript.ButterflyPointB);
             
             EditorGUILayout.Space();
             
@@ -70,8 +70,8 @@ namespace _Project.CodeBase.Editor
         
         private void Fix(Flighter flighter)
         {
-            flighter.HopperPointA = FixPosition(flighter.PointA.transform, Constants.HeightButterfly);
-            flighter.HopperPointB = FixPosition(flighter.PointB.transform, Constants.HeightButterfly);
+            flighter.ButterflyPointA = FixPosition(flighter.PointA.transform, Constants.HeightButterfly);
+            flighter.ButterflyPointB = FixPosition(flighter.PointB.transform, Constants.HeightButterfly);
             
             flighter.PointA.transform.position = FixPosition(flighter.PointA.transform, Constants.HeightHero);
             flighter.PointB.transform.position = FixPosition(flighter.PointB.transform, Constants.HeightHero);

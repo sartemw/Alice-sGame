@@ -16,6 +16,10 @@ MonoBehaviour:
   LevelKey: 0-9
   EnemySpawners: []
   FishSpawners:
+  - Id: 1-3_401b79c8-0557-4761-8736-a56a0b9b7ca5
+    FishColor: 2
+    FishBehaviour: 0
+    Position: {x: 2.13, y: -0.84}
   - Id: 1-3_df10c33f-0f09-4ee8-82fa-055cde9ad424
     FishColor: 1
     FishBehaviour: 0
@@ -24,14 +28,10 @@ MonoBehaviour:
     FishColor: 5
     FishBehaviour: 0
     Position: {x: -5.54, y: 1.53}
-  - Id: 1-3_401b79c8-0557-4761-8736-a56a0b9b7ca5
-    FishColor: 2
-    FishBehaviour: 0
-    Position: {x: 2.13, y: -0.84}
   InitialHeroPosition: {x: 4.82, y: -0.66, z: -18.6}
   LevelTransfer:
     TransferTo: GameEnd
     Position: {x: 4.89, y: 5.04, z: 12.38}
   Music: 
   IsCompleted: 0
-  DoorStyles: 1
+  DoorStyles: 0
