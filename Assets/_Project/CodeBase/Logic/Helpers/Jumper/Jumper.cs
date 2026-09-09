@@ -23,7 +23,8 @@ namespace _Project.CodeBase.Logic.Helpers.Jumper
         public bool FlagCanJumpB;
 
         public Hopper Hopper;
-
+        public GameObject PoofEffect;
+        
         private Collider2D _jumpObject;
         private float _gravityScale;
         private HeroMove _heroMove;

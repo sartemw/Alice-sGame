@@ -3,7 +3,6 @@ using _Project.CodeBase.Services.Input;
 using _Project.CodeBase.Services.PersistentProgress;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace _Project.CodeBase.Hero
 {
@@ -76,13 +75,20 @@ namespace _Project.CodeBase.Hero
       transform.position = to.AsUnityVector().AddY(_collider.size.y);
       gameObject.SetActive(true);
     }
-
     
+    /*private void FlipHero() => 
+      transform.right = SetDirection(_movementVector);
 
-    private void FlipHero() => 
-      transform.right = _movementVector;
-    
     public void FlipHero(Vector2 direction) => 
-      transform.right = direction;
+      transform.right = SetDirection(direction);*/
+    private void FlipHero() =>
+      transform.localScale = SetDirection(_movementVector, transform.localScale);
+    public void FlipHero(Vector2 direction) => 
+      transform.localScale = SetDirection(direction, transform.localScale);
+    private Vector3 SetDirection(Vector2 direction, Vector3 localScale)
+    {
+      var temp = new Vector3(Mathf.Sign(direction.x), localScale.y, localScale.z);
+      return temp;
+    }
   }
 }

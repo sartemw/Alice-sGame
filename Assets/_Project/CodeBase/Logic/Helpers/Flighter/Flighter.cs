@@ -14,10 +14,10 @@ namespace _Project.CodeBase.Logic.Helpers.Flighter
         public ClickTrigger ButtonA;
         public ClickTrigger ButtonB;
 
-        public Vector2 PositionPointA;
-        public Vector2 PositionPointB;
-        public Vector2 ButterflyPointA;
-        public Vector2 ButterflyPointB;
+        [HideInInspector] public Vector2 PositionPointA;
+        [HideInInspector] public Vector2 PositionPointB;
+        [HideInInspector] public Vector2 ButterflyPointA;
+        [HideInInspector] public Vector2 ButterflyPointB;
 
         public int WavesCount;
         public float WaveHeight;
@@ -26,13 +26,15 @@ namespace _Project.CodeBase.Logic.Helpers.Flighter
         public bool FlagCanFlyB;
 
         public Butterfly Butterfly;
-
+        public GameObject PoofEffect;
+        
         private Collider2D _flyObject;
         private HeroMove _heroMove;
         private Rigidbody2D _rigidbody2D;
         private bool _canFly = true;
         private Tween _tween;
         private SoundPlayer _soundPlayer;
+        private HeroAnimator _heroAnimator;
 
         private void Start()
         {
@@ -61,12 +63,16 @@ namespace _Project.CodeBase.Logic.Helpers.Flighter
             
             _canFly = false;
             _heroMove = _flyObject.GetComponent<HeroMove>();
+            _heroAnimator = _flyObject.GetComponent<HeroAnimator>();
             _rigidbody2D = _flyObject.GetComponent<Rigidbody2D>();
 
+            _heroAnimator.PlayStartFly();
             _heroMove.FlipHero(new Vector2(end.x - _flyObject.transform.position.x, 0).normalized);
+
             _heroMove.enabled = false;
             _rigidbody2D.gravityScale = 0;
 
+            Instantiate(PoofEffect, _flyObject.transform.position, _flyObject.transform.rotation);
             //поменять на движение по синусойде с появление крыльев бабочки
             _tween = FlyTween(end)
                 .OnComplete(ActiveHero);
@@ -116,11 +122,12 @@ namespace _Project.CodeBase.Logic.Helpers.Flighter
 
         private void ActiveHero()
         {
+            _heroAnimator.PlayStopFly();
             _heroMove.enabled = true;
             _rigidbody2D.gravityScale = 15;
             _canFly = true;
         }
-
+        
         private void PrepareFlyA(Collider2D obj)
         {
             _flyObject = obj;

@@ -9,6 +9,9 @@ namespace _Project.CodeBase.Logic
     Died,
     Prepare,
     JumpUp,
-    JumpDown
+    JumpDown,
+    StartFly,
+    StopFly,
+    Fly
   }
 }

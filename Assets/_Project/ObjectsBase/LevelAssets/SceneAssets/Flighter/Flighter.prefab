@@ -179,11 +179,14 @@ MonoBehaviour:
   ButtonB: {fileID: 9042745546571317294}
   PositionPointA: {x: 7.427086, y: -1.02}
   PositionPointB: {x: 13.587086, y: 1.9300001}
-  HopperPointA: {x: 7.427086, y: -1.5}
-  HopperPointB: {x: 13.587086, y: 1.45}
-  JumpForce: 1
-  FlagCanJumpB: 1
+  ButterflyPointA: {x: 0, y: 0}
+  ButterflyPointB: {x: 0, y: 0}
+  WavesCount: 0
+  WaveHeight: 0
+  Duration: 0
+  FlagCanFlyB: 0
   Butterfly: {fileID: 2792664453294113498}
+  PoofEffect: {fileID: 1892078723244562, guid: fab654d4b4e18394aa4c1fed91ad80cb, type: 3}
 --- !u!1 &734456333503880414
 GameObject:
   m_ObjectHideFlags: 0
