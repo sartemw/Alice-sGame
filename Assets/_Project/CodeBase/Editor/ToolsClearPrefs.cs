@@ -1,7 +1,8 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using Tools = CodeBase.Editor.Tools;
 
-namespace CodeBase.Editor
+namespace _Project.CodeBase.Editor
 {
     public class ToolsClearPrefs : Tools
     {

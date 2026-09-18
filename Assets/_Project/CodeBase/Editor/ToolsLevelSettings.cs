@@ -112,7 +112,7 @@ namespace CodeBase.Editor
         _toggleGroup = EditorGUILayout.BeginToggleGroup("Collect", _toggleGroup);
         
         _levelKey = SceneManager.GetActiveScene().name;
-
+        
         Dictionary<string, LevelStaticData> levels = Resources
           .LoadAll<LevelStaticData>(LevelsDataPath)
           .ToDictionary(x => x.LevelKey, x => x);
@@ -256,13 +256,9 @@ namespace CodeBase.Editor
         EventBus.Invoke(new ClickCollectStaticDataSignal());
         
         LevelStaticData level = ScriptableObject.CreateInstance<LevelStaticData>();
+        LevelStaticDataEditor staticDataEditor = new LevelStaticDataEditor();
 
-        level.EnemySpawners = _enemySpawners;
-        level.FishSpawners = _fishSpawners;
-        level.LevelKey = _levelKey;
-        level.LevelTransfer = _levelTransfer;
-        level.InitialHeroPosition = _initialHeroPosition;
-
+        staticDataEditor.Collect(level,_transferTo);
         string levelPath = "Assets/Resources/" + LevelsDataPath + _levelKey + ".asset";
 
         AssetDatabase.DeleteAsset(levelPath);

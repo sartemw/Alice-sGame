@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace _Project.CodeBase.Enemy
+namespace _Project.CodeBase.Enemy.Base
 {
   [RequireComponent(typeof(Attack))]
   public class CheckAttackRange : MonoBehaviour

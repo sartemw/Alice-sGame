@@ -4,7 +4,7 @@ using _Project.CodeBase.Logic;
 using _Project.CodeBase.Services.Randomizer;
 using UnityEngine;
 
-namespace _Project.CodeBase.Enemy
+namespace _Project.CodeBase.Enemy.Base
 {
   public class LootSpawner : MonoBehaviour
   {

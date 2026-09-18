@@ -2,7 +2,7 @@ using System;
 using _Project.CodeBase.Logic;
 using UnityEngine;
 
-namespace _Project.CodeBase.Enemy
+namespace _Project.CodeBase.Enemy.Base
 {
   public class EnemyHealth : MonoBehaviour, IHealth
   {

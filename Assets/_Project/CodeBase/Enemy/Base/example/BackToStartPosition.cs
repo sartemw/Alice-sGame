@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using static _Project.CodeBase.Data.DataExtensions;
 
-namespace _Project.CodeBase.Enemy
+namespace _Project.CodeBase.Enemy.Base
 {
     public class BackToStartPosition: MonoBehaviour
     {

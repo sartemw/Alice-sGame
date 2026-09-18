@@ -2,7 +2,7 @@ using _Project.CodeBase.Infrastructure.Factory;
 using UnityEngine;
 using static _Project.CodeBase.Data.DataExtensions;
 
-namespace _Project.CodeBase.Enemy
+namespace _Project.CodeBase.Enemy.Base
 {
   [RequireComponent(typeof(Rigidbody2D))]
   public class AgentMoveToPlayer : Follow

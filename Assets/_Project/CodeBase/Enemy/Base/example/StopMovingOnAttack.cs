@@ -2,7 +2,7 @@ using _Project.CodeBase.Logic;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace _Project.CodeBase.Enemy
+namespace _Project.CodeBase.Enemy.Base
 {
   [RequireComponent(typeof(NavMeshAgent))]
   public class StopMovingOnAttack : MonoBehaviour

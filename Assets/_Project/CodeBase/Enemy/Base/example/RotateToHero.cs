@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace _Project.CodeBase.Enemy
+namespace _Project.CodeBase.Enemy.Base
 {
   public class RotateToHero : Follow
   {
