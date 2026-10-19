@@ -1,5 +1,6 @@
 using _Project.CodeBase.Data;
 using _Project.CodeBase.Enemy;
+using _Project.CodeBase.Enemy.Base;
 using _Project.CodeBase.Logic;
 using _Project.CodeBase.Services.Input;
 using _Project.CodeBase.Services.PersistentProgress;

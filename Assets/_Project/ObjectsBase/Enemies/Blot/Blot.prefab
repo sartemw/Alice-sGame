@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7186837886303903701
 Transform:
   m_ObjectHideFlags: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 224b4c7b36bd432aad2b73b40d2402e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyDeath: {fileID: 5657426703775931193}
+  EnemyDeath: {fileID: 0}
 --- !u!1 &645728953778980200
 GameObject:
   m_ObjectHideFlags: 0
@@ -852,17 +852,17 @@ GameObject:
   m_Component:
   - component: {fileID: 3585347175616835796}
   - component: {fileID: 3420034609528793475}
+  - component: {fileID: 5928408747409202437}
   - component: {fileID: 7571424881318630912}
   - component: {fileID: 5246327391679937258}
+  - component: {fileID: 8280281112205447532}
+  - component: {fileID: 8658178520181596269}
   - component: {fileID: 3638315278055699575}
-  - component: {fileID: 2973914893900439054}
-  - component: {fileID: 3904261575551820489}
-  - component: {fileID: 7276849402054575814}
-  - component: {fileID: 5465337230174823626}
-  - component: {fileID: 5657426703775931193}
+  - component: {fileID: 8260126835983502044}
+  - component: {fileID: -2023520944436133517}
   - component: {fileID: 5814337457046694964}
-  - component: {fileID: 3613647780951755611}
-  - component: {fileID: 5928408747409202437}
+  - component: {fileID: 6313123855431614897}
+  - component: {fileID: -1495631660591443721}
   m_Layer: 17
   m_Name: Blot
   m_TagString: Untagged
@@ -948,6 +948,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &5928408747409202437
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5799534303835598737}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5d06e4d32fd1bbc4792f063b1f4c8073, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!50 &7571424881318630912
 Rigidbody2D:
   serializedVersion: 5
@@ -1000,6 +1022,42 @@ MonoBehaviour:
     m_Extent: {x: 1.1600001, y: 1.4480014, z: 0}
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
+--- !u!114 &8280281112205447532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5799534303835598737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a681d42e80424105807319f19a550a69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.CodeBase.Enemy.BossState
+  CurrentState: 0
+--- !u!114 &8658178520181596269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5799534303835598737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25aaf7e887eb466d9f010f32a9d471a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.CodeBase.Enemy.BossStats
+  HeroTransform: {fileID: 0}
+  StartPoint:
+    Id: 
+    PointTypeId: 0
+    Position: {x: 0, y: 0, z: 0}
+  MovingPoints: []
+  EndPoint:
+    Id: 
+    PointTypeId: 0
+    Position: {x: 0, y: 0, z: 0}
+  Speed: 0
 --- !u!114 &3638315278055699575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1007,88 +1065,35 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5799534303835598737}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cbdf6fee082049c7a4c62e27214b9200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2973914893900439054
+--- !u!114 &8260126835983502044
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5799534303835598737}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c61d6fd7f24425993242e26423f9199, type: 3}
+  m_Script: {fileID: 11500000, guid: 28502a309390488293bdfe5397af7a42, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  Velocity: 0
-  Speed: 5
-  Rigidbody2D: {fileID: 7571424881318630912}
-  MinimalDistance: 6
-  IsPlatformer: 1
---- !u!114 &3904261575551820489
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.CodeBase.Enemy.Blot.MoveToPoints
+--- !u!114 &-2023520944436133517
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5799534303835598737}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83d0e10d52a243d5aed6e592165a76e6, type: 3}
+  m_Script: {fileID: 11500000, guid: 79aeae22ce9843ad91a5d419fb91f9ba, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  Agent: {fileID: 2973914893900439054}
-  Animator: {fileID: 3638315278055699575}
---- !u!114 &7276849402054575814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5799534303835598737}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b875a25f50449119ceb2fc83734fe91, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Animator: {fileID: 3638315278055699575}
-  AttackCooldown: 3
-  Cleavage: 0.5
-  EffectiveDistance: 0.5
-  Damage: 10
---- !u!114 &5465337230174823626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5799534303835598737}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 470004e1e67a4bc281abeeb42ba94d9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Animator: {fileID: 3638315278055699575}
-  _max: 2
---- !u!114 &5657426703775931193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5799534303835598737}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcf83ffccec841f8b4c6027b522222dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Health: {fileID: 5465337230174823626}
-  Animator: {fileID: 3638315278055699575}
-  DeathFx: {fileID: 100004, guid: 7867af58a6ec48846ae807eb4022fbaa, type: 3}
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.CodeBase.Enemy.Blot.WalkingBlotBoss
 --- !u!114 &5814337457046694964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1103,44 +1108,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HpBar: {fileID: 3073878896694522309}
   StarsBar: {fileID: 0}
---- !u!114 &3613647780951755611
+--- !u!114 &6313123855431614897
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5799534303835598737}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7c867116f094c72a9c99e52a74d49c9, type: 3}
+  m_Script: {fileID: 11500000, guid: b03c3ad8aa6d4124bd069a738c60f3c5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  Rigidbody2D: {fileID: 7571424881318630912}
-  Follow: {fileID: 2973914893900439054}
-  IsPlatformer: 1
-  MinimalDistance: 1
---- !u!95 &5928408747409202437
-Animator:
-  serializedVersion: 7
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.CodeBase.Enemy.Blot.FindTarget
+--- !u!114 &-1495631660591443721
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5799534303835598737}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5d06e4d32fd1bbc4792f063b1f4c8073, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed97cd84f7b643b1b40d499e7bd052ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.CodeBase.Enemy.Blot.BlotAttack
 --- !u!1 &6733378366219161108
 GameObject:
   m_ObjectHideFlags: 0

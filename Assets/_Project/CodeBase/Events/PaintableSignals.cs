@@ -1,5 +1,6 @@
 ﻿using _Project.CodeBase.Fish;
 using _Project.CodeBase.Services.Repainting;
+using UnityEngine;
 
 namespace _Project.CodeBase.Events
 {
@@ -32,4 +33,8 @@ namespace _Project.CodeBase.Events
         public Paintable Target;
     }
     public class AllLevelColoringSignal : IEventSignal {}
+    
+    public class AllFishPickupSignal : IEventSignal {}
+
+    public class AllPaintableInitializeSignal : IEventSignal {}
 }

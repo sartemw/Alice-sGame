@@ -1,4 +1,5 @@
 ﻿using _Project.CodeBase.Enemy;
+using _Project.CodeBase.Enemy.Base;
 using _Project.CodeBase.Hero;
 using _Project.CodeBase.Services.Audio;
 using DG.Tweening;

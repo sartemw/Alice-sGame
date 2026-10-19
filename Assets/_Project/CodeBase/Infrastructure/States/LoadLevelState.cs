@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using _Project.CodeBase.CameraLogic;
 using _Project.CodeBase.Data;
 using _Project.CodeBase.Enemy;
+using _Project.CodeBase.Enemy.Base;
 using _Project.CodeBase.Events;
 using _Project.CodeBase.Hero;
 using _Project.CodeBase.Infrastructure.Factory;

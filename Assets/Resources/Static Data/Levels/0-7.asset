@@ -28,10 +28,12 @@ MonoBehaviour:
     FishColor: 1
     FishBehaviour: 0
     Position: {x: 2.08, y: 1.89}
+  BossMovingMarkers: []
   InitialHeroPosition: {x: -6.83, y: 5.05, z: -18.6}
   LevelTransfer:
     TransferTo: 0-8
     Position: {x: -7.08, y: -2, z: 12.38}
   Music: 
   IsCompleted: 0
+  IsBossFight: 0
   DoorStyles: 0

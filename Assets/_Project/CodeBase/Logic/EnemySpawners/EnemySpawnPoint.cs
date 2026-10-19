@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using _Project.CodeBase.Data;
 using _Project.CodeBase.Enemy;
+using _Project.CodeBase.Enemy.Base;
 using _Project.CodeBase.Infrastructure.Factory;
 using _Project.CodeBase.Services.PersistentProgress;
 using _Project.CodeBase.StaticData;
@@ -56,7 +57,7 @@ namespace _Project.CodeBase.Logic.EnemySpawners
     {
       GameObject monster = await _factory.CreateMonster(MonsterTypeId, transform);
       _enemyDeath = monster.GetComponent<EnemyDeath>();
-      _enemyDeath.Happened += Slay;
+      //_enemyDeath.Happened += Slay;
     }
     
     private async void SpawnCutscene()
@@ -66,8 +67,8 @@ namespace _Project.CodeBase.Logic.EnemySpawners
 
     private void Slay()
     {
-      if (_enemyDeath != null)
-        _enemyDeath.Happened -= Slay;
+      //if (_enemyDeath != null)
+       // _enemyDeath.Happened -= Slay;
       
       _slain = true;
     }

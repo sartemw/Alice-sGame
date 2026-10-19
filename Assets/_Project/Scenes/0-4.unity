@@ -1332,6 +1332,11 @@ PrefabInstance:
       propertyPath: PositionPointB.y
       value: 4.9799776
       objectReference: {fileID: 0}
+    - target: {fileID: 2859578259050044754, guid: 9f0958dca523bcb4ebc0852fea683622,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3338018787210735534, guid: 9f0958dca523bcb4ebc0852fea683622,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1355,6 +1360,11 @@ PrefabInstance:
     - target: {fileID: 7149475700114327146, guid: 9f0958dca523bcb4ebc0852fea683622,
         type: 3}
       propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7475855988643964407, guid: 9f0958dca523bcb4ebc0852fea683622,
+        type: 3}
+      propertyPath: m_FlipX
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7802873696860086201, guid: 9f0958dca523bcb4ebc0852fea683622,
@@ -6101,6 +6111,11 @@ PrefabInstance:
       propertyPath: PositionPointB.y
       value: 3.9800062
       objectReference: {fileID: 0}
+    - target: {fileID: 2859578259050044754, guid: 9f0958dca523bcb4ebc0852fea683622,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3338018787210735534, guid: 9f0958dca523bcb4ebc0852fea683622,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6278,6 +6293,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2859578259050044754, guid: 9f0958dca523bcb4ebc0852fea683622,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3338018787210735534, guid: 9f0958dca523bcb4ebc0852fea683622,
         type: 3}
@@ -14223,6 +14243,11 @@ PrefabInstance:
       propertyPath: PositionPointB.y
       value: 1.9799753
       objectReference: {fileID: 0}
+    - target: {fileID: 2859578259050044754, guid: 9f0958dca523bcb4ebc0852fea683622,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3337980963354014345, guid: 9f0958dca523bcb4ebc0852fea683622,
         type: 3}
       propertyPath: PointA.x
@@ -14252,6 +14277,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: -1.6599771
+      objectReference: {fileID: 0}
+    - target: {fileID: 7475855988643964407, guid: 9f0958dca523bcb4ebc0852fea683622,
+        type: 3}
+      propertyPath: m_FlipX
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7802873696860086201, guid: 9f0958dca523bcb4ebc0852fea683622,
         type: 3}

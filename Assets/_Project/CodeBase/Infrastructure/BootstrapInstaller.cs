@@ -5,6 +5,7 @@ using _Project.CodeBase.Logic.Curtain;
 using _Project.CodeBase.Services.Ads;
 using _Project.CodeBase.Services.Analytics;
 using _Project.CodeBase.Services.Audio;
+using _Project.CodeBase.Services.GameStatus;
 using _Project.CodeBase.Services.Input;
 using _Project.CodeBase.Services.Localization;
 using _Project.CodeBase.Services.Parallax;
@@ -48,6 +49,7 @@ namespace _Project.CodeBase.Infrastructure
         private ILocalizationService _localizationService;
         private IPersistentConfigService _persistentConfig;
         private IParallaxService _parallaxService;
+        private IGameStatusService _gameStatusService;
 
         public override void InstallBindings()
         {
@@ -65,14 +67,24 @@ namespace _Project.CodeBase.Infrastructure
             BindWindowService();
 
             BindFishDataService();
-            BindRepaintingService(); 
+            BindPaintingService(); 
             
             BindAudioService();
             BindLocalizationService();
             BindParallaxService();
+            BindGameStatusService();
         }
 
         #region Binding
+
+        private void BindGameStatusService()
+        {
+            _gameStatusService = new GameStatusService(_staticData);
+            Container
+                .Bind<IGameStatusService>()
+                .FromInstance(_gameStatusService)
+                .AsSingle();
+        }
 
         private void BindParallaxService()
         {
@@ -209,7 +221,7 @@ namespace _Project.CodeBase.Infrastructure
                 .FromInstance(_inputService)
                 .AsSingle();
         }
-        private void BindRepaintingService()
+        private void BindPaintingService()
         {
             _paintingService = new PaintingService(Colorless, Colored, Container);
             Container

@@ -26,12 +26,10 @@ namespace _Project.CodeBase.Logic.Door
 
         public void Construct(IPaintingService paintingService, IAudioService audioService, IStaticDataService staticDataService)
         {
+            EventBus.Subscribe(_onLevelCompleted.SetOnInvoke(OpenDoor));
+
             if (paintingService != null)
             {
-                paintingService.CheckLevelCompletedOnStart();
-
-                paintingService.IsStart(false);
-
                 _audioService = audioService;
                 _staticDataService = staticDataService;
 
@@ -41,8 +39,10 @@ namespace _Project.CodeBase.Logic.Door
                 DoorOpen.GetComponent<SpriteRenderer>().sprite = _doorStaticData.OpenDoor;
                 DoorClosed.GetComponent<SpriteRenderer>().sprite = _doorStaticData.ClosedDoor;
                 DoorFrame.GetComponent<SpriteRenderer>().sprite = _doorStaticData.Frame;
-
-                EventBus.Subscribe(_onLevelCompleted.SetOnInvoke(OpenDoor));
+                
+                paintingService.CheckLevelCompletedOnStart();
+                
+                paintingService.IsStart(false);
             }
         }
 

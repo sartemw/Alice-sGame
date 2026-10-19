@@ -16,10 +16,12 @@ MonoBehaviour:
   LevelKey: 0-1
   EnemySpawners: []
   FishSpawners: []
+  BossMovingMarkers: []
   InitialHeroPosition: {x: -5.36, y: -1.57, z: 0}
   LevelTransfer:
     TransferTo: Cs_1
     Position: {x: 6.28, y: -1.93, z: 0}
   Music: 
   IsCompleted: 0
+  IsBossFight: 0
   DoorStyles: 0

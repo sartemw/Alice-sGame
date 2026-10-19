@@ -3,7 +3,9 @@ using System.Linq;
 using _Project.CodeBase.Events;
 using _Project.CodeBase.Fish;
 using _Project.CodeBase.Infrastructure.Factory;
+using _Project.CodeBase.Services.StaticData;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using Zenject;
 using Random = UnityEngine.Random;
@@ -13,6 +15,8 @@ namespace _Project.CodeBase.Services.Repainting
     public class PaintingService : IPaintingService
     {
         private readonly DiContainer _diContainer;
+        private readonly IStaticDataService _staticDataService;
+        
         private IGameFactory _gameFactory;
 
         private BaseOnEvent<FishPickupSignal>  _onFishPickup  = new BaseOnEvent<FishPickupSignal>();
@@ -20,13 +24,11 @@ namespace _Project.CodeBase.Services.Repainting
         private BaseOnEvent<PaintingCompletedSignal>  _onPaintingCompleted  = new BaseOnEvent<PaintingCompletedSignal>();
         private BaseOnEvent<AllLevelColoringSignal>  _onLevelLoad  = new BaseOnEvent<AllLevelColoringSignal>();
         private BaseOnEvent<StartFadeSignalInCutscene>  _onFadeMaterialSignal  = new BaseOnEvent<StartFadeSignalInCutscene>();
-        
         private BaseOnEvent<StartPaintingSignal>  _onStartPaintingSignal  = new BaseOnEvent<StartPaintingSignal>();
         private BaseOnEvent<StartPaintingInstantlySignal>  _StartPaintingInstantlySignal  = new BaseOnEvent<StartPaintingInstantlySignal>();
 
         public Material ColorlessMaterial {get;}
         public Material ColoredMaterial {get;}
-
         public List<Paintable> ColorlessObjs { get; private set; }
         public List<Paintable> ColoredObjs { get; private set;}
         
@@ -41,6 +43,8 @@ namespace _Project.CodeBase.Services.Repainting
             ColorlessMaterial = colorless;
             _diContainer = diContainer;
             
+            _staticDataService = _diContainer.Resolve<IStaticDataService>();
+
             EventBus.Subscribe(_onFishPickup.SetOnInvoke(Painting));
             EventBus.Subscribe(_onBootstrapFinished.SetOnInvoke(ConstructBootstrap));
             EventBus.Subscribe(_onPaintingCompleted.SetOnInvoke(IsLevelCompleted));
@@ -70,12 +74,13 @@ namespace _Project.CodeBase.Services.Repainting
                 ColoredObjs.Add(paintable);
                 paintable.Initialize();
             }
+            EventBus.Invoke(new AllPaintableInitializeSignal());
         }
 
         public void CheckLevelCompletedOnStart()
         {
             if (ColoredObjs.Count == 0 && _isStart) 
-                EventBus.Invoke(new LevelCompletedSignals());
+                AllFishPickup();
         }
 
         public void IsStart(bool value) => 
@@ -155,7 +160,7 @@ namespace _Project.CodeBase.Services.Repainting
                 && _completeSignalCount == _startSignalCount)
             {
                 _completedLevelFlag = true;
-                EventBus.Invoke(new LevelCompletedSignals());
+                AllFishPickup();
             }
         }
 
@@ -172,10 +177,11 @@ namespace _Project.CodeBase.Services.Repainting
 
         private void AllLevelColored(AllLevelColoringSignal signal)
         {
-            foreach (Paintable coloredObj in ColoredObjs)
-            {
+            foreach (Paintable coloredObj in ColoredObjs) 
                 EventBus.Invoke(new StartPaintingInstantlySignal {Target = coloredObj});
-            }
         }
+
+        private void AllFishPickup() => 
+            EventBus.Invoke(new AllFishPickupSignal());
     }
 }

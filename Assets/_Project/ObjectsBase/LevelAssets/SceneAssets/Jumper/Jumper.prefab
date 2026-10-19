@@ -795,6 +795,7 @@ MonoBehaviour:
   JumpForce: 2
   FlagCanJumpB: 0
   Hopper: {fileID: 3337980963354014345}
+  PoofEffect: {fileID: 0}
 --- !u!114 &6688207240851929688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -819,6 +820,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4169871832660684320}
     m_Modifications:
+    - target: {fileID: 2422570858250558349, guid: ca3ebe3d23ac0be44a6b34c164455be5,
+        type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6155841276460689188, guid: ca3ebe3d23ac0be44a6b34c164455be5,
         type: 3}
       propertyPath: m_LocalPosition.x

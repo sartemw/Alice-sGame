@@ -1,4 +1,7 @@
-﻿using _Project.CodeBase.Fish;
+﻿using System;
+using _Project.CodeBase.Enemy.Base;
+using _Project.CodeBase.Fish;
+using UnityEditor;
 using UnityEngine;
 using static _Project.CodeBase.Data.DataExtensions;
 
@@ -19,20 +22,19 @@ namespace _Project.CodeBase.Logic
       if (CircleCollider)
         Gizmos
           .DrawSphere
-            (GetCenter(CircleCollider.transform, CircleCollider)
-              ,CircleCollider.radius);
+          (GetCenter(CircleCollider.transform, CircleCollider)
+            , CircleCollider.radius);
 
       if (BoxCollider)
         Gizmos
           .DrawCube
           (GetCenter(BoxCollider.transform, BoxCollider)
-            ,BoxCollider.size);
-      
+            , BoxCollider.size);
+
       if (!CircleCollider & !BoxCollider)
         Gizmos
           .DrawSphere
-          (transform.position, Size);
-
+            (transform.position, Size);
     }
 
     private Vector2 GetCenter(Transform colliderObject, Collider2D collider2D)

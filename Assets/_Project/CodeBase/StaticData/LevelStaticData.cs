@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using _Project.CodeBase.Logic.Door;
+using _Project.CodeBase.StaticData.Windows;
 using UnityEngine;
 
 namespace _Project.CodeBase.StaticData
@@ -11,10 +12,12 @@ namespace _Project.CodeBase.StaticData
     public string LevelKey;
     public List<EnemySpawnerStaticData> EnemySpawners;
     public List<FishSpawnerStaticData> FishSpawners;
+    public List<MovingMarkerStaticData> BossMovingMarkers;
     public Vector3 InitialHeroPosition;
     public LevelTransferStaticData LevelTransfer;
     public string Music;
     public bool IsCompleted;
+    public bool IsBossFight;
     public DoorStyles DoorStyles;
   }
 }

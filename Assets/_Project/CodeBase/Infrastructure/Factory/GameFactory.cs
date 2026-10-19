@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using _Project.CodeBase.CameraLogic;
 using _Project.CodeBase.Enemy;
+using _Project.CodeBase.Enemy.Base;
+using _Project.CodeBase.Enemy.Blot;
 using _Project.CodeBase.Fish;
 using _Project.CodeBase.Hero;
 using _Project.CodeBase.Infrastructure.AssetManagement;
@@ -23,6 +26,7 @@ using _Project.CodeBase.Services.StaticData;
 using _Project.CodeBase.StaticData;
 using _Project.CodeBase.UI.Elements;
 using _Project.CodeBase.UI.Services.Windows;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -186,7 +190,22 @@ namespace _Project.CodeBase.Infrastructure.Factory
       GameObject prefab = await _assets.Load<GameObject>(monsterData.PrefabReference);
       GameObject monster = Object.Instantiate(prefab, parent.position, Quaternion.identity, parent);
 
-      IHealth health = monster.GetComponent<IHealth>();
+      switch (typeId)
+      {
+        case MonsterTypeId.Dog:
+          break;
+        case MonsterTypeId.Mouse:
+          break;
+        case MonsterTypeId.Blot:
+          monster = CreateBlotBoss(monster, monsterData);
+          break;
+        case MonsterTypeId.BlotCutscene:
+          break;
+        default:
+          throw new ArgumentOutOfRangeException(nameof(typeId), typeId, null);
+      }
+      
+      /*IHealth health = monster.GetComponent<IHealth>();
       health.Current = monsterData.Hp;
       health.Max = monsterData.Hp;
 
@@ -198,15 +217,31 @@ namespace _Project.CodeBase.Infrastructure.Factory
       attack.EffectiveDistance = monsterData.EffectiveDistance;
 
       monster.GetComponent<AgentMoveToPlayer>()?.Construct(HeroGameObject.transform, monsterData.MoveSpeed);
-      monster.GetComponent<RotateToHero>()?.Construct(HeroGameObject.transform);
-
-      LootSpawner lootSpawner = monster.GetComponentInChildren<LootSpawner>();
+      monster.GetComponent<RotateToHero>()?.Construct(HeroGameObject.transform);*/
+      
+      /*LootSpawner lootSpawner = monster.GetComponentInChildren<LootSpawner>();
       lootSpawner.Construct(this, _randomService);
-      lootSpawner.SetLootValue(monsterData.MinLootValue, monsterData.MaxLootValue);
+      lootSpawner.SetLootValue(monsterData.MinLootValue, monsterData.MaxLootValue);*/
 
       return monster;
     }
-    
+
+    private GameObject CreateBlotBoss(GameObject monster, MonsterStaticData monsterData)
+    {
+      monster.GetComponent<BossStats>()?
+        .Construct(
+          HeroGameObject.transform
+        , monsterData.MoveSpeed
+        , _staticData.ForLevel(SceneManager.GetActiveScene().name).BossMovingMarkers);
+
+      foreach (var signatory in monster?.GetComponents<Signatory>())
+        signatory.Construct();
+      
+      monster.GetComponent<BossState>()?.EnteredState(BossStates.StartFight);
+      
+      return monster;
+    }
+
     public async Task<GameObject> CreateCutsceneMonster(MonsterTypeId typeId, Transform parent)
     {
       MonsterStaticData monsterData = _staticData.ForMonster(typeId);

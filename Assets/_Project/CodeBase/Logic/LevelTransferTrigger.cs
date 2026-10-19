@@ -35,6 +35,7 @@ namespace _Project.CodeBase.Logic
       
       if (other.CompareTag(PlayerTag))
       {
+        Debug.Log(_saveLoadService);
         _saveLoadService.SaveProgress();
         
         if (_isCompleted)

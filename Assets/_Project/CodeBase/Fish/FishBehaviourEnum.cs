@@ -5,6 +5,7 @@
         HoldPosition = 0,
         RunInFront = 1,
         RunToPoint = 2,
-        RunInUp = 3
+        RunInUp = 3,
+        Star = 4
     }
 }

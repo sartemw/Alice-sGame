@@ -14,7 +14,7 @@ namespace _Project.CodeBase.Logic.TilePlatforms
 
         private void Awake()
         {
-            _paintable = Body.GetComponent<TilemapPaintable>();
+            _paintable = Body?.GetComponent<TilemapPaintable>();
         }
     }
 }

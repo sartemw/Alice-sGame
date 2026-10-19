@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using _Project.CodeBase.Enemy;
+using _Project.CodeBase.Enemy.Base;
 using _Project.CodeBase.Fish;
 using _Project.CodeBase.Infrastructure.Effects;
 using _Project.CodeBase.Services;
