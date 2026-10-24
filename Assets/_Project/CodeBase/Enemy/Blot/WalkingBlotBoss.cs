@@ -11,7 +11,7 @@ namespace _Project.CodeBase.Enemy.Blot
         private BossStats _bossStats;
 
         private MovingMarkerStaticData[] _walkingPoints;
-        private int _currentPoint;
+        private int _pointNumber;
         private float _speed;
         
         public override void Construct()
@@ -20,11 +20,13 @@ namespace _Project.CodeBase.Enemy.Blot
             _bossStats = GetComponent<BossStats>();
             
             _speed = _bossStats.Speed;
-            _currentPoint = 0;
-            
+            _pointNumber = 0;
+
             _walkingPoints = new MovingMarkerStaticData[_bossStats.MovingPoints.Length];
             _walkingPoints = _bossStats.MovingPoints;
             
+            _bossStats.CurrentPoint = _walkingPoints[_pointNumber];
+
             _bossState.OnStateEntered += OnStateEntered;
             _bossState.OnStateExited += OnStateExited;
         }
@@ -52,14 +54,16 @@ namespace _Project.CodeBase.Enemy.Blot
 
         private void FindWalkingPoint()
         {
-            int i = _currentPoint;
-            while (_currentPoint == i)
-            {
-                i = Random.Range(1, _walkingPoints.Length - 1);
-            }
-            _currentPoint = i;
+            int i;
+
+            do {
+                i = Random.Range(0, _walkingPoints.Length - 1);
+            } while (_bossStats.CurrentPoint == _walkingPoints[i]);
+           
+            _pointNumber = i;
+            _bossStats.CurrentPoint = _walkingPoints[_pointNumber];
             
-            MoveToTarget(_walkingPoints[_currentPoint].Position);
+            MoveToTarget(_walkingPoints[_pointNumber].Position);
         }
 
         private void TweenCompleted()

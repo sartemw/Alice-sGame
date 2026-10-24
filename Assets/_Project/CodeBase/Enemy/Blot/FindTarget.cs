@@ -52,7 +52,8 @@ namespace _Project.CodeBase.Enemy.Blot
                     distance = currentDistance;
                 }
             }
-            
+
+            _bossStats.CurrentPoint = _nearestPoint;
             GetComponent<WalkingBlotBoss>().MoveToTarget(_nearestPoint.Position);
         }
 

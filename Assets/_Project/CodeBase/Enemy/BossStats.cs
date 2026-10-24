@@ -12,6 +12,7 @@ namespace _Project.CodeBase.Enemy
     {
         public Transform HeroTransform;
 
+        public MovingMarkerStaticData CurrentPoint;
         public MovingMarkerStaticData StartPoint;
         public MovingMarkerStaticData[] MovingPoints;
         public MovingMarkerStaticData EndPoint;
