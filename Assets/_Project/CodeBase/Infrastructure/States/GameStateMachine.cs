@@ -28,8 +28,6 @@ namespace _Project.CodeBase.Infrastructure.States
         
         [typeof(RestartLevelState)] = new RestartLevelState(this, sceneLoader, loadingCurtain),
         
-        [typeof(RestartGameState)] = new RestartGameState(this, sceneLoader, loadingCurtain),
-
         [typeof(GameLoopState)] = new GameLoopState(this),
       };
       

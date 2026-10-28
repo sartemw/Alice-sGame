@@ -12,6 +12,7 @@ TagManager:
   - LoadingCurtain
   - LevelTransferInitialPoint
   - Enemy
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Projectile
   - Player
   - Aggro
   - AttackZone

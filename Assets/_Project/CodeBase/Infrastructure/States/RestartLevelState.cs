@@ -27,7 +27,7 @@ namespace _Project.CodeBase.Infrastructure.States
         }
 
         private void OnLoaded() => 
-            _stateMachine.Enter<LoadLevelState, string>(_currentLevel);
+            _stateMachine.Enter<LoadProgressState, string>(_currentLevel);
 
         public void Exit() => 
             _loadingCurtain.Hide();

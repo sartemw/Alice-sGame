@@ -7,9 +7,8 @@ using Zenject;
 
 namespace _Project.CodeBase.Infrastructure.States
 {
-    public class LoadProgressState : IState
+    public class LoadProgressState : IPayloadedState<string>
     {
-        private const string InitialLevel = "MainMenu";
         private const string InitialLevel2 = "Cs_1";
         
         private readonly GameStateMachine _stateMachine;
@@ -25,14 +24,17 @@ namespace _Project.CodeBase.Infrastructure.States
             _configService = diContainer.Resolve<IPersistentConfigService>();
         }
 
-        public void Enter()
+        public void Enter(string sceneName)
         {
             LoadProgressOrInitNew();
+            if (sceneName == "MainMenu")
+                _stateMachine.Enter<LoadMainMenuState, string>(sceneName);
+            else
+                _stateMachine.Enter<LoadLevelState, string>(sceneName);
             
-            _stateMachine.Enter<LoadMainMenuState, string>(InitialLevel);
             //_stateMachine.Enter<LoadCutsceneState, string>(InitialLevel2);
         }
-
+        
         public void Exit()
         {
         }

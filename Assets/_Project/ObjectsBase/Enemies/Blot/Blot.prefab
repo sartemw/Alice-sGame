@@ -1048,6 +1048,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_Project.CodeBase.Enemy.BossStats
   HeroTransform: {fileID: 0}
+  CurrentPoint:
+    Id: 
+    PointTypeId: 0
+    Position: {x: 0, y: 0, z: 0}
   StartPoint:
     Id: 
     PointTypeId: 0
@@ -1058,6 +1062,7 @@ MonoBehaviour:
     PointTypeId: 0
     Position: {x: 0, y: 0, z: 0}
   Speed: 0
+  BlotInk: {fileID: 3600436525875038069, guid: 4ea557f824a9b0d4e95865b4346cf2b5, type: 3}
 --- !u!114 &3638315278055699575
 MonoBehaviour:
   m_ObjectHideFlags: 0

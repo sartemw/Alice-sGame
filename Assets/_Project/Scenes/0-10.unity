@@ -5739,6 +5739,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mountain (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8383236869730638605, guid: 2b2ed680860db7a47a840a61c0024412,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8240890797741294378, guid: 2b2ed680860db7a47a840a61c0024412, type: 3}
     - {fileID: 116853068718374035, guid: 2b2ed680860db7a47a840a61c0024412, type: 3}
@@ -13664,6 +13669,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mountain (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8383236869730638605, guid: 2b2ed680860db7a47a840a61c0024412,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8842760633175476161, guid: 2b2ed680860db7a47a840a61c0024412, type: 3}
     - {fileID: 116853068718374035, guid: 2b2ed680860db7a47a840a61c0024412, type: 3}
@@ -14042,6 +14052,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mountain
+      objectReference: {fileID: 0}
+    - target: {fileID: 8383236869730638605, guid: 2b2ed680860db7a47a840a61c0024412,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8842760633175476161, guid: 2b2ed680860db7a47a840a61c0024412, type: 3}

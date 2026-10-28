@@ -15,6 +15,8 @@ namespace _Project.CodeBase.Infrastructure.States
 {
   public class BootstrapState : IState
   {
+    private const string InitialLevel = "MainMenu";
+
     private readonly GameStateMachine _stateMachine;
     private readonly SceneLoader _sceneLoader;
     private readonly DiContainer _diContainer;
@@ -82,6 +84,6 @@ namespace _Project.CodeBase.Infrastructure.States
     }
 
     private void EnterLoadLevel() =>
-      _stateMachine.Enter<LoadProgressState>();
+      _stateMachine.Enter<LoadProgressState, string>(InitialLevel);
   }
 }

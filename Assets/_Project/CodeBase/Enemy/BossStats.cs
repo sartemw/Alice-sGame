@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using _Project.CodeBase.Enemy.Base;
+using _Project.CodeBase.Infrastructure.States;
+using _Project.CodeBase.Services.Audio;
 using _Project.CodeBase.StaticData.Windows;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -10,20 +12,25 @@ namespace _Project.CodeBase.Enemy
 {
     public class BossStats : MonoBehaviour
     {
+        public IAudioService AudioService;
         public Transform HeroTransform;
 
         public MovingMarkerStaticData CurrentPoint;
         public MovingMarkerStaticData StartPoint;
         public MovingMarkerStaticData[] MovingPoints;
         public MovingMarkerStaticData EndPoint;
-        
         public float Speed;
 
-        public void Construct(Transform heroTransform, float speed, List<MovingMarkerStaticData> points)
+        public GameObject BlotInk;
+        public IGameStateMachine StateMachine { get; set; }
+
+        public void Construct(Transform heroTransform, float speed, List<MovingMarkerStaticData> points, IAudioService audioService, IGameStateMachine stateMachine)
         {
             Speed = speed;
             HeroTransform = heroTransform;
             SetupPoints(points);
+            AudioService = audioService;
+            StateMachine = stateMachine;
         }
         
         private void SetupPoints(List<MovingMarkerStaticData> points)

@@ -51,6 +51,7 @@ namespace _Project.CodeBase.Infrastructure.Factory
     private readonly DiContainer _diContainer;
     private readonly ICoroutineRunner _coroutineRunner;
     private readonly IParallaxService _parallaxService;
+    private readonly IAudioService _audioService;
 
     private Queue<PoolInk> _poolInk = new Queue<PoolInk>();
     private bool _canCreateInk = true;
@@ -77,6 +78,7 @@ namespace _Project.CodeBase.Infrastructure.Factory
       _stateMachine = stateMachine;
       _coroutineRunner = diContainer.Resolve<ICoroutineRunner>();
       _parallaxService = diContainer.Resolve<IParallaxService>();
+      _audioService = diContainer.Resolve<IAudioService>();
     }
     
     public async Task WarmUp()
@@ -231,8 +233,10 @@ namespace _Project.CodeBase.Infrastructure.Factory
       monster.GetComponent<BossStats>()?
         .Construct(
           HeroGameObject.transform
-        , monsterData.MoveSpeed
-        , _staticData.ForLevel(SceneManager.GetActiveScene().name).BossMovingMarkers);
+          , monsterData.MoveSpeed
+          , _staticData.ForLevel(SceneManager.GetActiveScene().name).BossMovingMarkers
+          , _audioService
+          , _stateMachine);
 
       foreach (var signatory in monster?.GetComponents<Signatory>())
         signatory.Construct();
